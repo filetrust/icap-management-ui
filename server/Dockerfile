@@ -12,3 +12,7 @@ RUN yarn install && yarn build
 # Run Server
 WORKDIR /usr/bin/icap-management-portal/server/
 CMD yarn start
+
+# Run the container as an unprivileged user
+# See https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
+USER node
