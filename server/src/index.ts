@@ -76,10 +76,12 @@ if (process.env.NODE_ENV === "production") {
 app.use(session(sessionOptions));
 
 app.use(async (req, res, next) => {
-    switch (req.url) {
+    switch (req.path) {
         case "/login":
         case "/users/login":
         case "/users/forgot-password":
+        case "/confirm":
+        case "/reset":
         case "/users/reset":
         case "/users/validate-reset-token":
         case "/version":
