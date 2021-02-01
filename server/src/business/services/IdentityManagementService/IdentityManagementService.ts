@@ -177,10 +177,12 @@ class IdentityManagementService implements IIdentityManagementService {
             this.logger.info(`Attempting to Update Users: ${JSON.stringify(updatedUserIds)}`)
         }
         const update = request.updatedUsers.map(user => {
+            user.username = user.username.toLowerCase();
             return IdentityManagementApi.updateUser(request.updateUserUrl, user, cancellationToken, authToken);
         });
 
         const newUsersRequests = request.newUsers.map(newUser => {
+            newUser.username = newUser.username.toLowerCase();
             return IdentityManagementApi.newUser(request.newUserUrl, newUser, cancellationToken);
         });
 

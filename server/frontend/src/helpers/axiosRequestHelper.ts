@@ -32,7 +32,7 @@ const axiosRequestHelper = async (
         }
 
         if (response.request.responseURL) {
-            if (response.request.responseURL !== url) {
+            if (response.request.responseURL !== window.location.origin + url) {
                 // auto logout if server returned a redirect URL because of missing session token
                 _handleUnauthorisedResponse();
             }
