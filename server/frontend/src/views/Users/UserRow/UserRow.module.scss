@@ -1,9 +1,16 @@
+.deletedRow {
+	transition: background 0.2s ease-in-out;
+	background: #ffb9b9;
+
+	&:hover {
+		background: #ffb9b9 !important;
+	}
+}
+
 .User {
 	height: 4rem;
 
 	margin-left: 1rem;
-
-	cursor: pointer;
 
 	transition: background 0.2s ease-in-out;
 	border-bottom: 1px solid #b6bfc9;
@@ -12,6 +19,7 @@
 		transition: background 0.2s ease-in-out;
 		background: #e6e9ea;
 	}
+
 
 	td {
 		font-size: 1.2rem;
@@ -25,6 +33,7 @@
 
 			.editIcon {
 				margin-left: 1rem;
+				cursor: pointer;
 			}
 		}
 
@@ -34,12 +43,17 @@
 			.revertIcon {
 				width: 1.1rem;
 				margin-left: 1rem;
+				cursor: pointer;
 			}
 		}
 
 		.statusIcon {
 			margin-left: 1rem;
 		}
+
+		.deleteIcon {
+            cursor: pointer;
+        }
 	}
 
 	svg {

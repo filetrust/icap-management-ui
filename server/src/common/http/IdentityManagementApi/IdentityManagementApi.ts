@@ -27,7 +27,7 @@ export default class IdentityManagementApi {
         newUserUrl: string,
         newUser: NewUser,
         cancellationToken: CancelToken
-    ): Promise<NewUserResponse> => {
+    ): Promise<void> => {
         return await axiosHelper(newUserUrl, "POST", cancellationToken, newUser);
     }
 
@@ -62,5 +62,27 @@ export default class IdentityManagementApi {
         authToken: string // TODO: Review need for this in the identity management service
     ): Promise<User[]> => {
         return await axiosHelper(getUsersUrl, "GET", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
+    }
+
+    static updateUser = async (
+        updateUserUrl: string,
+        user: User,
+        cancellationToken: CancelToken,
+        authToken: string
+    ): Promise<void> => {
+        const url = `${updateUserUrl}/${user.id}`;
+
+        return await axiosHelper(url, "PUT", cancellationToken, { ...user }, { "Authorization": `Bearer ${authToken}` });
+    }
+
+    static deleteUser = async (
+        deleteUserUrl: string,
+        userId: string,
+        cancellationToken: CancelToken,
+        authToken: string
+    ): Promise<void> => {
+        const url = `${deleteUserUrl}/${userId}`;
+
+        return await axiosHelper(url, "DELETE", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
     }
 }

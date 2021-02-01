@@ -5,8 +5,9 @@ export default class NewUser {
     lastName: string;
     username: string;
     email: string;
+	deleted?: boolean;
 
-    constructor(firstName: string, lastName: string, username: string, email: string) {
+    constructor(firstName: string, lastName: string, username: string, email: string, deleted?: boolean) {
         if (!firstName) {
             throw new ArgumentNullException("firstName");
         }
@@ -26,5 +27,7 @@ export default class NewUser {
             throw new ArgumentNullException("email");
         }
         this.email = email;
+
+        this.deleted = deleted
     }
 }

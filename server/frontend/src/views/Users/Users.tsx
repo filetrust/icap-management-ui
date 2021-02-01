@@ -8,19 +8,27 @@ import {
     TableBody,
 } from "@material-ui/core";
 
-// import UsersIconSelected from "../../assets/users-icon-selected.svg";
-import UserRow from "./UserRow/UserRow";
-// import UsersIcon from "../../assets/users-icon.svg";
-
-import { UserContext } from "../../context/user/UserContext";
-// import User from "../../../../src/common/models/IdentityManagementService/User/User";
-
-import classes from "./Users.module.scss";
 import MainTitle from "../../hoc/MainTitle/MainTitle";
 import Main from "../../hoc/Main/Main";
+import UserRow from "./UserRow/UserRow";
+import { UserContext } from "../../context/user/UserContext";
+
+import classes from "./Users.module.scss";
+import NewUserRow from "./NewUserRow/NewUserRow";
+import Button from "../../components/UI/Button/Button";
 
 const Users = () => {
-    const { status, users, getUsers } = useContext(UserContext);
+    const {
+        status,
+        updatedUsers,
+        newUsers,
+        usersHaveChanges,
+        getUsers,
+        addNewUser,
+        saveChanges,
+        cancelChanges
+    } = useContext(UserContext);
+
     const cancellationTokenSource = axios.CancelToken.source();
 
     useEffect(() => {
@@ -45,7 +53,6 @@ const Users = () => {
 
             <Main>
                 <section className={classes.Users}>
-                    <h2 className={classes.head}>Users</h2>
                     <div className={classes.block}>
                         <Table className={classes.table}>
                             <TableHead>
@@ -78,15 +85,47 @@ const Users = () => {
 
                                     {status === "LOADED" &&
                                         <>
-                                            {users.map((user) => {
+                                            {updatedUsers.map((user) => {
                                                 return (<UserRow key={user.id} user={user} />);
                                             })}
+
+                                            {newUsers.map((newUser, index) => {
+                                                if (!newUser.deleted) {
+                                                    return (
+                                                        <NewUserRow key={index} index={index} newUser={newUser} />
+                                                    );
+                                                }
+
+                                                return null;
+                                            })}
+
+                                            <TableRow className={classes.newUserRow}>
+                                                <TableCell
+                                                    className={classes.newUserCell}
+                                                    colSpan={6}
+                                                    onClick={() => addNewUser()}>
+                                                    +
+                                                    </TableCell>
+                                            </TableRow>
                                         </>
                                     }
                                 </>
                             </TableBody>
                         </Table>
                     </div>
+
+                    {usersHaveChanges &&
+                        <div className={classes.buttons}>
+                            <Button
+                                externalStyles={classes.cancelButton}
+                                onButtonClick={() => cancelChanges()}
+                                buttonType="button">Cancel Changes</Button>
+                            <Button
+                                externalStyles={classes.saveButton}
+                                onButtonClick={() => saveChanges(cancellationTokenSource.token)}
+                                buttonType="button">Save Changes</Button>
+                        </div>
+                    }
                 </section>
             </Main>
         </>

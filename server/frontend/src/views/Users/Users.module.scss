@@ -13,43 +13,11 @@
 	}
 }
 
-.head {
-	text-transform: uppercase;
-	margin: 0;
-	padding-left: 1rem;
-	font-size: 1.4rem;
-	line-height: 4rem;
-
-	border-bottom: 1px solid #b6bfc9;
-}
-
 .block {
+	min-height: 90%;
+	max-height: 90%;
 	padding: 1rem 1.4rem;
-}
-
-.header {
-	display: flex;
-	justify-content: space-between;
-
-	width: 100%;
-	padding: 0 2rem;
-
-	border-bottom: 1px solid #b6bfc9;
-
-	& p {
-		margin: 0;
-		padding-left: 1rem;
-		text-transform: uppercase;
-		line-height: 4rem;
-	}
-
-	button {
-		border: 0;
-		outline: none;
-		background: none;
-		font-size: 3rem;
-		color: #498fa7;
-	}
+	overflow-y: auto;
 }
 
 .table {
@@ -63,12 +31,34 @@
 		border: none;
 	}
 
-	.emptyTableRow {
-		text-align: center;
+	.newUserRow {
+		height: 2rem;
+
+		margin-left: 1rem;
+
+		cursor: pointer;
+
+		transition: background 0.2s ease-in-out;
+		border-bottom: 1px solid #b6bfc9;
+
+		&:hover {
+			transition: background 0.2s ease-in-out;
+			background: #e6e9ea;
+		}
+
+		.newUserCell {
+			text-align: center;
+			font-size: 2rem;
+			padding: 1rem;
+		}
 	}
 
-	.emptyTableCell {
+	.emptyTableRow {
 		text-align: center;
+
+		.emptyTableCell {
+			text-align: center;
+		}
 	}
 
 	tbody {
@@ -85,5 +75,42 @@
 			white-space: nowrap;
 			//background: red;
 		}
+	}
+
+}
+
+.buttons {
+	display: flex;
+	margin-top: 2rem;
+	justify-content: center;
+	align-items: center;
+
+	height: 4rem;
+	background: #ffffff;
+	z-index: 1;
+
+	button {
+		width: 14rem;
+		margin-right: 3rem;
+		font-size: 1.2rem;
+		height: 3rem;
+		line-height: initial;
+	}
+
+	& .cancelButton {
+		color: #6697a6;
+	}
+
+	& .saveButton {
+		background: #4592b0;
+	}
+
+	& .publishButton {
+		background: #4592b0;
+	}
+
+	& .deleteButton {
+		color: #fd6d6d;
+		border: 1px solid #fd6d6d;
 	}
 }

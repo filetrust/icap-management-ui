@@ -10,6 +10,7 @@ import { NewUserRequest } from "../../../common/models/IdentityManagementService
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ValidateResetTokenRequest } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ResetPasswordRequest } from "../../../common/models/IdentityManagementService/ResetPassword";
+import { SaveUserChangesRequest } from "../../../common/models/IdentityManagementService/SaveUserChanges/SaveUserChangesRequest";
 
 class UsersRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -176,6 +177,35 @@ class UsersRoutes {
             }
             catch (error) {
                 handleError(res, error, "Error Getting Users", this.logger);
+            }
+        });
+
+        // Save User Changes
+        this.app.post("/users/save", async (req, res) => {
+            const updateUserUrl = this.identityManagementServiceBaseUrl + this.updateUserPath;
+            const newUserUrl = this.identityManagementServiceBaseUrl + this.newUserPath;
+            const deleteUserUrl = this.identityManagementServiceBaseUrl + this.deleteUserPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage, this.logger);
+
+            const saveChangesRequest = new SaveUserChangesRequest(
+                updateUserUrl,
+                newUserUrl,
+                deleteUserUrl,
+                req.body.updatedUsers,
+                req.body.newUsers,
+                req.body.deletedUserIds
+            );
+
+            try {
+                const response = await this.identityManagementService.saveChanges(
+                    saveChangesRequest, cancellationTokenSource.token, req.session.token);
+
+                res.json({ message: "success", response });
+            }
+            catch (error) {
+                handleError(res, error, "Error Saving User Changes", this.logger);
             }
         });
     }

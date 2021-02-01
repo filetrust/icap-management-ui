@@ -10,6 +10,7 @@ import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/mod
 import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import User from "../../../common/models/IdentityManagementService/User/User";
+import { SaveUserChangesRequest } from "../../../common/models/IdentityManagementService/SaveUserChanges/SaveUserChangesRequest";
 
 class IdentityManagementService implements IIdentityManagementService {
     logger: Logger;
@@ -51,25 +52,42 @@ class IdentityManagementService implements IIdentityManagementService {
         return authenticateResponse;
     }
 
-    newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
-        let newUserResponse: NewUserResponse;
+    // newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
+    //     let newUserResponse: NewUserResponse;
 
+    //     try {
+    //         this.logger.info(`Attempting to create user ${request.newUser.username}`);
+
+    //         const response = await IdentityManagementApi.newUser(
+    //             request.url, request.newUser, cancellationToken);
+
+    //         newUserResponse = new NewUserResponse(response.message);
+
+    //         this.logger.info(`New user created: ${request.newUser.username}`);
+    //     }
+    //     catch (error) {
+    //         this.logger.error(`Could not create user: ${request.newUser.username}`);
+    //         throw error;
+    //     }
+
+    //     return newUserResponse;
+    // }
+
+    newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
         try {
             this.logger.info(`Attempting to create user ${request.newUser.username}`);
 
             const response = await IdentityManagementApi.newUser(
                 request.url, request.newUser, cancellationToken);
 
-            newUserResponse = new NewUserResponse(response.message);
-
             this.logger.info(`New user created: ${request.newUser.username}`);
+
+            return response;
         }
         catch (error) {
             this.logger.error(`Could not create user: ${request.newUser.username}`);
             throw error;
         }
-
-        return newUserResponse;
     }
 
     forgotPassword = async (request: ForgotPasswordRequest, cancellationToken: CancelToken) => {
@@ -134,7 +152,7 @@ class IdentityManagementService implements IIdentityManagementService {
         return resetPasswordResponse;
     };
 
-    getUsers = async(getUsersUrl: string, cancellationToken: CancelToken, authToken?: string) => {
+    getUsers = async (getUsersUrl: string, cancellationToken: CancelToken, authToken?: string) => {
         let users: User[];
 
         try {
@@ -153,6 +171,29 @@ class IdentityManagementService implements IIdentityManagementService {
         return users;
     };
 
+    saveChanges = async (request: SaveUserChangesRequest, cancellationToken: CancelToken, authToken?: string) => {
+        if (request.updatedUsers) {
+            const updatedUserIds = request.updatedUsers.map(user => user.id);
+            this.logger.info(`Attempting to Update Users: ${JSON.stringify(updatedUserIds)}`)
+        }
+        const update = request.updatedUsers.map(user => {
+            return IdentityManagementApi.updateUser(request.updateUserUrl, user, cancellationToken, authToken);
+        });
+
+        const newUsersRequests = request.newUsers.map(newUser => {
+            return IdentityManagementApi.newUser(request.newUserUrl, newUser, cancellationToken);
+        });
+
+        if (request.deletedUsers) {
+            this.logger.info(`Attempting to Update Users: ${JSON.stringify(request.deletedUsers)}`)
+        }
+        const deleted = request.deletedUsers.map(deletedUser => {
+            return IdentityManagementApi.deleteUser(request.deleteUserUrl, deletedUser, cancellationToken, authToken);
+        })
+
+        const requestChain = update.concat(newUsersRequests).concat(deleted);
+        await Promise.all(requestChain);
+    }
 
     getUser: (getUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<User>;
     updateUser: (updateUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;

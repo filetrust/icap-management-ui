@@ -1,49 +1,73 @@
 import React, { ChangeEvent, useContext, useState } from "react";
 import { TableRow, TableCell } from "@material-ui/core";
 
-import classes from "./UserRow.module.scss";
-
 import { ReactComponent as EditIcon } from "../../../assets/edit-icon.svg";
 import { ReactComponent as RevertIcon } from "../../../assets/svg/filters/expand-arrow-grey.svg";
 import { ReactComponent as TickIcon } from "../../../assets/tick-icon.svg";
 import { ReactComponent as CrossIcon } from "../../../assets/modal-close.svg";
 import { ReactComponent as DeleteIcon } from "../../../assets/delete-icon-white.svg";
-/*
-import { ReactComponent as PadlockBodyIcon } from "../../../assets/padlock-body.svg";
-import { ReactComponent as PadlockBarIcon } from "../../../assets/padlock-bar.svg";
-import { ReactComponent as PadlockLockedIcon } from "../../../assets/padlock-body-locked.svg";
-*/
 import Input from "../../../components/UI/Input/Input";
 import User from "../../../../../src/common/models/IdentityManagementService/User/User";
 import { UserStatus } from "../../../../../src/common/models/enums/UserStatus";
 import { UserContext } from "../../../context/user/UserContext";
+
+import classes from "./UserRow.module.scss";
 
 export interface UserRowProps {
 	user: User
 }
 
 const UserRow = (props: UserRowProps) => {
-	const { usersHaveChanges } = useContext(UserContext);
-
-	const [username, setUsername] = useState(props.user.username);
+	const { usersHaveChanges, editUser } = useContext(UserContext);
 
 	const [editable, setEditable] = useState(false);
 
-	// const updateUser = () => {
+	const updateUsername = (username: string) => {
+		editUser({
+			...props.user,
+			username
+		});
+	}
 
-	// }
+	const updateFirstName = (firstName: string) => {
+		editUser({
+			...props.user,
+			firstName
+		});
+	}
+
+	const updateLastName = (lastName: string) => {
+		editUser({
+			...props.user,
+			lastName
+		});
+	}
+
+	const revertEdit = () => {
+		setEditable(false);
+	}
+
+	const deleteUser = () => {
+		editUser({
+			...props.user,
+			deleted: true
+		});
+		setEditable(false);
+	}
 
 	return (
-		<TableRow className={classes.User}>
+		<TableRow className={`${classes.User} ${props.user.deleted ? classes.deletedRow : ""}`}>
 			<TableCell>
 				{!editable &&
 					<>
-						<div className={classes.editIconContainer}>
-							<EditIcon
-								stroke="#000000"
-								className={classes.editIcon}
-								onClick={() => setEditable(true)} />
-						</div>
+						{!props.user.deleted &&
+							<div className={classes.editIconContainer}>
+								<EditIcon
+									stroke="#000000"
+									className={classes.editIcon}
+									onClick={() => setEditable(true)} />
+							</div>
+						}
 						{props.user.username}
 					</>
 				}
@@ -51,14 +75,14 @@ const UserRow = (props: UserRowProps) => {
 				{editable &&
 					<div className={classes.revertIconContainer}>
 						{!usersHaveChanges &&
-							<RevertIcon className={classes.revertIcon} onClick={() => setEditable(false)} />
+							<RevertIcon className={classes.revertIcon} onClick={() => revertEdit()} />
 						}
 						<Input
 							type="text"
-							value={username}
+							value={props.user.username}
 							onChange={
 								(event: ChangeEvent<HTMLInputElement>) =>
-									setUsername(event.target.value)} />
+									updateUsername(event.target.value)} />
 					</div>
 				}
 			</TableCell>
@@ -74,7 +98,7 @@ const UserRow = (props: UserRowProps) => {
 						value={props.user.firstName}
 						onChange={
 							(event: ChangeEvent<HTMLInputElement>) =>
-								setUsername(event.target.value)} />
+								updateFirstName(event.target.value)} />
 				}
 			</TableCell>
 
@@ -89,11 +113,13 @@ const UserRow = (props: UserRowProps) => {
 						value={props.user.lastName}
 						onChange={
 							(event: ChangeEvent<HTMLInputElement>) =>
-								setUsername(event.target.value)} />
+								updateLastName(event.target.value)} />
 				}
 			</TableCell>
 
-			<TableCell>{props.user.email}</TableCell>
+			<TableCell>
+				{props.user.email}
+			</TableCell>
 
 			<TableCell>
 				{props.user.status === UserStatus.Active &&
@@ -106,7 +132,12 @@ const UserRow = (props: UserRowProps) => {
 			</TableCell>
 
 			<TableCell>
-				<DeleteIcon stroke="#D69598" />
+				{!props.user.deleted && !props.user.changed &&
+					<DeleteIcon
+						className={classes.deleteIcon}
+						stroke="#D69598"
+						onClick={() => deleteUser()} />
+				}
 			</TableCell>
 		</TableRow>
 	);

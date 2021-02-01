@@ -18,12 +18,14 @@ export interface InputProps {
 	loading?: boolean,
 	required?: boolean,
 	minLength?: number,
-	value?: string
+	value?: string,
+	error?: boolean
 }
 
 const Input = (props: InputProps) => {
 	return (
-		<div className={`${[classes.inputContainer, props.externalStyles].join(" ")} ${props.touched ? classes.changed : ""}`} style={props.style}>
+		<div className={
+			`${[classes.inputContainer, props.externalStyles].join(" ")} ${props.touched ? classes.changed : ""}`} style={props.style}>
 			<label htmlFor={props.name}>{props.label}</label>
 			<input
 				data-test-id={props.testId}

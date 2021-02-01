@@ -13,7 +13,7 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 
     login = async (username: string, password: string, cancellationToken: CancelToken) => {
         const user = await axiosRequestHelper(
-            this.routes.login, "POST", cancellationToken, {username, password});
+            this.routes.login, "POST", cancellationToken, { username, password });
 
         return user;
     }
@@ -45,5 +45,11 @@ export default class IdentityManagementService implements IIdentityManagmentServ
         const getUsersResponse = await axiosRequestHelper(this.routes.getUsers, "GET", cancellationToken);
 
         return getUsersResponse;
+    }
+
+    save = async (saveData: any, cancellationToken: CancelToken) => {
+        const saveChangesResponse = await axiosRequestHelper(this.routes.save, "POST", cancellationToken, saveData);
+
+        return saveChangesResponse;
     }
 }

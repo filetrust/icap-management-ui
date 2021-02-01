@@ -27,7 +27,8 @@ export interface IRoutes {
         getUsers: string,
         getUser: string,
         updateUser: string,
-        deleteUser: string
+        deleteUser: string,
+        save: string
     }
 }
 
@@ -68,7 +69,8 @@ class Routes implements IRoutes {
         getUsers: _returnRoute("/users/all"),
         getUser: _returnRoute("/users"),
         updateUser: _returnRoute("/users"),
-        deleteUser: _returnRoute("/users")
+        deleteUser: _returnRoute("/users"),
+        save: _returnRoute("/users/save")
     };
 }
 
