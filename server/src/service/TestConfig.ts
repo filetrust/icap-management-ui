@@ -2,6 +2,9 @@ import IConfig from "../common/models/IConfig";
 
 const TestConfig = () => {
     const testConfig: IConfig = {
+        analytics: {
+            getMetricsPath: "/transactions/metrics"
+        },
         requestHistory: {
             transactionEventServiceBaseUrl: "www.glasswall.com",
             getTransactionsPath: "/transactions",

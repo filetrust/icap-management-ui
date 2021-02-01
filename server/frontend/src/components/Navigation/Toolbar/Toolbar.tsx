@@ -12,6 +12,7 @@ import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup, { PopupButton } from "../../UI/Popup/Popup";
 
+import dashIcon from "../../../assets/menu-icons/icon-dashboard.svg";
 import policy from "../../../assets/menu-icons/icon-policies.svg";
 import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
 import usersIcon from "../../../assets/menu-icons/icon-users.svg";
@@ -20,14 +21,14 @@ import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import ChangePassword from "../../ChangePassword/ChangePassword";
 
 const navLinks = [
-	// {
-	// 	link: "/analytics",
-	// 	name: "Analytics",
-	// 	icon: dashIcon,
-	// 	id: "id-1",
-	// 	exact: true,
-	// 	testId: "navLinkAnalytics"
-	// },
+	{
+		link: "/analytics",
+		name: "Analytics",
+		icon: dashIcon,
+		id: "id-1",
+		exact: true,
+		testId: "navLinkAnalytics"
+	},
 	{
 		link: "/request-history",
 		name: "Request history",

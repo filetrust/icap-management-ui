@@ -94,6 +94,12 @@ const updateRequestHistoryTimeFilter = (state, timeDateFilter) => {
 	});
 };
 
+const updateAnalyticsTimeFilter = (state, timeDateFilter) => {
+	return updateObject(state, {
+		analyticsTimeFilter: timeDateFilter
+	});
+};
+
 const toggleNavExpanded = (state) => {
 	return updateObject(state, {
 		navExpanded: !state.navExpanded
@@ -116,6 +122,8 @@ export const globalStoreReducer = (state, action) => {
 			return toggleNavExpanded(state);
 		case actionTypes.UPDATE_REQUEST_HISTORY_TIME_FILTER:
 			return updateRequestHistoryTimeFilter(state, action.timeDateFilter);
+		case actionTypes.UPDATE_ANALYTICS_TIME_FILTER:
+			return updateAnalyticsTimeFilter(state, action.timeDateFilter);
 		default:
 			return state;
 	}
