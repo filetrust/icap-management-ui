@@ -27,7 +27,7 @@ const App = () => {
 
 	const routes = (
 		<Switch>
-			<Route path={["/login", "/reset", "/confirm", "/forgot-password"]}>
+			<Route exact path="/login">
 				<Redirect to="/request-history" />
 			</Route>
 
