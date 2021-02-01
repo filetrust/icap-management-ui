@@ -7,6 +7,9 @@ export const RESET_STATE = `RESET_STATE`;
 // Root
 export const SET_VERSION = `SET_VERSION`;
 
+// Analytics
+export const UPDATE_ANALYTICS_TIME_FILTER = `UPDATE_ANALYTICS_TIME_FILTER`;
+
 // Request History
 export const ADD_FILTER_FROM_CHECKBOXES = `ADD_FILTER_FROM_CHECKBOXES`;
 export const ADD_FILTER_FROM_INPUT = `ADD_FILTER_FROM_INPUT`;

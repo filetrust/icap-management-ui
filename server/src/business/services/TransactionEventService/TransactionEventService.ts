@@ -67,6 +67,8 @@ class TransactionEventService implements ITransactionEventService {
                 request.url, request.fromDate, request.toDate, cancellationToken);
 
             metrics = new GetMetricsResponse(response.totalProcessed, response.data);
+
+            this.logger.info(`Retrieved Metrics from the TransactionEventService`);
         }
         catch (error) {
             this.logger.error(`Could not get Metrics`);

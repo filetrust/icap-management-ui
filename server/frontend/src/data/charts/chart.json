@@ -1,0 +1,201 @@
+[
+    {
+      "date": "0",
+      "Allowed By NCFS": 7,
+      "Allowed By Policy": 100,
+      "Blocked By NCFS": 2,
+      "Blocked By Policy": 10,
+      "safe": 50
+    },
+    {
+      "date": "1",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "2",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "3",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "4",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "5",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "6",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 500,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "7",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 12000,
+      "Allowed By NCFS": 0,
+      "safe": 8000
+    },
+    {
+      "date": "8",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 18000,
+      "Allowed By NCFS": 5,
+      "safe": 11000
+    },
+    {
+      "date": "9",
+      "Blocked By NCFS": 300,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 21000,
+      "Allowed By NCFS": 60,
+      "safe": 13000
+    },
+    {
+      "date": "10",
+      "Blocked By NCFS": 200,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 10000,
+      "Allowed By NCFS": 17,
+      "safe": 7000
+    },
+    {
+      "date": "11",
+      "Blocked By NCFS": 300,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 20000,
+      "Allowed By NCFS": 20,
+      "safe": 11000
+    },
+    {
+      "date": "12",
+      "Blocked By NCFS": 200,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 18000,
+      "Allowed By NCFS": 15,
+      "safe": 10000
+    },
+    {
+      "date": "13",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 16000,
+      "Allowed By NCFS": 8,
+      "safe": 9000
+    },
+    {
+      "date": "14",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 10000,
+      "Allowed By NCFS": 700,
+      "safe": 8000
+    },
+    {
+      "date": "15",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 3000,
+      "Allowed By NCFS": 10,
+      "safe": 4000
+    },
+    {
+      "date": "16",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 500,
+      "Allowed By NCFS": 0,
+      "safe": 1000
+    },
+    {
+      "date": "17",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "18",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "19",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "20",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "21",
+      "Blocked By NCFS": 0,
+      "Blocked By Policy": 0,
+      "Allowed By Policy": 0,
+      "Allowed By NCFS": 0,
+      "safe": 0
+    },
+    {
+      "date": "22",
+      "Blocked By NCFS": 5,
+      "Blocked By Policy": 120,
+      "Allowed By Policy": 500,
+      "Allowed By NCFS": 100,
+      "safe": 5
+    },
+    {
+      "date": "23",
+      "Allowed By NCFS": 7000,
+      "Blocked By Policy": 10,
+      "Blocked By NCFS": 7,
+      "safe": 2550
+    },
+    {
+      "date": "24",
+      "Allowed By NCFS": 36,
+      "Allowed By Policy": 4,
+      "Blocked By NCFS": 1,
+      "Blocked By Policy": 8,
+      "safe": 0
+    }
+  ]

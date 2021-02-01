@@ -10,12 +10,12 @@ export class GetMetricsResponse {
     ]
 
     constructor(totalProcessed: number, data: [{ date: Date, processed: number }]) {
-        if (!totalProcessed) {
+        if (totalProcessed === null) {
             throw new ArgumentNullException("totalProcessed");
         }
         this.totalProcessed = totalProcessed;
 
-        if (!data) {
+        if (data === null) {
             throw new ArgumentNullException("data");
         }
         this.data = data;

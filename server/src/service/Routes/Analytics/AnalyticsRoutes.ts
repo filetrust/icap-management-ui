@@ -7,7 +7,7 @@ import TransactionEventService from "../../../business/services/TransactionEvent
 import { GetMetricsRequest } from "../../../common/models/TransactionEventService/GetMetrics/GetMetricsRequest";
 import handleError from "../../../common/helpers/HandleError";
 
-class AnalyticsRoutes {
+export default class AnalyticsRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
 
     transactionEventServiceBaseUrl: string;

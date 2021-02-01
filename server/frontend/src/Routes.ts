@@ -3,6 +3,10 @@ export interface IRoutes {
         versionRoute: string
     };
 
+    analyticsRoutes: {
+        getMetricsRoutes: string
+    };
+
     requestHistoryRoutes: {
         getTransactionsRoute: string,
         getTransactionDetailsRoute: string
@@ -45,9 +49,13 @@ class Routes implements IRoutes {
         versionRoute: _returnRoute("/version")
     };
 
+    analyticsRoutes = {
+        getMetricsRoutes: _returnRoute("/analytics/metrics")
+    };
+
     requestHistoryRoutes = {
         getTransactionsRoute: _returnRoute("/request-history/transactions"),
-        getTransactionDetailsRoute: _returnRoute("/request-history/transactionDetails")
+        getTransactionDetailsRoute: _returnRoute("/request-history/transactionDetails"),
     };
 
     policyRoutes = {
