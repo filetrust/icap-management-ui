@@ -80,6 +80,7 @@ app.use(async (req, res, next) => {
         case "/login":
         case "/users/login":
         case "/users/forgot-password":
+        case "/confirm":
         case "/reset":
         case "/users/reset":
         case "/users/validate-reset-token":
