@@ -18,7 +18,7 @@ export interface UserRowProps {
 }
 
 const UserRow = (props: UserRowProps) => {
-	const { usersHaveChanges, editUser } = useContext(UserContext);
+	const { currentUser, usersHaveChanges, editUser } = useContext(UserContext);
 
 	const [editable, setEditable] = useState(false);
 
@@ -60,7 +60,7 @@ const UserRow = (props: UserRowProps) => {
 			<TableCell>
 				{!editable &&
 					<>
-						{!props.user.deleted &&
+						{!props.user.deleted && props.user.id !== currentUser.id &&
 							<div className={classes.editIconContainer}>
 								<EditIcon
 									stroke="#000000"
@@ -132,7 +132,7 @@ const UserRow = (props: UserRowProps) => {
 			</TableCell>
 
 			<TableCell>
-				{!props.user.deleted && !props.user.changed &&
+				{!props.user.deleted && !props.user.changed && props.user.id !== currentUser.id &&
 					<DeleteIcon
 						className={classes.deleteIcon}
 						stroke="#D69598"
