@@ -36,7 +36,7 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 
     resetPassword = async (token: string, password: string, cancellationToken: CancelToken) => {
         const resetResponse = await axiosRequestHelper(
-            this.routes.resetPassword, "POST", cancellationToken, { password });
+            this.routes.resetPassword, "POST", cancellationToken, { password, token });
 
         return resetResponse;
     }
