@@ -27,7 +27,7 @@ const Policy = () => {
 
 	return (
 		<PolicyState>
-			<MainTitle />
+			<MainTitle title="Policy"/>
 
 			<Main>
 				<article className={classes.Policy}>

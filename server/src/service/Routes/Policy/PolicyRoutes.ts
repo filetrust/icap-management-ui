@@ -74,7 +74,8 @@ class PolicyRoutes {
             handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
-                const policy = await this.policyManagementService.getCurrentPolicy(requestUrl, cancellationTokenSource.token);
+                const policy = await this.policyManagementService.getCurrentPolicy(
+                    requestUrl, cancellationTokenSource.token);
 
                 res.json(policy);
             }

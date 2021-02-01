@@ -12,6 +12,10 @@ export class NewUserRequest {
         this.url = url;
 
         this.newUser = new NewUser(
-            newUser.firstName, newUser.lastName, newUser.username, newUser.email);
+            newUser.firstName,
+            newUser.lastName,
+            newUser.username.toLowerCase(),
+            newUser.email.toLowerCase()
+        );
     }
 }

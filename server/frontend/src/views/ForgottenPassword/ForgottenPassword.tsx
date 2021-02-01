@@ -78,6 +78,7 @@ const ForgottenPassword = () => {
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     setUsername(event.target.value);
                                 }}
+                                externalStyles={classes.inputContainer}
                                 style={{
                                     backgroundImage: `url(${userIcon})`,
                                 }}

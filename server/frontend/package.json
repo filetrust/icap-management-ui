@@ -2,6 +2,7 @@
   "name": "icap-management-ui",
   "description": "Repository for the Management UI in the Glasswall ICAP Program.",
   "homepage": "/",
+  "proxy": "http://localhost:8080",
   "author": "glasswallsolutions",
   "license": "MIT",
   "dependencies": {

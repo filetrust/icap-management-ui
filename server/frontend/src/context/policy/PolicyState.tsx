@@ -27,7 +27,7 @@ interface InitialPolicyState {
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
-	const user = useContext(UserContext).currentUser;	
+	const user = useContext(UserContext).currentUser;
 	const cancellationTokenSource = axios.CancelToken.source();
 
 	const initialState: InitialPolicyState = {
@@ -71,20 +71,20 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 	}
 
 	const _loadPolicies = async () => {
-		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token, user.token);
+		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
 		if (currentPolicy.adaptionPolicy === null) {
 			throw new Error("Current Policy - Adaptation Policy cannot be null");
 		}
 		setCurrentPolicy(currentPolicy);
 
-		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token, user.token);
+		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
 		if (draftPolicy.adaptionPolicy === null) {
 			throw new Error("Draft Policy - Adaptation Policy cannot be null");
 		}
 		setDraftPolicy(draftPolicy);
 		setNewDraftPolicy(draftPolicy);
 
-		const policyHistory = await getPolicyHistory(cancellationTokenSource.token, user.token);
+		const policyHistory = await getPolicyHistory(cancellationTokenSource.token);
 		if (policyHistory.policiesCount) {
 			policyHistory.policies.sort((a: any, b: any) => {
 				return Date.parse(b.created) - Date.parse(a.created);
@@ -99,7 +99,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await saveDraftPolicy({...policyState.newDraftPolicy, updatedBy: user.username}, cancellationTokenSource.token, user.token);
+				await saveDraftPolicy({...policyState.newDraftPolicy, updatedBy: user.username}, cancellationTokenSource.token);
 				setDraftPolicy(policyState.newDraftPolicy);
 				setIsPolicyChanged(false);
 				status = "LOADED";
@@ -124,7 +124,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await publish(policyId, cancellationTokenSource.token, user.token);
+				await publish(policyId, cancellationTokenSource.token);
 
 				await _loadPolicies();
 
@@ -146,7 +146,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await deleteDraft(policyId, cancellationTokenSource.token, user.token);
+				await deleteDraft(policyId, cancellationTokenSource.token);
 
 				await _loadPolicies();
 

@@ -3,8 +3,8 @@ import axios, { CancelToken, Method } from "axios";
 const axiosHelper = async (
     url: string,
     method: Method,
-    data: any,
     cancellationToken?: CancelToken,
+    data?: any,
     headers?: { [header: string]: string }) => {
 
     const response = await axios(url, {
@@ -19,7 +19,7 @@ const axiosHelper = async (
 
 
     if (response.status < 200 || response.status > 299) {
-        throw new Error(response.statusText);
+        throw new Error(response.data);
     }
 
     return response.data;

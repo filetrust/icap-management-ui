@@ -1,38 +1,19 @@
-import { Guid } from "guid-typescript";
-import { ArgumentNullException } from "../../errors/errors";
+import { ArgumentNullException } from "../../../../common/models/errors/errors";
+import User from "../../../../common/models/IdentityManagementService/User/User";
 
 export class AuthenticateResponse {
-    id: Guid;
-    username: string;
-    firstName: string;
-    lastName: string;
+    user: User;
     token: string;
 
-    constructor(id: Guid, username: string, firstName: string, lastName: string, token: string) {
-        if (!id) {
-            throw new ArgumentNullException("id");
+    constructor(user: User, token: string) {
+        if (!user) {
+            throw new ArgumentNullException("user");
         }
-
-        if (!username) {
-            throw new ArgumentNullException("username");
-        }
-
-        if (!firstName) {
-            throw new ArgumentNullException("firstName");
-        }
-
-        if (!lastName) {
-            throw new ArgumentNullException("lastName");
-        }
+        this.user = user;
 
         if (!token) {
             throw new ArgumentNullException("token");
         }
-
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.token = token;
     }
 }

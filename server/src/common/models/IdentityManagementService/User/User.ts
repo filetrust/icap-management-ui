@@ -5,7 +5,7 @@ import NewUser from "../NewUser/NewUser";
 export default class User extends NewUser {
     id: string;
     status?: UserStatus;
-    token?: string;
+    changed?: boolean;
 
     constructor(
         id: string,
@@ -14,15 +14,16 @@ export default class User extends NewUser {
         username: string,
         email: string,
         status?: UserStatus,
-        token?: string
+        changed?: boolean,
+        deleted?: boolean
     ) {
-        super(firstName, lastName, username, email);
+        super(firstName, lastName, username, email, deleted);
 
         if (!id) {
             throw new ArgumentNullException("id");
         }
         this.id = id;
         this.status = status;
-        this.token = token;
+        this.changed = changed;
     }
 }

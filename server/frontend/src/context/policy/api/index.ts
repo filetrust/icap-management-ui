@@ -8,30 +8,30 @@ import axiosRequestHelper from "../../../helpers/axiosRequestHelper";
 
 const routes = new Routes().policyRoutes;
 
-export const getCurrentPolicy = async (cancellationToken: CancelToken,  authToken: string): Promise<Policy> => {
-    return await getPolicy(routes.getCurrentPolicyRoute, cancellationToken, authToken);
+export const getCurrentPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
+    return await getPolicy(routes.getCurrentPolicyRoute, cancellationToken);
 }
 
-export const getDraftPolicy = async (cancellationToken: CancelToken,  authToken: string): Promise<Policy> => {
-    return await getPolicy(routes.getDraftPolicyRoute, cancellationToken, authToken);
+export const getDraftPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
+    return await getPolicy(routes.getDraftPolicyRoute, cancellationToken);
 }
 
-export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelToken, authToken: string): Promise<void> => {
-    return await axiosRequestHelper(routes.saveDraftPolicyRoute, "PUT", cancellationToken, authToken, policy);
+export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelToken): Promise<void> => {
+    return await axiosRequestHelper(routes.saveDraftPolicyRoute, "PUT", cancellationToken, policy);
 }
 
-export const publishPolicy = async (policyId: Guid, cancellationToken: CancelToken, authToken: string): Promise<void> => {
+export const publishPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
     const url = `${routes.publishPolicyRoute}/${policyId.toString()}`;
 
-    return await axiosRequestHelper(url, "PUT", cancellationToken, authToken);
+    return await axiosRequestHelper(url, "PUT", cancellationToken);
 }
 
-export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: CancelToken, authToken: string): Promise<void> => {
+export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
     const url = `${routes.deletePolicyRoute}/${policyId.toString()}`;
 
-    return await axiosRequestHelper(url, "DELETE", cancellationToken, authToken);
+    return await axiosRequestHelper(url, "DELETE", cancellationToken);
 }
 
-export const getPolicyHistory = async (cancellationToken: CancelToken, authToken: string): Promise<PolicyHistory> => {
-    return await axiosRequestHelper(routes.getPolicyHistory, "GET", cancellationToken, authToken);
+export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<PolicyHistory> => {
+    return await axiosRequestHelper(routes.getPolicyHistory, "GET", cancellationToken);
 }

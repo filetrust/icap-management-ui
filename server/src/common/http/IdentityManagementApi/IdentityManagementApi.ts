@@ -13,16 +13,22 @@ export default class IdentityManagementApi {
         username: string,
         password: string,
         cancellationToken: CancelToken,
-    ): Promise<User> => {
-        return await axiosHelper(authenticateUrl, "POST", { username, password }, cancellationToken);
+    ): Promise<{
+        id: string,
+        username: string,
+        firstName: string,
+        lastName: string,
+        token: string,
+    }> => {
+        return await axiosHelper(authenticateUrl, "POST", cancellationToken, { username, password });
     }
 
     static newUser = async (
         newUserUrl: string,
         newUser: NewUser,
         cancellationToken: CancelToken
-    ): Promise<NewUserResponse> => {
-        return await axiosHelper(newUserUrl, "POST", newUser, cancellationToken);
+    ): Promise<void> => {
+        return await axiosHelper(newUserUrl, "POST", cancellationToken, newUser);
     }
 
     static forgotPassword = async (
@@ -30,15 +36,15 @@ export default class IdentityManagementApi {
         username: string,
         cancellationToken: CancelToken,
     ): Promise<ForgotPasswordResponse> => {
-        return await axiosHelper(forgotPasswordUrl, "POST", { username }, cancellationToken);
+        return await axiosHelper(forgotPasswordUrl, "POST", cancellationToken, { username });
     }
 
     static validateResetToken = async (
         validateResetTokenUrl: string,
         token: string,
-        cancellationToken: CancelToken,
+        cancellationToken: CancelToken
     ): Promise<ValidateResetTokenResponse> => {
-        return await axiosHelper(validateResetTokenUrl, "POST", { token }, cancellationToken);
+        return await axiosHelper(validateResetTokenUrl, "POST", cancellationToken, { token });
     }
 
     static resetPassword = async (
@@ -47,6 +53,36 @@ export default class IdentityManagementApi {
         password: string,
         cancellationToken: CancelToken
     ): Promise<ResetPasswordResponse> => {
-        return await axiosHelper(resetPasswordUrl, "POST", { token, password }, cancellationToken);
+        return await axiosHelper(resetPasswordUrl, "POST", cancellationToken, { token, password });
+    }
+
+    static getUsers = async (
+        getUsersUrl: string,
+        cancellationToken: CancelToken,
+        authToken: string // TODO: Review need for this in the identity management service
+    ): Promise<User[]> => {
+        return await axiosHelper(getUsersUrl, "GET", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
+    }
+
+    static updateUser = async (
+        updateUserUrl: string,
+        user: User,
+        cancellationToken: CancelToken,
+        authToken: string
+    ): Promise<void> => {
+        const url = `${updateUserUrl}/${user.id}`;
+
+        return await axiosHelper(url, "PUT", cancellationToken, { ...user }, { "Authorization": `Bearer ${authToken}` });
+    }
+
+    static deleteUser = async (
+        deleteUserUrl: string,
+        userId: string,
+        cancellationToken: CancelToken,
+        authToken: string
+    ): Promise<void> => {
+        const url = `${deleteUserUrl}/${userId}`;
+
+        return await axiosHelper(url, "DELETE", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
     }
 }

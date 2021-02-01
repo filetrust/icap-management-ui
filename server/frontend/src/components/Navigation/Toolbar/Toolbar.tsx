@@ -14,7 +14,7 @@ import Popup, { PopupButton } from "../../UI/Popup/Popup";
 
 import policy from "../../../assets/menu-icons/icon-policies.svg";
 import transactionIcon from "../../../assets/menu-icons/icon-transactions.svg";
-
+import usersIcon from "../../../assets/menu-icons/icon-users.svg";
 import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
 // import ChangePassword from "../../ChangePassword/ChangePassword";
@@ -49,14 +49,14 @@ const navLinks = [
 		icon: policy,
 		id: "id-4",
 		testId: "navLinkPolicy"
-	}// ,
-	// {
-	// 	link: "/users",
-	// 	name: "Users",
-	// 	icon: usersIcon,
-	// 	id: "id-6",
-	// 	testId: "navLinkUsers"
-	// },
+	},
+	{
+		link: "/users",
+		name: "Users",
+		icon: usersIcon,
+		id: "id-6",
+		testId: "navLinkUsers"
+	},
 ];
 
 const Toolbar = () => {

@@ -10,7 +10,7 @@ export class Token {
             config.identityManagement.identityManagementServiceBaseUrl +
             config.identityManagement.validateTokenPath;
 
-        const response = await axiosHelper(validateTokenUrl, "POST", { token });
+        const response = await axiosHelper(validateTokenUrl, "POST", null, { token });
 
         return response.message === "Token is valid";
     }

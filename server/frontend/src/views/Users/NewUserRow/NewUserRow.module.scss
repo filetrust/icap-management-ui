@@ -1,0 +1,43 @@
+.NewUser {
+    height: 4rem;
+
+    margin-left: 1rem;
+
+    transition: background 0.2s ease-in-out;
+    border-bottom: 1px solid #b6bfc9;
+
+    &:hover {
+        transition: background 0.2s ease-in-out;
+        background: #e6e9ea;
+    }
+
+    td {
+        width: 25%;
+        font-size: 1.2rem;
+        padding: 0;
+        border: 0;
+
+        padding-left: 1rem;
+
+        .deleteIcon {
+            cursor: pointer;
+        }
+    }
+
+    svg {
+        width: 1.6rem;
+        margin-right: 2rem;
+    }
+
+    input {
+        height: 3rem !important;
+        padding: 0 1rem;
+        line-height: normal;
+        border-radius: .3rem;
+        color: #575757 !important;
+        background-color: #fff !important;
+        border: 1px solid #b6bfc9 !important;
+        outline: none;
+        transition: all .3s;
+    }
+}

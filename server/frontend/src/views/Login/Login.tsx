@@ -40,8 +40,9 @@ const Login = () => {
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setUsername(event.currentTarget.value);
 						}}
+						externalStyles={classes.inputContainer}
 						style={{
-							backgroundImage: `url(${iconUser})`,
+							backgroundImage: `url(${iconUser})`
 						}}
 						required
 						disabled={status === "LOADING"}
@@ -55,8 +56,9 @@ const Login = () => {
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
 							setPassword(event.currentTarget.value);
 						}}
+						externalStyles={classes.inputContainer}
 						style={{
-							backgroundImage: `url(${iconPass})`,
+							backgroundImage: `url(${iconPass})`
 						}}
 						required
 						minLength={MINIMUM_PASSWORD_LENGTH}
@@ -72,7 +74,7 @@ const Login = () => {
 					<Button
 						data-test-id="buttonLogin"
 						buttonType={"submit"}
-						disabled={status === "LOADING" || password.length < MINIMUM_PASSWORD_LENGTH}>Log In</Button>
+						disabled={status === "LOADING"}>Log In</Button>
 				</form>
 				<p className={classes.rePassLink}>
 					<Link data-test-id="linkForgottenPassword" to={"/forgot-password"}>Forgotten password?</Link>

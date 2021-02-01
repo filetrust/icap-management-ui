@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 
 import { GlobalStoreContext } from "../../context/globalStore/globalStore-context";
-import { UserContext } from "../../context/user/UserContext";
 
 import { Filter as TFilter } from "../../../../src/common/models/TransactionEventService/GetTransactions/GetTransactionsRequest";
 import TransactionFile from "../../../../src/common/models/TransactionEventService/TransactionFile";
@@ -27,7 +26,6 @@ import Backdrop from "../../components/UI/Backdrop/Backdrop";
 import classes from "./RequestHistory.module.scss";
 
 const RequestHistory = () => {
-	const authToken = useContext(UserContext).currentUser.token;
 	const CancelToken = axios.CancelToken;
 	const cancellationTokenSource = CancelToken.source();
 
@@ -130,7 +128,7 @@ const RequestHistory = () => {
 
 			try {
 				const transactionsResponse = await getTransactions(
-					requestBody, authToken, cancellationTokenSource.token);
+					requestBody, cancellationTokenSource.token);
 				let files: TransactionFile[] = [];
 
 				if (transactionsResponse.files.length) {
@@ -170,7 +168,7 @@ const RequestHistory = () => {
 
 	return (
 		<>
-			<MainTitle />
+			<MainTitle title="Request History"/>
 
 			<Filters showFilters={showFilters} setShowFilters={setShowFilters} showAddFilter={showAddFilter} setShowAddFilter={setShowAddFilter} disabled={status === "LOADING"} />
 

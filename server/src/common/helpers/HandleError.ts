@@ -5,7 +5,7 @@ const handleError = (res: any, error: any, message: string, logger: Logger) => {
         const errorResponse = error.response.data.message ?
             error.response.data.message :
             error.response.data;
-        logger.error(errorResponse);
+        logger.error(errorResponse ? errorResponse : error.response.statusText);
         res.status(error.response.status).json(errorResponse);
     }
     else {

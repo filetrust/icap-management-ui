@@ -8,11 +8,10 @@ const requestHistoryRoutes = new Routes().requestHistoryRoutes;
 
 export const getTransactions = async (
     body: Filter,
-    authToken: string,
     cancellationToken: CancelToken
 ): Promise<GetTransactionsResponse> => {
 
     return axiosRequestHelper(
-        requestHistoryRoutes.getTransactionsRoute, "POST", cancellationToken, authToken, { Filter: body });
+        requestHistoryRoutes.getTransactionsRoute, "POST", cancellationToken, { Filter: body });
 
 };

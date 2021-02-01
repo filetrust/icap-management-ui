@@ -20,12 +20,11 @@ export class GetTransactionsRequest {
         if (!url) {
             throw new ArgumentNullException("url");
         }
+        this.url = url;
 
         if (body === undefined || body === null || (Object.keys(body).length === 0 && body.constructor === Object)) {
             throw new ArgumentNullException("body");
         }
-
-        this.url = url;
         this.body = body;
     }
 }

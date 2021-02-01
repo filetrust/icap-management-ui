@@ -86,6 +86,7 @@ const ResetPassword = (props: RouteProps) => {
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     setPassword(event.target.value);
                                 }}
+                                externalStyles={classes.inputContainer}
                                 style={{
                                     backgroundImage: `url(${passwordIcon})`,
                                 }}

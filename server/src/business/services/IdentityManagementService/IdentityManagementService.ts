@@ -3,13 +3,14 @@ import { Guid } from "guid-typescript";
 import { CancelToken } from "axios";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
 import IIdentityManagementService from "../../../common/services/IIdentityManagementService";
-import { AuthenticateRequest } from "../../../common/models/IdentityManagementService/Authenticate";
+import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
 import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import User from "../../../common/models/IdentityManagementService/User/User";
+import { SaveUserChangesRequest } from "../../../common/models/IdentityManagementService/SaveUserChanges/SaveUserChangesRequest";
 
 class IdentityManagementService implements IIdentityManagementService {
     logger: Logger;
@@ -19,7 +20,7 @@ class IdentityManagementService implements IIdentityManagementService {
     }
 
     authenticate = async (request: AuthenticateRequest, cancellationToken: CancelToken) => {
-        let user: User;
+        let authenticateResponse: AuthenticateResponse;
 
         try {
             this.logger.info(`Attempting to authenticate user: ${request.username}`);
@@ -31,15 +32,15 @@ class IdentityManagementService implements IIdentityManagementService {
                 throw new Error("User Token cannot be null");
             }
 
-            user = new User(
+            const user = new User(
                 response.id,
                 response.firstName,
                 response.lastName,
                 response.username,
-                response.username,
-                null,
-                response.token
+                response.username
             );
+
+            authenticateResponse = new AuthenticateResponse(user, response.token);
 
             this.logger.info(`Authenticated user: ${response.username}`);
         }
@@ -48,28 +49,45 @@ class IdentityManagementService implements IIdentityManagementService {
             throw error;
         }
 
-        return user;
+        return authenticateResponse;
     }
 
-    newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
-        let newUserResponse: NewUserResponse;
+    // newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
+    //     let newUserResponse: NewUserResponse;
 
+    //     try {
+    //         this.logger.info(`Attempting to create user ${request.newUser.username}`);
+
+    //         const response = await IdentityManagementApi.newUser(
+    //             request.url, request.newUser, cancellationToken);
+
+    //         newUserResponse = new NewUserResponse(response.message);
+
+    //         this.logger.info(`New user created: ${request.newUser.username}`);
+    //     }
+    //     catch (error) {
+    //         this.logger.error(`Could not create user: ${request.newUser.username}`);
+    //         throw error;
+    //     }
+
+    //     return newUserResponse;
+    // }
+
+    newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
         try {
             this.logger.info(`Attempting to create user ${request.newUser.username}`);
 
             const response = await IdentityManagementApi.newUser(
                 request.url, request.newUser, cancellationToken);
 
-            newUserResponse = new NewUserResponse(response.message);
-
             this.logger.info(`New user created: ${request.newUser.username}`);
+
+            return response;
         }
         catch (error) {
             this.logger.error(`Could not create user: ${request.newUser.username}`);
             throw error;
         }
-
-        return newUserResponse;
     }
 
     forgotPassword = async (request: ForgotPasswordRequest, cancellationToken: CancelToken) => {
@@ -134,7 +152,51 @@ class IdentityManagementService implements IIdentityManagementService {
         return resetPasswordResponse;
     };
 
-    getUsers: (getUsersUrl: string, cancellationToken: CancelToken) => Promise<User[]>;
+    getUsers = async (getUsersUrl: string, cancellationToken: CancelToken, authToken?: string) => {
+        let users: User[];
+
+        try {
+            this.logger.info(`Retrieving Users from the Identity Management Service`);
+
+            const response = await IdentityManagementApi.getUsers(getUsersUrl, cancellationToken, authToken);
+            users = response;
+
+            this.logger.info(`Users Retrieved from the Identity Management Service`);
+        }
+        catch (error) {
+            this.logger.error(`Error Retrieving Users`);
+            throw error;
+        }
+
+        return users;
+    };
+
+    saveChanges = async (request: SaveUserChangesRequest, cancellationToken: CancelToken, authToken?: string) => {
+        if (request.updatedUsers) {
+            const updatedUserIds = request.updatedUsers.map(user => user.id);
+            this.logger.info(`Attempting to Update Users: ${JSON.stringify(updatedUserIds)}`)
+        }
+        const update = request.updatedUsers.map(user => {
+            user.username = user.username.toLowerCase();
+            return IdentityManagementApi.updateUser(request.updateUserUrl, user, cancellationToken, authToken);
+        });
+
+        const newUsersRequests = request.newUsers.map(newUser => {
+            newUser.username = newUser.username.toLowerCase();
+            return IdentityManagementApi.newUser(request.newUserUrl, newUser, cancellationToken);
+        });
+
+        if (request.deletedUsers) {
+            this.logger.info(`Attempting to Update Users: ${JSON.stringify(request.deletedUsers)}`)
+        }
+        const deleted = request.deletedUsers.map(deletedUser => {
+            return IdentityManagementApi.deleteUser(request.deleteUserUrl, deletedUser, cancellationToken, authToken);
+        })
+
+        const requestChain = update.concat(newUsersRequests).concat(deleted);
+        await Promise.all(requestChain);
+    }
+
     getUser: (getUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<User>;
     updateUser: (updateUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;
     deleteUser: (deleteUserUrl: string, userId: Guid, cancellationToken: CancelToken) => Promise<void>;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
 	Table,
@@ -13,8 +13,6 @@ import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDe
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
 import { getTransactionDetails } from "../api/index";
-
-import {UserContext} from "../../../context/user/UserContext";
 
 import classes from "./FileInfo.module.scss";
 
@@ -35,8 +33,6 @@ const FileInfo = (props: FileInfoProps) => {
 	const CancelToken = axios.CancelToken;
 	const cancellationTokenSource = CancelToken.source();
 
-	const authToken = useContext(UserContext).currentUser.token;
-
 	const [transactionDetails, setTransactionDetails] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
@@ -48,7 +44,7 @@ const FileInfo = (props: FileInfoProps) => {
 		(async () => {
 			try {
 				const transactionDetailResponse =
-					await getTransactionDetails(props.fileData.directory, cancellationTokenSource.token, authToken);
+					await getTransactionDetails(props.fileData.directory, cancellationTokenSource.token);
 
 				setTransactionDetails(transactionDetailResponse);
 			}
