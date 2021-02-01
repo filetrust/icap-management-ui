@@ -4,6 +4,7 @@ import { GetTransactionsRequest, GetTransactionsResponse } from "../../../common
 import { GetTransactionDetailsRequest, GetTransactionDetailsResponse } from "../../../common/models/TransactionEventService/GetTransactionDetails";
 import TransactionEventApi from "../../../common/http/TransactionEventApi/TransactionEventApi";
 import { CancelToken } from "axios";
+import { GetMetricsRequest, GetMetricsResponse } from "../../../common/models/TransactionEventService/GetMetrics";
 
 class TransactionEventService implements ITransactionEventService {
     logger: Logger;
@@ -54,6 +55,25 @@ class TransactionEventService implements ITransactionEventService {
         }
 
         return transactionDetails;
+    }
+
+    getMetrics = async (request: GetMetricsRequest, cancellationToken: CancelToken) => {
+        let metrics: GetMetricsResponse;
+
+        try {
+            this.logger.info(`Retrieving Metrics from the TransactionEventService`);
+
+            const response = await TransactionEventApi.getMetrics(
+                request.url, request.fromDate, request.toDate, cancellationToken);
+
+            metrics = new GetMetricsResponse(response.totalProcessed, response.data);
+        }
+        catch (error) {
+            this.logger.error(`Could not get Metrics`);
+            throw error;
+        }
+
+        return metrics;
     }
 }
 

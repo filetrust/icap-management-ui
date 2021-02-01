@@ -1,4 +1,8 @@
 export default interface IConfig {
+    analytics: {
+        getMetricsPath: string;
+    }
+
     requestHistory: {
         transactionEventServiceBaseUrl: string;
         getTransactionsPath: string;

@@ -2,6 +2,9 @@ import IConfig from "../common/models/IConfig";
 
 const Config = () => {
     const development: IConfig = {
+        analytics: {
+            getMetricsPath: "/transactions/metrics"
+        },
         requestHistory: {
             transactionEventServiceBaseUrl: "https://localhost:1000/api/v1",
             getTransactionsPath: "/transactions",
@@ -35,6 +38,9 @@ const Config = () => {
     };
 
     const production: IConfig = {
+        analytics: {
+            getMetricsPath: "/transactions/metrics"
+        },
         requestHistory: {
             transactionEventServiceBaseUrl: process.env.TRANSACTION_EVENT_API_URL,
             getTransactionsPath: "/transactions",
