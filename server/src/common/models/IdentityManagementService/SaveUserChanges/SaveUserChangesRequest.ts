@@ -1,4 +1,3 @@
-import { add } from "winston";
 import NewUser from "../NewUser/NewUser";
 import User from "../User/User";
 

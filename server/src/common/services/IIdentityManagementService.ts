@@ -2,7 +2,7 @@ import { Guid } from "guid-typescript";
 import { Logger } from "winston";
 import { CancelToken } from "axios";
 import { AuthenticateRequest, AuthenticateResponse } from "../models/IdentityManagementService/Authenticate";
-import { NewUserRequest, NewUserResponse } from "../models/IdentityManagementService/NewUser";
+import { NewUserRequest } from "../models/IdentityManagementService/NewUser";
 import { ForgotPasswordRequest } from "../models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ForgotPasswordResponse } from "../models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../models/IdentityManagementService/ValidateResetToken";
