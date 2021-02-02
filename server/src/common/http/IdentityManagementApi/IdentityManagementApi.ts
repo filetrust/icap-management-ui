@@ -2,7 +2,6 @@ import { CancelToken } from "axios";
 import axiosHelper from "../../helpers/AxiosHelper";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
-import { NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
 import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";

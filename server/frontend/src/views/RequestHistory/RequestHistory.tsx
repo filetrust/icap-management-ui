@@ -75,6 +75,10 @@ const RequestHistory = () => {
 	};
 
 	const handleTimestampTableFilter = () => {
+		if (!transactions.files) {
+			return;
+		}
+
 		if (!transactions.files.length) {
 			return;
 		}
@@ -168,7 +172,7 @@ const RequestHistory = () => {
 
 	return (
 		<>
-			<MainTitle title="Request History"/>
+			<MainTitle title="Request History" />
 
 			<Filters showFilters={showFilters} setShowFilters={setShowFilters} showAddFilter={showAddFilter} setShowAddFilter={setShowAddFilter} disabled={status === "LOADING"} />
 

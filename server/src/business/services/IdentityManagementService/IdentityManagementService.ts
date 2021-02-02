@@ -5,7 +5,7 @@ import IdentityManagementApi from "../../../common/http/IdentityManagementApi/Id
 import IIdentityManagementService from "../../../common/services/IIdentityManagementService";
 import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
-import { NewUserRequest, NewUserResponse } from "../../../common/models/IdentityManagementService/NewUser";
+import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
 import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
