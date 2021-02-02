@@ -48,27 +48,29 @@ app.disable("x-powered-by");
 app.use(express.static(`${workingDirectory}/frontend/build`));
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === "development") {
-    const reactDevServerEndpoint = "http://localhost:3000";
-    const corsOptions = { origin: reactDevServerEndpoint, credentials: true };
-    app.use(cors(corsOptions));
-    logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
-}
-
 const sessionOptions = {
     genid() {
         return uuidv4() // use UUIDs for session IDs
     },
     secret: uuidv4(),
-    cookie: { secure: false },
+    cookie: {
+        secure: true
+    },
     resave: false,
     saveUninitialized: true
 };
 
-
 if (process.env.NODE_ENV === "production") {
     app.set('trust proxy', 1) // trust first proxy
-    sessionOptions.cookie.secure = true // serve secure cookies
+}
+
+if (process.env.NODE_ENV === "development") {
+    const reactDevServerEndpoint = "http://localhost:3000";
+    const corsOptions = { origin: reactDevServerEndpoint, credentials: true };
+    app.use(cors(corsOptions));
+    logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
+
+    sessionOptions.cookie.secure = false
 }
 
 app.use(session(sessionOptions));
