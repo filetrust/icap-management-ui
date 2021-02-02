@@ -14,6 +14,7 @@ managementui:
   config:
     transactionEventApiUrl: https://transaction-query-aggregator/api/v1
     policyManagementApiUrl: https://policy-management-api/api/v1
+    identityManagementApiUrl: https://identity-management-api/api/v1
 imagestore:
   icapmanagementui:
     registry: ""

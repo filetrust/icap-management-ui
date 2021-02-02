@@ -1,4 +1,4 @@
-export default class ArgumentException extends Error {
+export class ArgumentException extends Error {
     argument: string;
 
     constructor(argument: string, message: string) {

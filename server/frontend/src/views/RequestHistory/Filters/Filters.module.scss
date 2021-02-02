@@ -210,7 +210,6 @@
 		transition: 0.3s opacity, 0.3s transform;
 
 		& .inputFileId {
-			border: 1px solid #b6bfc9;
 			border-radius: 0.3rem;
 
 			padding: 0;
@@ -221,6 +220,7 @@
 
 			& input {
 				color: #000000;
+				border-bottom: 1px solid #b6bfc9;
 			}
 
 			&::placeholder {

@@ -1,26 +1,83 @@
-.Input {
+.changed {
+	box-shadow: 3px 1px 14px 7px #4ab1b694;
+}
+
+.inputContainer {
 	width: 100%;
 
-	& .changed {
-		box-shadow: 3px 1px 14px 7px #4ab1b694;
-	}
+	background: rgba(255, 255, 255, 0.2);
+	border: none;
+	border-radius: 6px;
 
-	& input {
-		width: 100%;
-		height: 40px;
+	background-repeat: no-repeat;
+	background-position: 0 center;
 
-		background: rgba(255, 255, 255, 0.2);
-		color: white;
+	.input {
+		width: 90%;
+		height: 100%;
+		display: inline-block;
 		border: none;
-		border-radius: 6px;
+		background: none;
+		color: black;
+		overflow: hidden;
 
-		background-repeat: no-repeat;
-		background-position: 0 center;
+		&:focus {
+			outline: none;
+		}
 
 		&::placeholder {
 			text-transform: uppercase;
 			opacity: 0.2;
-			color: white;
+			color: black;
 		}
 	}
+}
+
+// https://codepen.io/lopis/pen/zwprzP
+.iconContainer {
+	width: 10%;
+	height: 100%;
+	display: inline;
+	text-align: right;
+	vertical-align: middle;
+}
+
+.loader {
+	position: relative;
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	animation: around 5.4s infinite;
+}
+
+@keyframes around {
+	0% {
+		transform: rotate(0deg)
+	}
+
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+.loader::after,
+.loader::before {
+	content: "";
+	position: absolute;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border-width: 2px;
+	border-color: #54e0e8 #3294a6 transparent transparent;
+	border-style: solid;
+	border-radius: 20px;
+	box-sizing: border-box;
+	top: 0;
+	left: 0;
+	animation: around 0.7s ease-in-out infinite;
+}
+
+.loader::after {
+	animation: around 0.7s ease-in-out 0.1s infinite;
+	background: transparent;
 }

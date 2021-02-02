@@ -1,4 +1,6 @@
 import axios, { CancelToken } from "axios";
+import axiosHelper from "../../../common/helpers/AxiosHelper";
+import { GetMetricsResponse } from "../../../common/models/TransactionEventService/GetMetrics";
 import { FileType } from "../../../common/models/enums/FileType";
 import { Risk } from "../../../common/models/enums/Risk";
 
@@ -56,5 +58,16 @@ export default class TransactionEventApi {
         }
 
         return response.data;
+    }
+
+    static getMetrics = async (
+        getMetricsUrl: string,
+        fromDate: Date,
+        toDate: Date,
+        cancellationToken: CancelToken
+    ): Promise<GetMetricsResponse> => {
+        const url = `${getMetricsUrl}?fromDate=${fromDate}&toDate=${toDate}`;
+
+        return await axiosHelper(url, "GET", cancellationToken);
     }
 }

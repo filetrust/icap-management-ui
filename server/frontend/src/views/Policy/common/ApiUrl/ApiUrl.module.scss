@@ -19,6 +19,11 @@
 		margin: 0;
 		height: 3rem;
 		margin-left: 2rem;
+		color: black !important;
+
+		&::placeholder {
+			color: black !important;
+		}
 	}
 
 	.domainRow {

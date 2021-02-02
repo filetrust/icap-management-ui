@@ -1,6 +1,7 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import axios from "axios";
 import { Guid } from "guid-typescript";
+import { UserContext } from "../user/UserContext";
 import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
@@ -26,6 +27,7 @@ interface InitialPolicyState {
 }
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
+	const user = useContext(UserContext).currentUser;
 	const cancellationTokenSource = axios.CancelToken.source();
 
 	const initialState: InitialPolicyState = {
@@ -70,9 +72,15 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 	const _loadPolicies = async () => {
 		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
+		if (currentPolicy.adaptionPolicy === null) {
+			throw new Error("Current Policy - Adaptation Policy cannot be null");
+		}
 		setCurrentPolicy(currentPolicy);
 
 		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
+		if (draftPolicy.adaptionPolicy === null) {
+			throw new Error("Draft Policy - Adaptation Policy cannot be null");
+		}
 		setDraftPolicy(draftPolicy);
 		setNewDraftPolicy(draftPolicy);
 
@@ -91,7 +99,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await saveDraftPolicy(policyState.newDraftPolicy, cancellationTokenSource.token);
+				await saveDraftPolicy({...policyState.newDraftPolicy, updatedBy: user.username}, cancellationTokenSource.token);
 				setDraftPolicy(policyState.newDraftPolicy);
 				setIsPolicyChanged(false);
 				status = "LOADED";

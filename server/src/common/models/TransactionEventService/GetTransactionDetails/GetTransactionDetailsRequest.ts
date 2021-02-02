@@ -1,4 +1,4 @@
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentNullException } from "../../errors/errors";
 
 export class GetTransactionDetailsRequest {
     url: string;

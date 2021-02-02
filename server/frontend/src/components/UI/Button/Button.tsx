@@ -3,7 +3,7 @@ import classes from "./Button.module.scss";
 
 export interface ButtonProps {
 	testId?: string,
-	onButtonClick: React.MouseEventHandler<HTMLButtonElement>,
+	onButtonClick?: React.MouseEventHandler<HTMLButtonElement>,
 	buttonId?: string,
 	buttonType: 'submit' | 'reset' | 'button',
 	externalStyles?: string,

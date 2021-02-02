@@ -1,4 +1,4 @@
-import ArgumentException from "../../errors/ArgumentException";
+import { ArgumentException } from "../../errors/errors";
 import { Policy } from "../Policy/Policy";
 
 export class PolicyHistory {

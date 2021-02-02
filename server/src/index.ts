@@ -6,6 +6,16 @@ import setup from "./service/Setup";
 import Config from "./service/Config";
 import path from "path";
 import cors from "cors";
+import { Token } from "./common/http/IdentityManagementApi/ValidateToken/ValidateToken";
+import session from "express-session";
+declare module 'express-session' {
+    export interface SessionData {
+        [key: string]: any
+    }
+}
+
+import { v4 as uuidv4 } from "uuid";
+
 
 const logger = winston.createLogger({
     level: 'info',
@@ -33,6 +43,7 @@ logger.info("Loading Environment Variables with dotenv");
 
 const port = 8080;
 const workingDirectory = process.cwd();
+const config = Config();
 
 const app = express();
 app.disable("x-powered-by");
@@ -41,14 +52,65 @@ app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
     const reactDevServerEndpoint = "http://localhost:3000";
-    const corsOptions = { origin: reactDevServerEndpoint };
+    const corsOptions = { origin: reactDevServerEndpoint, credentials: true };
     app.use(cors(corsOptions));
     logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
 }
 
-setup(Config(), app, logger);
+const sessionOptions = {
+    genid() {
+        return uuidv4() // use UUIDs for session IDs
+    },
+    secret: uuidv4(),
+    cookie: { secure: false },
+    resave: false,
+    saveUninitialized: true
+};
 
-app.get("*", (req, res) => {
+
+if (process.env.NODE_ENV === "production") {
+    app.set('trust proxy', 1) // trust first proxy
+    sessionOptions.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sessionOptions));
+
+app.use(async (req, res, next) => {
+    switch (req.path) {
+        case "/login":
+        case "/users/login":
+        case "/users/forgot-password":
+        case "/confirm":
+        case "/reset":
+        case "/users/reset":
+        case "/users/validate-reset-token":
+        case "/version":
+            return next();
+        default:
+            logger.info(req.session.id + ": Validating current user...");
+
+            try {
+                if (!req.session.token) {
+                    logger.info(req.session.id + ": Session Token missing");
+                    return res.redirect("/login");
+                }
+
+                if (!await Token.validateToken(config, req.session.token)) {
+                    return res.status(403).json({ message: "Session Token was Invalid" });
+                }
+            }
+            catch (error) {
+                return res.status(error.response.status).json({ message: error.response.data });
+            }
+
+            next();
+    }
+});
+
+setup(config, app, logger);
+
+app.get("/*", async (req, res) => {
+    // logger.info(req.session.id + ": serving page...");
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 

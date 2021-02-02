@@ -1,19 +1,15 @@
-import { Express, Request } from "express";
+import { Express } from "express";
 import { Logger } from "winston";
-import axios, { CancelTokenSource } from "axios";
+import axios from "axios";
+import IConfig from "../../../common/models/IConfig";
+import handleCancellation from "../../../common/helpers/HandleCancellation";
 import { Guid } from "guid-typescript";
+import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 
-import IConfig from "../../../common/models/IConfig";
-import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
-
-const _handleCancellation = (req: Request, cancellationTokenSource: CancelTokenSource) => {
-    req.connection.on("close", () => {
-        cancellationTokenSource.cancel("Request Cancelled by the Client");
-    });
-}
-
 class PolicyRoutes {
+    cancellationMessage: string = "Request Cancelled by the Client";
+
     policyManagementServiceBaseUrl: string;
     getPolicyPath: string;
     deletePolicyPath: string;
@@ -52,7 +48,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 const getPolicyRequest = new GetPolicyByIdRequest(requestUrl, Guid.parse(req.params.policyId));
@@ -75,10 +71,11 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getCurrentPolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
-                const policy = await this.policyManagementService.getCurrentPolicy(requestUrl, cancellationTokenSource.token);
+                const policy = await this.policyManagementService.getCurrentPolicy(
+                    requestUrl, cancellationTokenSource.token);
 
                 res.json(policy);
             }
@@ -96,7 +93,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getDraftPolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 const policy = await this.policyManagementService.getDraftPolicy(requestUrl, cancellationTokenSource.token);
@@ -117,7 +114,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.saveDraftPolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 await this.policyManagementService.saveDraftPolicy(requestUrl, req.body, cancellationTokenSource.token);
@@ -157,7 +154,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.deletePolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 await this.policyManagementService.deleteDraftPolicy(
@@ -179,7 +176,7 @@ class PolicyRoutes {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyHistoryPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
-            _handleCancellation(req, cancellationTokenSource);
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
                 const policyHistory = await this.policyManagementService.getPolicyHistory(requestUrl, cancellationTokenSource.token);

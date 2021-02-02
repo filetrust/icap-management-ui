@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 import winston from "winston";
 import { SinonStub, stub } from "sinon";
 import request from "supertest";
@@ -111,7 +111,7 @@ describe("RequestHistoryRoutes", () => {
             });
         });
 
-        describe("/get_request-history/transactionDetails", () => {
+        describe("/post_request-history/transactionDetails", () => {
             // Arrange
             const transactionFilePath = "test";
 
@@ -131,7 +131,8 @@ describe("RequestHistoryRoutes", () => {
                 // Act
                 // Assert
                 request(app)
-                    .get("/request-history/transactionDetails/" + transactionFilePath)
+                    .post("/request-history/transactionDetails/")
+                    .send({ transactionFilePath: "path" })
                     .expect(200, done)
             });
 
@@ -139,7 +140,8 @@ describe("RequestHistoryRoutes", () => {
                 // Act
                 // Assert
                 request(app)
-                    .get("/request-history/transactionDetails/" + transactionFilePath)
+                    .post("/request-history/transactionDetails/")
+                    .send({ transactionFilePath: "path" })
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.body).toEqual(expectedResponse);

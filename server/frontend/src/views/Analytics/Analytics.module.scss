@@ -1,0 +1,111 @@
+.Analytics {
+	overflow: hidden;
+	height: 100%;
+
+	//background: #ffffff;
+
+	//border: 1px solid #b6bfc9;
+	//border-radius: 0.6rem;
+
+	.top {
+		display: flex;
+
+		line-height: 4rem;
+
+		padding-left: 1rem;
+
+		text-transform: uppercase;
+
+		background: #ffffff;
+
+		border: 1px solid #b6bfc9;
+		border-radius: 0.6rem;
+	}
+
+	.innerContent {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		width: 100%;
+		height: 100%;
+
+		padding-bottom: 14rem;
+
+		background: #ffffff;
+
+		border: 1px solid #b6bfc9;
+		border-radius: 0.6rem;
+
+		h3 {
+			font-size: 2.3rem;
+			line-height: 4rem;
+			font-weight: 500;
+			span {
+				font-size: 2rem;
+
+				font-style: italic;
+			}
+		}
+
+		overflow-y: auto;
+		.innerTop {
+			display: flex;
+		}
+	}
+
+	& .infoBlocks {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		flex-wrap: wrap;
+
+		margin: 5rem 2rem 4rem 2rem;
+
+		& div {
+			margin: 2rem 2rem;
+		}
+	}
+
+	& .pieChart {
+		width: 100%;
+		margin: 5rem;
+	}
+
+	& .lineChart {
+		width: 90%;
+		height: 100%;
+		//margin-bottom: 10rem;
+	}
+
+	& .pickersWrap {
+		width: 100%;
+		padding: 1rem 0.5rem;
+
+		background: #e6e9ea;
+
+		& .pickersBlock {
+			display: flex;
+
+			align-items: center;
+
+			height: 4rem;
+
+			background: #f6f9fa;
+			border-radius: 3rem;
+
+			& h3 {
+				margin: 0;
+				margin-left: 2rem;
+			}
+
+			& .pickers {
+				left: 50%;
+                transform: translateX(-50%);
+                position: absolute;
+			}
+		}
+	}
+}

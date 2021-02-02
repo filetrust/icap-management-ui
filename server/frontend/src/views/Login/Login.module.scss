@@ -7,11 +7,22 @@
 
 		margin: 4rem 0;
 
-		& input {
-			margin: 1rem 0;
-			padding-left: 5rem;
+		.inputContainer {
+			height: 4rem;
+			margin-bottom: 0.5rem;
 		}
+
+		& input {
+			padding-left: 5rem;
+			color: white !important;
+
+			&::placeholder {
+				color: white !important;
+			}
+		}
+
 	}
+
 	& button {
 		margin: 4rem auto 0;
 	}
@@ -29,13 +40,20 @@
 	align-items: center;
 
 	width: 30rem;
+
+	input:-webkit-autofill {
+		background-clip: text;
+		-webkit-background-clip: text !important;
+		-webkit-text-fill-color: white !important;
+		caret-color: white;
+	}
 }
 
 .logo {
 	position: absolute;
 	top: 17vh;
 	left: 50vw;
-	transform: translate3d(-50%, -50%,0);
+	transform: translate3d(-50%, -50%, 0);
 	width: 20rem;
 	height: 10rem;
 }

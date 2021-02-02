@@ -20,4 +20,8 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
+
+	&:visited {
+		outline: none;
+	}
 }

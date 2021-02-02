@@ -1,5 +1,5 @@
-import ArgumentException from "./ArgumentException";
-import ArgumentNullException from "./ArgumentNullException";
+import { ArgumentException } from "./errors";
+import { ArgumentNullException } from "./errors";
 
 describe("errors", () => {
     describe("ArgumentException", () => {

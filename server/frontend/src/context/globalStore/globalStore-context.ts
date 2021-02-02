@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { AnalyticsTimeFilter } from "../../data/filters/analyticsTimeFilter";
 import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 
 export interface GlobalStoreContextProps {
@@ -8,6 +9,7 @@ export interface GlobalStoreContextProps {
 	fileFilterList: any[],
 	riskFilterList: any[],
 	requestHistoryTimeFilter: RequestHistoryTimeFilter,
+	analyticsTimeFilter: AnalyticsTimeFilter,
 	selectedFilters: any[],
 	navExpanded: boolean
 }

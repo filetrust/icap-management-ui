@@ -1,24 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ToastProvider } from "react-toast-notifications";
-import App from "./App";
 
 import "./index.scss";
 import "./normalize.css";
+import 'react-toastify/dist/ReactToastify.css';
 
-import { AuthState } from "./context/auth/AuthState";
 import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
+import { UserState } from "./context/user/UserState";
+import App from "./App";
 
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
 	// <React.StrictMode>
 	<GlobalStoreState>
-		<AuthState>
-			<ToastProvider>
+			<UserState>
 				<App />
-			</ToastProvider>
-		</AuthState>
+			</UserState>
 	</GlobalStoreState>,
 	// </React.StrictMode>,
 	document.getElementById("root")

@@ -1,8 +1,7 @@
 import { Guid } from "guid-typescript";
 import { FileType } from "../../enums/FileType";
 import { Risk } from "../../enums/Risk";
-import ArgumentException from "../../errors/ArgumentException";
-import ArgumentNullException from "../../errors/ArgumentNullException";
+import { ArgumentException, ArgumentNullException } from "../../errors/errors";
 import TransactionFile from "../TransactionFile";
 
 export class GetTransactionsResponse {

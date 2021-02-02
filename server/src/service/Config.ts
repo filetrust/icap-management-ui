@@ -2,6 +2,9 @@ import IConfig from "../common/models/IConfig";
 
 const Config = () => {
     const development: IConfig = {
+        analytics: {
+            getMetricsPath: "/transactions/metrics"
+        },
         requestHistory: {
             transactionEventServiceBaseUrl: "https://localhost:1000/api/v1",
             getTransactionsPath: "/transactions",
@@ -18,10 +21,26 @@ const Config = () => {
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
+        },
+        identityManagement: {
+            identityManagementServiceBaseUrl: "http://localhost:6004/api/v1",
+            validateTokenPath: "/users/validate-token",
+            authenticatePath: "/users/authenticate",
+            newUserPath: "/users/new",
+            forgotPasswordPath: "/users/forgot-password",
+            validateResetTokenPath: "/users/validate-reset-token",
+            resetPasswordPath: "/users/reset-password",
+            getUsersPath: "/users",
+            getUserPath: "/users",
+            updateUserPath: "/users",
+            deleteUserPath: "/users"
         }
     };
 
     const production: IConfig = {
+        analytics: {
+            getMetricsPath: "/transactions/metrics"
+        },
         requestHistory: {
             transactionEventServiceBaseUrl: process.env.TRANSACTION_EVENT_API_URL,
             getTransactionsPath: "/transactions",
@@ -38,6 +57,19 @@ const Config = () => {
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
+        },
+        identityManagement: {
+            identityManagementServiceBaseUrl: process.env.IDENTITY_MANAGEMENT_API_URL,
+            validateTokenPath: "/users/validate-token",
+            authenticatePath: "/users/authenticate",
+            newUserPath: "/users/new",
+            forgotPasswordPath: "/users/forgot-password",
+            validateResetTokenPath: "/users/validate-reset-token",
+            resetPasswordPath: "/users/reset-password",
+            getUsersPath: "/users",
+            getUserPath: "/users",
+            updateUserPath: "/users",
+            deleteUserPath: "/users"
         }
     };
 

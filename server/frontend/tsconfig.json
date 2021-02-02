@@ -1,7 +1,7 @@
 {
   "include": [
     "src/**/*", "../src/common/models/PolicyManagementService/Policy", "../src/common/models/**/*"
-  ],
+, "src/helpers/axiosRequestHelper.ts"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

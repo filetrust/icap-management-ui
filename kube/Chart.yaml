@@ -2,7 +2,7 @@ apiVersion: v2
 name: icap-management-ui
 description: A Helm chart for running the icap-management-ui
 type: application
-version: 3.0.4
+version: 3.1.4
 home: https://github.com/filetrust/icap-management-ui
 maintainers:
   - name: filetrust
