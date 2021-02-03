@@ -4,7 +4,7 @@
 	border: 1px solid #b6bfc9;
 	border-radius: 0.4rem;
 
-	margin: 0.3rem 0rem 0.5rem 1rem;
+	margin: 1rem 0rem 0.5rem 1rem;
 
 	& .header {
 		position: relative;
@@ -17,26 +17,33 @@
 		text-transform: uppercase;
 		line-height: 1rem;
 
-		background-color: #fff;
+
 		border-radius: 0.4rem 0.4rem 0 0;
+
 		& h3 {
 			margin: 0;
-
-			font-size: 1.3rem;
+			font-size: 1.1rem;
+			color: #196480;
 		}
 	}
 
 	& .footer {
+		background-color: #fff;
 		text-align: center;
 		padding: 1rem 2rem;
-
+		border-radius: 0.4rem;
 		line-height: 1rem;
+
+		&span {
+			font-size: 1.1rem;
+		}
 	}
 }
 
 .buttonClose {
-	top: 5px;
+	top: -2px;
 	right: 0;
+
 	& svg {
 		width: 1rem;
 		fill: #b6bfc9;
@@ -46,6 +53,7 @@
 .risk {
 	color: #fff;
 	text-transform: uppercase;
+
 	& span {
 		padding: 0.1rem 1rem;
 		border-radius: 1rem;

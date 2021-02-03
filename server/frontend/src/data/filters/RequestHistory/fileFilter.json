@@ -39,6 +39,8 @@
       }
     ]
   },
+
+
   {
     "id": "microsoftpowerpoint",
     "filterName": "FileType - Microsoft Powerpoint",
@@ -59,9 +61,11 @@
       }
     ]
   },
+
+
   {
     "id": "pdf",
-    "filterName": "Adobe",
+    "filterName": "FileType - Adobe",
     "checkboxList": [
       {
         "id": "pdf-pdf-1",
@@ -72,9 +76,11 @@
       }
     ]
   },
+
+
   {
     "id": "rtf",
-    "filterName": "RTF",
+    "filterName": "FileType - RTF",
     "checkboxList": [
       {
         "id": "rtf-rtf-1",

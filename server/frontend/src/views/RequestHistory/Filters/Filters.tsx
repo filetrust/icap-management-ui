@@ -212,6 +212,7 @@ const Filters = (props: FiltersProps) => {
 									externalStyles={filterStyle}
 									openPopupHover={() => props.setShowAddFilter(true)}
 									closePopupHover={hideAddFilterList}
+									disabled={props.disabled}
 								/>
 							)}
 						</Popup>
@@ -233,7 +234,7 @@ const Filters = (props: FiltersProps) => {
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 										updateFileId(event.target.value);
 									}}
-									disabled={false}
+									disabled={props.disabled}
 								/>
 								<button
 									type="submit"
