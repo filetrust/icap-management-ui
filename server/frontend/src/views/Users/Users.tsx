@@ -114,7 +114,7 @@ const Users = () => {
                         </Table>
                     </div>
 
-                    {usersHaveChanges &&
+                    {usersHaveChanges && status !== "LOADING" &&
                         <div className={classes.buttons}>
                             <Button
                                 externalStyles={classes.cancelButton}
