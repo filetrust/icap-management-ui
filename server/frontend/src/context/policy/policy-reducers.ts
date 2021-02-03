@@ -13,7 +13,7 @@ const setIsPolicyChanged = (state: TPolicyState, changed: boolean) => {
 
 const setPolicyError = (state: TPolicyState, error: any) => {
 	// tslint:disable-next-line: no-console
-	console.error(error);
+	console.error(error.message ? error.message : error);
 
 	return updateObject(state, {
 		policyError: error

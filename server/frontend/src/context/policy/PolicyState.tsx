@@ -26,6 +26,16 @@ interface InitialPolicyState {
 	policyError: ""
 }
 
+const _handleNullPolicies = (policy: Policy, policyType: "Draft" | "Current") => {
+	if (policy.adaptionPolicy === null || undefined) {
+		throw new Error(`${policyType} Policy - Adaptation Policy cannot be null`);
+	}
+
+	if (policy.ncfsPolicy === null || undefined) {
+		throw new Error(`${policyType} Policy - NCFS Policy cannot be null`);
+	}
+}
+
 export const PolicyState = (props: { children: React.ReactNode }) => {
 	const user = useContext(UserContext).currentUser;
 	const cancellationTokenSource = axios.CancelToken.source();
@@ -72,15 +82,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 	const _loadPolicies = async () => {
 		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
-		if (currentPolicy.adaptionPolicy === null) {
-			throw new Error("Current Policy - Adaptation Policy cannot be null");
-		}
+		_handleNullPolicies(currentPolicy, "Current");
 		setCurrentPolicy(currentPolicy);
 
 		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
-		if (draftPolicy.adaptionPolicy === null) {
-			throw new Error("Draft Policy - Adaptation Policy cannot be null");
-		}
+		_handleNullPolicies(draftPolicy, "Draft");
 		setDraftPolicy(draftPolicy);
 		setNewDraftPolicy(draftPolicy);
 
@@ -99,7 +105,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 
 		(async (): Promise<void> => {
 			try {
-				await saveDraftPolicy({...policyState.newDraftPolicy, updatedBy: user.username}, cancellationTokenSource.token);
+				await saveDraftPolicy({ ...policyState.newDraftPolicy, updatedBy: user.username }, cancellationTokenSource.token);
 				setDraftPolicy(policyState.newDraftPolicy);
 				setIsPolicyChanged(false);
 				status = "LOADED";
