@@ -10,6 +10,7 @@ export interface PopupFilterProps {
 	externalStyles: string,
 	openPopupHover: React.MouseEventHandler<HTMLDivElement>,
 	closePopupHover: React.MouseEventHandler<HTMLDivElement>,
+	disabled?: boolean
 }
 
 const PopupFilter = (props: PopupFilterProps) => {
@@ -23,7 +24,8 @@ const PopupFilter = (props: PopupFilterProps) => {
 				key={filter.id}
 				filterName={filter.filterName}
 				externalStyles={filterStyle}
-				checkboxList={filter.checkboxList} />
+				checkboxList={filter.checkboxList}
+				disabled={props.disabled} />
 		);
 	});
 	return (
