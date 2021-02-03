@@ -62,12 +62,8 @@ const AnalyticsWrapper = () => {
                     <div>Loading...</div>
                 }
 
-                {status === "LOADED" && data.totalProcessed > 0 &&
+                {status === "LOADED" &&
                     <Analytics data={data} />
-                }
-
-                {status === "LOADED" && data.totalProcessed < 1 &&
-                    <div>No Metrics Found</div>
                 }
 
                 {status === "ERROR" &&
