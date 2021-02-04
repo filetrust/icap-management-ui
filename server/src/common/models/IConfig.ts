@@ -17,6 +17,7 @@ export default interface IConfig {
         saveDraftPolicyPath: string;
         getCurrentPolicyPath: string;
         getPolicyHistoryPath: string;
+        getPaginatedPolicyHistoryPath: string;
         publishPolicyPath: string;
         distributeAdaptionPolicyPath: string;
         distributeNcfsPolicyPath: string;

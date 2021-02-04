@@ -1,5 +1,7 @@
 import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
+import axiosHelper from "src/common/helpers/AxiosHelper";
+import PaginationModel from "src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 
@@ -132,4 +134,12 @@ export default class PolicyManagementApi {
 
         return response.data;
     };
+
+    static getPaginatedPolicyHistory = async (
+        getPaginatedPolicyHistoryUrl: string,
+        pagination: PaginationModel,
+        cancellationToken: CancelToken
+    ): Promise<PolicyHistory> => {
+        return await axiosHelper(getPaginatedPolicyHistoryUrl, "POST", cancellationToken, { pagination });
+    }
 }

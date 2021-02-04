@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Pagination } from "@material-ui/lab";
+import { Pagination as MaterialPagination } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Pagination1 = () => {
+const Pagination = () => {
 	const classes = useStyles();
 
 	return (
-		<Pagination
+		<MaterialPagination
 			className={classes.root}
 			count={1}
 			variant="outlined"
@@ -24,4 +24,4 @@ const Pagination1 = () => {
 	);
 };
 
-export default Pagination1;
+export default Pagination;

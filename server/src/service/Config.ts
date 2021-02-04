@@ -18,6 +18,7 @@ const Config = () => {
             saveDraftPolicyPath: "/policy/draft",
             getCurrentPolicyPath: "/policy/current",
             getPolicyHistoryPath: "/policy/history",
+            getPaginatedPolicyHistoryPath: "/policy/history",
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"
@@ -54,6 +55,7 @@ const Config = () => {
             saveDraftPolicyPath: "/policy/draft",
             getCurrentPolicyPath: "/policy/current",
             getPolicyHistoryPath: "/policy/history",
+            getPaginatedPolicyHistoryPath: "/policy/history",
             publishPolicyPath: "/policy/publish",
             distributeAdaptionPolicyPath: "/policy/current/distribute-adaption",
             distributeNcfsPolicyPath: "/policy/current/distribute-ncfs"

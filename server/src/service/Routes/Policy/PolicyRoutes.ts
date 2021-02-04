@@ -17,6 +17,7 @@ class PolicyRoutes {
     saveDraftPolicyPath: string;
     getCurrentPolicyPath: string;
     getPolicyHistoryPath: string;
+    getPaginatedPolicyHistoryPath: string;
     publishPolicyPath: string;
     distributeAdaptationPolicyPath: string;
     distributeNcfsPolicyPath: string;
@@ -34,6 +35,7 @@ class PolicyRoutes {
         this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
         this.getPolicyHistoryPath = config.policy.getPolicyHistoryPath;
+        this.getPaginatedPolicyHistoryPath = config.policy.getPaginatedPolicyHistoryPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
         this.distributeAdaptationPolicyPath = config.policy.distributeAdaptionPolicyPath;
         this.distributeNcfsPolicyPath = config.policy.distributeNcfsPolicyPath;
@@ -190,6 +192,16 @@ class PolicyRoutes {
                     res.status(500).json(message);
                 }
             }
+        });
+
+        // Get Policy History with Pagination
+        this.app.post("/policy/history", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.getPaginatedPolicyHistoryPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+
+            const policyHistory = await this.policyManagementService.getPaginatedPolicyHistory
         });
     }
 }
