@@ -6,6 +6,9 @@ import handleCancellation from "../../../common/helpers/HandleCancellation";
 import { Guid } from "guid-typescript";
 import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
+import handleError from "../../../common/helpers/HandleError";
+import { GetPaginatedPolicyHistoryRequest } from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/GetPaginatedPolicyHistoryRequest";
+import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
 class PolicyRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -201,7 +204,18 @@ class PolicyRoutes {
             const cancellationTokenSource = axios.CancelToken.source();
             handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
-            const policyHistory = await this.policyManagementService.getPaginatedPolicyHistory
+            try {
+                const pagination = new PaginationModel(req.body.zeroBasedIndex, req.body.pageSize);
+                const getPolicyHistoryRequest = new GetPaginatedPolicyHistoryRequest(requestUrl, pagination);
+
+                const policyHistory = await this.policyManagementService.getPaginatedPolicyHistory(
+                    getPolicyHistoryRequest, cancellationTokenSource.token);
+
+                res.json(policyHistory);
+            }
+            catch (error) {
+                handleError(res, error, `Error Retrieving Policy History`, this.logger);
+            }
         });
     }
 }

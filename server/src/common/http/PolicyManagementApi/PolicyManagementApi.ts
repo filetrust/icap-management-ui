@@ -1,7 +1,7 @@
 import axios, { CancelToken } from "axios";
 import { Guid } from "guid-typescript";
-import axiosHelper from "src/common/helpers/AxiosHelper";
-import PaginationModel from "src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import axiosHelper from "../../../common/helpers/AxiosHelper";
+import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 

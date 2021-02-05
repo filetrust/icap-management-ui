@@ -5,27 +5,29 @@ import {
 	TableHead,
 	TableRow,
 	TableCell,
-	TableBody,
+	TableBody
 } from "@material-ui/core";
 import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
+import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
 import Backdrop from "../../../components/UI/Backdrop/Backdrop";
-import HistoryRow from "./HistoryRow/HistoryRow";
 import Modal from "../../../components/UI/Modal/Modal";
-import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import ConfirmPublishModal from "./ConfirmPublishModal/ConfirmPublishModal";
 import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
-
+import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
+import HistoryRow from "./HistoryRow/HistoryRow";
+import HistoryInfo from "./HistoryInfo/HistoryInfo";
+import Pagination from "../../../components/UI/Pagination/Pagination";
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
-import { PolicyType } from "../../../../../src/common/models/enums/PolicyType";
-import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
 
 const History = () => {
 	const {
 		isPolicyChanged,
 		status,
 		policyHistory,
+		policyHistoryPagination,
+		setPolicyHistoryPagination
 	} = useContext(PolicyContext);
 
 	const [showPolicyModal, setShowPolicyModal] = useState(false);
@@ -43,6 +45,20 @@ const History = () => {
 			policyHistory.policies.find(policy => policy.id === policyId));
 		setShowConfirmPublishModal(true);
 	};
+
+	const setPageSize = (pageSize: 25 | 50 | 100) => {
+		setPolicyHistoryPagination({
+			...policyHistoryPagination,
+			pageSize
+		});
+	}
+
+	const setIndex = (index: number) => {
+		setPolicyHistoryPagination({
+			...policyHistoryPagination,
+			zeroBasedIndex: index
+		});
+	}
 
 	return (
 		<>
@@ -94,7 +110,16 @@ const History = () => {
 										<EmptyHistoryRow />
 									}
 								</TableBody>
+
 							</Table>
+
+							<Pagination
+								count={policyHistory.policiesCount}
+								page={policyHistoryPagination.zeroBasedIndex}
+								onChangePage={(event, page) => setIndex(page)}
+								rowsPerPage={policyHistoryPagination.pageSize}
+								rowsPerPageOptions={[25, 50, 100]}
+								onChangeRowsPerPage={(event: React.ChangeEvent<HTMLInputElement>) => setPageSize(parseInt(event.target.value) as 25 | 50 | 100)} />
 						</div>
 					</div>
 

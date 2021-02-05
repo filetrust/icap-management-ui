@@ -6,6 +6,7 @@ import { PolicyContext } from "./PolicyContext";
 import { policyReducer } from "./policy-reducers";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
+import { PolicyType } from "../../../../src/common/models/enums/PolicyType";
 import * as actionTypes from "../actionTypes";
 import {
 	getCurrentPolicy,
@@ -15,24 +16,26 @@ import {
 	deleteDraftPolicy as deleteDraft,
 	getPolicyHistory
 } from "./api";
+import PaginationModel from "../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
 	draftPolicy: Policy,
 	newDraftPolicy: Policy,
 	policyHistory: PolicyHistory,
+	policyHistoryPagination: PaginationModel,
 	isPolicyChanged: boolean,
 	status: "LOADING" | "ERROR" | "LOADED",
 	policyError: ""
 }
 
-const _handleNullPolicies = (policy: Policy, policyType: "Draft" | "Current") => {
+const _handleNullPolicies = (policy: Policy, policyType: PolicyType) => {
 	if (policy.adaptionPolicy === null || undefined) {
-		throw new Error(`${policyType} Policy - Adaptation Policy cannot be null`);
+		throw new Error(`${PolicyType[policyType]} Policy - Adaptation Policy cannot be null`);
 	}
 
 	if (policy.ncfsPolicy === null || undefined) {
-		throw new Error(`${policyType} Policy - NCFS Policy cannot be null`);
+		throw new Error(`${PolicyType[policyType]} Policy - NCFS Policy cannot be null`);
 	}
 }
 
@@ -45,6 +48,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		draftPolicy: null,
 		newDraftPolicy: null,
 		policyHistory: null,
+		policyHistoryPagination: new PaginationModel(0, 25),
 		isPolicyChanged: false,
 		status: "LOADING",
 		policyError: ""
@@ -81,22 +85,27 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 	}
 
 	const _loadPolicies = async () => {
-		const currentPolicy = await getCurrentPolicy(cancellationTokenSource.token);
-		_handleNullPolicies(currentPolicy, "Current");
-		setCurrentPolicy(currentPolicy);
+		const requestChain = [
+			getCurrentPolicy(cancellationTokenSource.token),
+			getDraftPolicy(cancellationTokenSource.token),
+			getPolicyHistory(cancellationTokenSource.token)
+		];
 
-		const draftPolicy = await getDraftPolicy(cancellationTokenSource.token);
-		_handleNullPolicies(draftPolicy, "Draft");
-		setDraftPolicy(draftPolicy);
-		setNewDraftPolicy(draftPolicy);
+		const [currentPolicy, draftPolicy, policyHistory] = await Promise.all<Policy | PolicyHistory>(requestChain);
 
-		const policyHistory = await getPolicyHistory(cancellationTokenSource.token);
-		if (policyHistory.policiesCount) {
-			policyHistory.policies.sort((a: any, b: any) => {
+		_handleNullPolicies(currentPolicy as Policy, PolicyType.Current);
+		setCurrentPolicy(currentPolicy as Policy);
+
+		_handleNullPolicies(draftPolicy as Policy, PolicyType.Draft);
+		setDraftPolicy(draftPolicy as Policy);
+		setNewDraftPolicy(draftPolicy as Policy);
+
+		if ((policyHistory as PolicyHistory).policiesCount) {
+			(policyHistory as PolicyHistory).policies.sort((a: any, b: any) => {
 				return Date.parse(b.created) - Date.parse(a.created);
 			});
 		}
-		setPolicyHistory(policyHistory);
+		setPolicyHistory(policyHistory as PolicyHistory);
 	}
 
 	const saveDraftChanges = () => {
@@ -168,6 +177,10 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		})();
 	}
 
+	const setPolicyHistoryPagination = (pagination: PaginationModel) => {
+		dispatch({ type: actionTypes.SET_POLICY_HISTORY_PAGINATION, pagination });
+	}
+
 	useEffect(() => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
 		setStatus(status);
@@ -207,6 +220,8 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			publishPolicy,
 			deleteDraftPolicy,
 			policyHistory: policyState.policyHistory,
+			policyHistoryPagination: policyState.policyHistoryPagination,
+			setPolicyHistoryPagination,
 			isPolicyChanged: policyState.isPolicyChanged,
 			status: policyState.status,
 			policyError: policyState.policyError

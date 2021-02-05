@@ -9,6 +9,11 @@ import IPolicyManagementService from "../../../common/services/IPolicyManagement
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
 import { CancelToken } from "axios";
 
+// TODO: Remove
+import draft from "./draft.json";
+import current from "./current.json";
+
+
 class PolicyManagementService implements IPolicyManagementService {
     logger: Logger;
 
@@ -53,47 +58,49 @@ class PolicyManagementService implements IPolicyManagementService {
     }
 
     getCurrentPolicy = async (getCurrentPolicyUrl: string, cancellationToken: CancelToken) => {
-        let policy: Policy;
+        return current as unknown as Policy; // TODO: REMOVE
+        // let policy: Policy;
 
-        try {
-            this.logger.info("Retrieving Current Policy from the PolicyManagementService");
+        // try {
+        //     this.logger.info("Retrieving Current Policy from the PolicyManagementService");
 
-            const response = await PolicyManagementApi.getPolicy(
-                getCurrentPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
-            policy = this.createPolicyModel(response);
+        //     const response = await PolicyManagementApi.getPolicy(
+        //         getCurrentPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
+        //     policy = this.createPolicyModel(response);
 
-            if (policy) {
-                this.logger.info(`Retrieved Current Policy - PolicyId: ${policy.id}`);
-            }
-        }
-        catch (error) {
-            this.logger.error(`Could not get Current Policy: ${error}`);
-            throw error;
-        }
+        //     if (policy) {
+        //         this.logger.info(`Retrieved Current Policy - PolicyId: ${policy.id}`);
+        //     }
+        // }
+        // catch (error) {
+        //     this.logger.error(`Could not get Current Policy: ${error}`);
+        //     throw error;
+        // }
 
-        return policy;
+        // return policy;
     }
 
     getDraftPolicy = async (getDraftPolicyUrl: string, cancellationToken: CancelToken) => {
-        let policy: Policy;
+        return draft as unknown as Policy; // TODO REMOVE
+        // let policy: Policy;
 
-        try {
-            this.logger.info("Retrieving Draft Policy from the PolicyManagementService");
+        // try {
+        //     this.logger.info("Retrieving Draft Policy from the PolicyManagementService");
 
-            const response = await PolicyManagementApi.getPolicy(
-                getDraftPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
-            policy = this.createPolicyModel(response);
+        //     const response = await PolicyManagementApi.getPolicy(
+        //         getDraftPolicyUrl, cancellationToken, { "Content-Type": "application/json" });
+        //     policy = this.createPolicyModel(response);
 
-            if (policy) {
-                this.logger.info(`Retrieved Draft Policy - PolicyId: ${policy.id}`);
-            }
-        }
-        catch (error) {
-            this.logger.error(`Could not get Draft Policy: ${error}`);
-            throw error;
-        }
+        //     if (policy) {
+        //         this.logger.info(`Retrieved Draft Policy - PolicyId: ${policy.id}`);
+        //     }
+        // }
+        // catch (error) {
+        //     this.logger.error(`Could not get Draft Policy: ${error}`);
+        //     throw error;
+        // }
 
-        return policy;
+        // return policy;
     }
 
     saveDraftPolicy = async (updatePolicyUrl: string, draftPolicy: Policy, cancellationToken: CancelToken) => {

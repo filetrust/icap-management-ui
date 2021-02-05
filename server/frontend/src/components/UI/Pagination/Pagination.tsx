@@ -1,26 +1,56 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { TablePagination } from "@material-ui/core";
 
-import { Pagination as MaterialPagination } from "@material-ui/lab";
+import classes from "./Pagination.module.scss";
 
-const useStyles = makeStyles((theme) => ({
+export interface PaginationProps {
+	count: number,
+	page: number,
+	onChangePage: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, page: number) => void,
+	rowsPerPageOptions: number[],
+	rowsPerPage: number,
+	onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const useStyles = makeStyles(() => ({
 	root: {
 		"& > *": {
-			marginTop: theme.spacing(2),
-		},
+			justifyContent: "center",
+			display: 'flex'
+		}
 	},
+	spacer: { display: "none" },
+	caption: {
+		fontSize: "1.4rem",
+		fontWeight: 600
+	},
+	toolbar: {
+		color: "#196480",
+		fontSize: "1.4rem",
+		fontWeight: 600
+	},
+	menuItem: {
+		color: "#196480",
+		fontSize: "1.2rem",
+		fontWeight: 600
+	}
 }));
 
-const Pagination = () => {
-	const classes = useStyles();
+const Pagination = (props: PaginationProps) => {
+	const muiClasses = useStyles();
 
 	return (
-		<MaterialPagination
-			className={classes.root}
-			count={1}
-			variant="outlined"
-			shape="rounded"
-		/>
+		<TablePagination
+			className={classes.pagination}
+			classes={muiClasses}
+			component="div"
+			count={props.count}
+			page={props.page}
+			onChangePage={props.onChangePage}
+			rowsPerPage={props.rowsPerPage}
+			rowsPerPageOptions={props.rowsPerPageOptions}
+			onChangeRowsPerPage={props.onChangeRowsPerPage} />
 	);
 };
 
