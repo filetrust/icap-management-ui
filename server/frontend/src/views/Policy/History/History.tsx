@@ -119,7 +119,10 @@ const History = () => {
 								onChangePage={(event, page) => setIndex(page)}
 								rowsPerPage={policyHistoryPagination.pageSize}
 								rowsPerPageOptions={[25, 50, 100]}
-								onChangeRowsPerPage={(event: React.ChangeEvent<HTMLInputElement>) => setPageSize(parseInt(event.target.value) as 25 | 50 | 100)} />
+								onChangeRowsPerPage={
+									(event: React.ChangeEvent<HTMLInputElement>) =>
+										setPageSize(parseInt(event.target.value, 10) as 25 | 50 | 100)
+								} />
 						</div>
 					</div>
 
