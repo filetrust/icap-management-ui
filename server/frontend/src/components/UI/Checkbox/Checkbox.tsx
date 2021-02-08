@@ -12,10 +12,20 @@ export interface CheckboxProps {
 	filter?: string,
 	backgroundColor?: string,
 	checkboxIcon?: React.ReactNode,
-	checkedIcon?: React.ReactNode
+	checkedIcon?: React.ReactNode,
+	disabled?: boolean
 }
 
 const Checkbox = (props: CheckboxProps) => {
+	let formControlLabelClasses = classes.Checkbox;
+	if (props.filter === "Risk") {
+		formControlLabelClasses = [formControlLabelClasses, classes.risk].join(" ");
+
+		if (props.disabled) {
+			formControlLabelClasses = [formControlLabelClasses, classes.disabled].join(" ");
+		}
+	}
+
 	let checkbox = null;
 
 	if (props.filter === "Risk") {
@@ -26,6 +36,7 @@ const Checkbox = (props: CheckboxProps) => {
 				onChange={props.onHandleChange}
 				checkedIcon={<span className={classes.icon} />}
 				icon={<span className={classes.icon} />}
+				disabled={props.disabled}
 			/>
 		);
 	} else {
@@ -38,6 +49,7 @@ const Checkbox = (props: CheckboxProps) => {
 				color="primary"
 				checkedIcon={props.checkedIcon}
 				icon={props.checkboxIcon}
+				disabled={props.disabled}
 			/>
 		);
 	}
@@ -45,14 +57,11 @@ const Checkbox = (props: CheckboxProps) => {
 	return (
 		<FormControlLabel
 			style={{ background: props.backgroundColor }}
-			className={
-				props.filter !== "Risk"
-					? classes.Checkbox
-					: [classes.Checkbox, classes.risk].join(" ")
-			}
+			className={formControlLabelClasses}
 			label={props.label}
 			labelPlacement={props.filter !== "Risk" ? "start" : "end"}
 			control={checkbox}
+			disabled={props.disabled}
 		/>
 	);
 };

@@ -6,16 +6,15 @@ import setup from "./service/Setup";
 import Config from "./service/Config";
 import path from "path";
 import cors from "cors";
-import { Token } from "./common/http/IdentityManagementApi/ValidateToken/ValidateToken";
 import session from "express-session";
+import { v4 as uuidv4 } from "uuid";
+import { Token } from "./common/http/IdentityManagementApi/ValidateToken/ValidateToken";
+
 declare module 'express-session' {
     export interface SessionData {
         [key: string]: any
     }
 }
-
-import { v4 as uuidv4 } from "uuid";
-
 
 const logger = winston.createLogger({
     level: 'info',
@@ -44,33 +43,34 @@ logger.info("Loading Environment Variables with dotenv");
 const port = 8080;
 const workingDirectory = process.cwd();
 const config = Config();
-
 const app = express();
 app.disable("x-powered-by");
 app.use(express.static(`${workingDirectory}/frontend/build`));
 app.use(bodyParser.json());
-
-if (process.env.NODE_ENV === "development") {
-    const reactDevServerEndpoint = "http://localhost:3000";
-    const corsOptions = { origin: reactDevServerEndpoint, credentials: true };
-    app.use(cors(corsOptions));
-    logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
-}
 
 const sessionOptions = {
     genid() {
         return uuidv4() // use UUIDs for session IDs
     },
     secret: uuidv4(),
-    cookie: { secure: false },
+    cookie: {
+        secure: true
+    },
     resave: false,
     saveUninitialized: true
 };
 
-
 if (process.env.NODE_ENV === "production") {
     app.set('trust proxy', 1) // trust first proxy
-    sessionOptions.cookie.secure = true // serve secure cookies
+}
+
+if (process.env.NODE_ENV === "development") {
+    const reactDevServerEndpoint = "http://localhost:3000";
+    const corsOptions = { origin: reactDevServerEndpoint, credentials: true };
+    app.use(cors(corsOptions));
+    logger.info(`CORS Config added for REACT dev server - cross-origin source: ${reactDevServerEndpoint}`);
+
+    sessionOptions.cookie.secure = false
 }
 
 app.use(session(sessionOptions));
@@ -96,6 +96,7 @@ app.use(async (req, res, next) => {
                 }
 
                 if (!await Token.validateToken(config, req.session.token)) {
+                    logger.info(req.session.id + ": Session Token expired or invalid");
                     return res.status(403).json({ message: "Session Token was Invalid" });
                 }
             }
@@ -110,7 +111,6 @@ app.use(async (req, res, next) => {
 setup(config, app, logger);
 
 app.get("/*", async (req, res) => {
-    // logger.info(req.session.id + ": serving page...");
     res.sendFile(path.join(`${workingDirectory}/frontend/build/index.html`));
 });
 

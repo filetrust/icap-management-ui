@@ -66,6 +66,7 @@ class Routes implements IRoutes {
         publishPolicyRoute: _returnRoute("/policy/publish"),
         deletePolicyRoute: _returnRoute("/policy/draft"),
         getPolicyHistory: _returnRoute("/policy/history"),
+        getPaginatedPolicyHistoryPath: _returnRoute("/policy/history"),
     };
 
     usersRoutes = {

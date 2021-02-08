@@ -4,8 +4,10 @@ import axios from "axios";
 import IConfig from "../../../common/models/IConfig";
 import handleCancellation from "../../../common/helpers/HandleCancellation";
 import { Guid } from "guid-typescript";
-import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
+import { GetPaginatedPolicyHistoryRequest } from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/GetPaginatedPolicyHistoryRequest";
+import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 
 class PolicyRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
@@ -17,6 +19,7 @@ class PolicyRoutes {
     saveDraftPolicyPath: string;
     getCurrentPolicyPath: string;
     getPolicyHistoryPath: string;
+    getPaginatedPolicyHistoryPath: string;
     publishPolicyPath: string;
     distributeAdaptationPolicyPath: string;
     distributeNcfsPolicyPath: string;
@@ -34,6 +37,7 @@ class PolicyRoutes {
         this.saveDraftPolicyPath = config.policy.saveDraftPolicyPath;
         this.getCurrentPolicyPath = config.policy.getCurrentPolicyPath;
         this.getPolicyHistoryPath = config.policy.getPolicyHistoryPath;
+        this.getPaginatedPolicyHistoryPath = config.policy.getPaginatedPolicyHistoryPath;
         this.publishPolicyPath = config.policy.publishPolicyPath;
         this.distributeAdaptationPolicyPath = config.policy.distributeAdaptionPolicyPath;
         this.distributeNcfsPolicyPath = config.policy.distributeNcfsPolicyPath;
@@ -180,6 +184,31 @@ class PolicyRoutes {
 
             try {
                 const policyHistory = await this.policyManagementService.getPolicyHistory(requestUrl, cancellationTokenSource.token);
+
+                res.json(policyHistory);
+            }
+            catch (error) {
+                if (error.stack) {
+                    const message = "Error Retrieving Policy History";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
+            }
+        });
+
+        // Get Policy History with Pagination
+        this.app.post("/policy/history", async (req, res) => {
+            const requestUrl = this.policyManagementServiceBaseUrl + this.getPaginatedPolicyHistoryPath;
+
+            const cancellationTokenSource = axios.CancelToken.source();
+            handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
+
+            try {
+                const pagination = new PaginationModel(req.body.pagination.zeroBasedIndex, req.body.pagination.pageSize);
+                const getPolicyHistoryRequest = new GetPaginatedPolicyHistoryRequest(requestUrl, pagination);
+
+                const policyHistory = await this.policyManagementService.getPaginatedPolicyHistory(
+                    getPolicyHistoryRequest, cancellationTokenSource.token);
 
                 res.json(policyHistory);
             }

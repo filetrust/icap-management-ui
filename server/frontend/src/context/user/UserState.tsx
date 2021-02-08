@@ -163,7 +163,6 @@ export const UserState = (props: { children: React.ReactNode }) => {
 			};
 			try {
 				await identityManagementService.save(saveData, cancellationToken);
-				setStatus("LOADED");
 				window.location.reload();
 			}
 			catch (error) {

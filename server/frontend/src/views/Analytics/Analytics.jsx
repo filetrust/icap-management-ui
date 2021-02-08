@@ -68,7 +68,9 @@ const Analytics = ({ data }) => {
                             */}
                     </div>
                     <div data-test-id="lineChart" className={classes.lineChart}>
-                        <LineChart data={data} />
+                        {data.totalProcessed > 0 &&
+                            <LineChart data={data} />
+                        }
                     </div>
                 </div>
             </article>

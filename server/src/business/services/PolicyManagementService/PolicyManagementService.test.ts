@@ -10,6 +10,8 @@ import PolicyManagementService from "./PolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
 
 import policyExample from "../../../common/http/PolicyManagementApi/policyExample.json";
+import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import { GetPaginatedPolicyHistoryRequest } from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/GetPaginatedPolicyHistoryRequest";
 
 let getPolicyByIdStub: SinonStub;
 let getPolicyStub: SinonStub;
@@ -308,4 +310,57 @@ describe("PolicyManagementService", () => {
                 .toEqual(policyHistory.policies[0].ncfsPolicy);
         });
     });
+
+    describe("getPaginatedPolicyHistory", () => {
+        let getPolicyHistoryStub: SinonStub;
+
+        const policyHistory = new PolicyHistory(
+            1,
+            [new Policy(
+                policyExample.id,
+                policyExample.policyType,
+                policyExample.published,
+                policyExample.lastEdited,
+                policyExample.created,
+                policyExample.ncfsPolicy,
+                policyExample.adaptionPolicy,
+                policyExample.updatedBy
+            )]
+        );
+
+        const pagination = new PaginationModel(0, 25);
+
+        beforeEach(() => {
+            const cancellationTokenSource = axios.CancelToken.source();
+            cancellationToken = cancellationTokenSource.token;
+
+            getPolicyHistoryStub = stub(PolicyManagementApi, "getPaginatedPolicyHistory")
+                .resolves(policyHistory);
+        });
+
+        afterEach(() => {
+            getPolicyHistoryStub.restore();
+        });
+
+        it("returns_correct_response", async () => {
+            // Arrange
+            const policyManagementService = new PolicyManagementService(logger);
+            const getPaginatedPolicyHistoryRequest = new GetPaginatedPolicyHistoryRequest(
+                "www.glasswall.com", pagination);
+
+            // Act
+            const result = await policyManagementService.getPaginatedPolicyHistory(
+                getPaginatedPolicyHistoryRequest, cancellationToken);
+
+            // Assert
+            expect(result.policiesCount)
+                .toEqual(policyHistory.policiesCount);
+            expect(result.policies[0].id)
+                .toEqual(policyHistory.policies[0].id);
+            expect(result.policies[0].adaptionPolicy)
+                .toEqual(policyHistory.policies[0].adaptionPolicy);
+            expect(result.policies[0].ncfsPolicy)
+                .toEqual(policyHistory.policies[0].ncfsPolicy);
+        });
+    })
 });

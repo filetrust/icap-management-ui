@@ -25,10 +25,8 @@ const Filters = (props: FiltersProps) => {
 	// @ts-ignore
 	const { addFilterInput, fileFilter, riskFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
-	//const [showFilters, setShowFilters] = useState(false);
-
 	const [openFilter, setOpenFilter] = useState(null);
-	
+
 	const [fileId, setFileId] = useState("");
 	const [showFileIdInput, setShowFileIdInput] = useState(false);
 	const [isValid, setIsValid] = useState(false);
@@ -79,7 +77,7 @@ const Filters = (props: FiltersProps) => {
 			id: fileId,
 			filterName: "File ID",
 			title: fileId,
-			fileId: fileId
+			fileId
 		});
 		setShowFileIdInput(false);
 		setFileId("");
@@ -98,14 +96,9 @@ const Filters = (props: FiltersProps) => {
 			selectedFilter = fileFilter;
 			filterStyle = classes.popupFilterFileType;
 			break;
-
 		case "Risk":
 			selectedFilter = riskFilter;
 			filterStyle = classes.popupFilterRisk;
-			break;
-		default:
-			selectedFilter = null;
-			filterStyle = null;
 			break;
 	}
 
@@ -219,6 +212,7 @@ const Filters = (props: FiltersProps) => {
 									externalStyles={filterStyle}
 									openPopupHover={() => props.setShowAddFilter(true)}
 									closePopupHover={hideAddFilterList}
+									disabled={props.disabled}
 								/>
 							)}
 						</Popup>
@@ -240,7 +234,7 @@ const Filters = (props: FiltersProps) => {
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 										updateFileId(event.target.value);
 									}}
-									disabled={false}
+									disabled={props.disabled}
 								/>
 								<button
 									type="submit"

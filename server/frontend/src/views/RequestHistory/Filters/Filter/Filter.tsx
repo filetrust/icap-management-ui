@@ -11,7 +11,8 @@ import classes from "./Filter.module.scss";
 export interface FilterProps {
 	filterName: string,
 	checkboxList: TransactionLogFilter[],
-	externalStyles: string
+	externalStyles: string,
+	disabled?: boolean
 }
 
 const Filter = (props: FilterProps) => {
@@ -30,6 +31,7 @@ const Filter = (props: FilterProps) => {
 					isChecked={checkbox.isChecked}
 					filter={props.filterName}
 					backgroundColor={checkbox.titleColor}
+					disabled={props.disabled}
 					onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 						handleChange({
 							title: checkbox.title,

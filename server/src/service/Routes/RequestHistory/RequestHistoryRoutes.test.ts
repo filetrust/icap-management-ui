@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser, { json } from "body-parser";
+import bodyParser from "body-parser";
 import winston from "winston";
 import { SinonStub, stub } from "sinon";
 import request from "supertest";
@@ -132,7 +132,7 @@ describe("RequestHistoryRoutes", () => {
                 // Assert
                 request(app)
                     .post("/request-history/transactionDetails/")
-                    .send({ transactionFilePath: "path" })
+                    .send({ transactionFilePath })
                     .expect(200, done)
             });
 

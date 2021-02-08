@@ -18,6 +18,7 @@ const TestConfig = () => {
             saveDraftPolicyPath: "/test",
             getCurrentPolicyPath: "/test",
             getPolicyHistoryPath: "/test",
+            getPaginatedPolicyHistoryPath: "/test",
             publishPolicyPath: "/test",
             distributeAdaptionPolicyPath: "/test",
             distributeNcfsPolicyPath: "/test"

@@ -16,7 +16,8 @@ const ButtonClose = (props: ButtonCloseProps) => {
 			data-test-id="buttonClose"
 			type="button"
 			onClick={props.onButtonClick}
-			className={[classes.ButtonClose, props.externalStyles].join(" ")}>
+			className={`${[classes.ButtonClose, props.externalStyles].join(" ")} ${props.disabled ? classes.disabled : ""}`}
+			disabled={props.disabled}>
 			<CloseIcon />
 		</button>
 	);
