@@ -18,7 +18,8 @@ const useStyles = makeStyles(() => ({
 		"& > *": {
 			justifyContent: "center",
 			display: 'flex'
-		}
+		},
+		overflow: "hidden"
 	},
 	spacer: { display: "none" },
 	caption: {
