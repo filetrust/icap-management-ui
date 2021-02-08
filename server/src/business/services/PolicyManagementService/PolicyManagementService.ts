@@ -9,11 +9,6 @@ import IPolicyManagementService from "../../../common/services/IPolicyManagement
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
 import { CancelToken } from "axios";
 
-// TODO: Remove
-import draft from "./draft.json";
-import current from "./current.json";
-
-
 class PolicyManagementService implements IPolicyManagementService {
     logger: Logger;
 
