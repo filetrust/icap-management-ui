@@ -12,6 +12,7 @@ import TestConfig from "../../TestConfig";
 import PolicyRoutes from "./PolicyRoutes";
 
 import policyExample from "../../../common/http/PolicyManagementApi/policyExample.json";
+import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
 let policyManagementServiceStub: SinonStub;
 
@@ -370,6 +371,57 @@ describe("PolicyRoutes", () => {
                         done();
                     })
             });
+        });
+
+        describe("post_/policy/history", () => {
+            // Arrange
+            const expectedResponse = new PolicyHistory(
+                1,
+                [new Policy(
+                    policyExample.id,
+                    policyExample.policyType,
+                    policyExample.published,
+                    policyExample.lastEdited,
+                    policyExample.created,
+                    policyExample.ncfsPolicy,
+                    policyExample.adaptionPolicy,
+                    policyExample.updatedBy
+                )]
+            );
+
+            const pagination = new PaginationModel(0, 25);
+
+            beforeEach(() => {
+                policyManagementServiceStub = stub(
+                    policyRoutes.policyManagementService, "getPaginatedPolicyHistory")
+                    .resolves(expectedResponse);
+            });
+
+            afterEach(() => {
+                policyManagementServiceStub.restore();
+            });
+
+            it("responds_with_200_OK", (done) => {
+                // Act
+                // Assert
+                request(app)
+                    .post("/policy/history")
+                    .send({pagination})
+                    .expect(200, done)
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .post("/policy/history")
+                    .send({pagination})
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.text).toEqual(JSON.stringify(expectedResponse));
+                        done();
+                    })
+            });
+
         });
     });
 });

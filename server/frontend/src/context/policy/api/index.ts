@@ -5,6 +5,7 @@ import Routes from "../../../Routes";
 import { Guid } from "guid-typescript";
 import { PolicyHistory } from "../../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 import axiosRequestHelper from "../../../helpers/axiosRequestHelper";
+import PaginationModel from "../../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
 const routes = new Routes().policyRoutes;
 
@@ -34,4 +35,8 @@ export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: Cance
 
 export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<PolicyHistory> => {
     return await axiosRequestHelper(routes.getPolicyHistory, "GET", cancellationToken);
+}
+
+export const getPaginatedPolicyHistory = async(pagination: PaginationModel, cancellationToken: CancelToken) => {
+    return await axiosRequestHelper(routes.getPaginatedPolicyHistoryPath, "POST", cancellationToken, {pagination});
 }

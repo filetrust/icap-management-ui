@@ -96,6 +96,7 @@ app.use(async (req, res, next) => {
                 }
 
                 if (!await Token.validateToken(config, req.session.token)) {
+                    logger.info(req.session.id + ": Session Token expired or invalid");
                     return res.status(403).json({ message: "Session Token was Invalid" });
                 }
             }

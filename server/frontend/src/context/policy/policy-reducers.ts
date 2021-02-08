@@ -4,6 +4,7 @@ import * as actionTypes from "../actionTypes";
 import { TPolicyState } from "./PolicyContext";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
+import PaginationModel from "../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
 const setIsPolicyChanged = (state: TPolicyState, changed: boolean) => {
 	return updateObject(state, {
@@ -60,6 +61,12 @@ const cancelDraftChanges = (state: TPolicyState) => {
 	});
 };
 
+const setPolicyHistoryPagination = (state: TPolicyState, pagination: PaginationModel) => {
+	return updateObject(state, {
+		policyHistoryPagination: pagination
+	});
+}
+
 export const policyReducer = (state: TPolicyState, action: { [actionName: string]: any }) => {
 	switch (action.type) {
 		case actionTypes.SET_IS_POLICY_CHANGED:
@@ -78,6 +85,8 @@ export const policyReducer = (state: TPolicyState, action: { [actionName: string
 			return cancelDraftChanges(state);
 		case actionTypes.SET_POLICY_HISTORY:
 			return setPolicyHistory(state, action.policyHistory);
+		case actionTypes.SET_POLICY_HISTORY_PAGINATION:
+			return setPolicyHistoryPagination(state, action.pagination);
 		default:
 			return state;
 	}

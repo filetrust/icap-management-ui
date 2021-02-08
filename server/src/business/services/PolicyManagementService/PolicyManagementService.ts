@@ -3,6 +3,7 @@ import { Guid } from "guid-typescript";
 import { Policy } from "../../../common/models/PolicyManagementService/Policy/Policy";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
 import { PolicyHistory } from "../../../common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
+import { GetPaginatedPolicyHistoryRequest } from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/GetPaginatedPolicyHistoryRequest";
 
 import IPolicyManagementService from "../../../common/services/IPolicyManagementService";
 import PolicyManagementApi from "../../../common/http/PolicyManagementApi/PolicyManagementApi";
@@ -166,6 +167,27 @@ class PolicyManagementService implements IPolicyManagementService {
 
         return policyHistory;
     }
+
+    getPaginatedPolicyHistory = async (request: GetPaginatedPolicyHistoryRequest, cancellationToken: CancelToken) => {
+        let policyHistory: PolicyHistory;
+
+        try {
+            this.logger.info(`Retrieving Policy History from the PolicyManagementService`);
+
+            const response = await PolicyManagementApi.getPaginatedPolicyHistory(
+                request.url, request.pagination, cancellationToken);
+
+            policyHistory = new PolicyHistory(response.policiesCount, response.policies);
+
+            this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
+        }
+        catch (error) {
+            this.logger.error(`Couldn't Retrieve Policy History: ${error}`);
+            throw error;
+        }
+
+        return policyHistory;
+    };
 }
 
 export default PolicyManagementService;
