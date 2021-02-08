@@ -4,11 +4,10 @@ import axios from "axios";
 import IConfig from "../../../common/models/IConfig";
 import handleCancellation from "../../../common/helpers/HandleCancellation";
 import { Guid } from "guid-typescript";
-import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 import { GetPolicyByIdRequest } from "../../../common/models/PolicyManagementService/GetPolicyById/GetPolicyByIdRequest";
-import handleError from "../../../common/helpers/HandleError";
 import { GetPaginatedPolicyHistoryRequest } from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/GetPaginatedPolicyHistoryRequest";
 import PaginationModel from "../../../common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import PolicyManagementService from "../../../business/services/PolicyManagementService/PolicyManagementService";
 
 class PolicyRoutes {
     cancellationMessage: string = "Request Cancelled by the Client";
