@@ -205,7 +205,7 @@ class PolicyRoutes {
             handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
-                const pagination = new PaginationModel(req.body.zeroBasedIndex, req.body.pageSize);
+                const pagination = new PaginationModel(req.body.pagination.zeroBasedIndex, req.body.pagination.pageSize);
                 const getPolicyHistoryRequest = new GetPaginatedPolicyHistoryRequest(requestUrl, pagination);
 
                 const policyHistory = await this.policyManagementService.getPaginatedPolicyHistory(
@@ -214,7 +214,11 @@ class PolicyRoutes {
                 res.json(policyHistory);
             }
             catch (error) {
-                handleError(res, error, `Error Retrieving Policy History`, this.logger);
+                if (error.stack) {
+                    const message = "Error Retrieving Policy History";
+                    this.logger.error(message + error.stack);
+                    res.status(500).json(message);
+                }
             }
         });
     }

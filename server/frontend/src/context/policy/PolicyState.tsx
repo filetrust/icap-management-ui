@@ -14,7 +14,7 @@ import {
 	saveDraftPolicy,
 	publishPolicy as publish,
 	deleteDraftPolicy as deleteDraft,
-	getPolicyHistory
+	getPaginatedPolicyHistory
 } from "./api";
 import PaginationModel from "../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
 
@@ -84,11 +84,23 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		dispatch({ type: actionTypes.SET_NEW_DRAFT_POLICY, newPolicy: policy });
 	}
 
+	const _loadPolicyHistory = async (pagination: PaginationModel) => {
+		const policyHistory = await getPaginatedPolicyHistory(pagination, cancellationTokenSource.token);
+
+		if ((policyHistory as PolicyHistory).policiesCount) {
+			(policyHistory as PolicyHistory).policies.sort((a: any, b: any) => {
+				return Date.parse(b.created) - Date.parse(a.created);
+			});
+		}
+
+		return policyHistory;
+	}
+
 	const _loadPolicies = async () => {
 		const requestChain = [
 			getCurrentPolicy(cancellationTokenSource.token),
 			getDraftPolicy(cancellationTokenSource.token),
-			getPolicyHistory(cancellationTokenSource.token)
+			_loadPolicyHistory(policyState.policyHistoryPagination)
 		];
 
 		const [currentPolicy, draftPolicy, policyHistory] = await Promise.all<Policy | PolicyHistory>(requestChain);
@@ -100,11 +112,6 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		setDraftPolicy(draftPolicy as Policy);
 		setNewDraftPolicy(draftPolicy as Policy);
 
-		if ((policyHistory as PolicyHistory).policiesCount) {
-			(policyHistory as PolicyHistory).policies.sort((a: any, b: any) => {
-				return Date.parse(b.created) - Date.parse(a.created);
-			});
-		}
 		setPolicyHistory(policyHistory as PolicyHistory);
 	}
 
@@ -178,7 +185,24 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 	}
 
 	const setPolicyHistoryPagination = (pagination: PaginationModel) => {
+		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
+		setStatus(status);
 		dispatch({ type: actionTypes.SET_POLICY_HISTORY_PAGINATION, pagination });
+
+		(async () => {
+			try {
+				const policyHistory = await _loadPolicyHistory(pagination);
+				setPolicyHistory(policyHistory);
+				status = "LOADED";
+			}
+			catch (error) {
+				setPolicyError(error);
+				status = "ERROR";
+			}
+			finally {
+				setStatus(status);
+			}
+		})();
 	}
 
 	useEffect(() => {
