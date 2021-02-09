@@ -85,6 +85,7 @@ const Analytics = () => {
 
                                 <div className={classes.infoBlocks}>
                                     <InfoBlock title={"Total files processed"} sum={data.totalProcessed} />
+                                    <InfoBlock title={"Files Submitted to the Non-Compliant File Service"} sum={0} />
                                 </div>
 
                                 {/*

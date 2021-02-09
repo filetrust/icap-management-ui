@@ -7,6 +7,7 @@ const LineChart = ({ data }) => {
 
 		const labels = data.data.map(i => new Date(i.date).toLocaleTimeString());
 		const processed = data.data.map(i => i.processed);
+		const failed = data.data.map(i => i.processedByOutcome.Failed);
 
 		setChartData({
 			labels,
@@ -17,7 +18,17 @@ const LineChart = ({ data }) => {
 					lineTension: 0,
 					backgroundColor: ["#7394ca"],
 					borderColor: "#7394ca",
-					borderWidth: 4
+					borderWidth: 4,
+					fill: false
+				},
+				{
+					label: "Failed",
+					data: failed,
+					lineTension: 0,
+					backgroundColor: ["#7394ca"],
+					borderColor: "#7394ca",
+					borderWidth: 4,
+					fill: false
 				}
 			]
 		});
