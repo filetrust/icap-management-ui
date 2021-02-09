@@ -10,6 +10,7 @@ export interface GlobalStoreContextProps {
 	riskFilterList: any[],
 	requestHistoryTimeFilter: RequestHistoryTimeFilter,
 	analyticsTimeFilter: AnalyticsTimeFilter,
+	updateAnalyticsTimeFilter: (timeDateFilter: any) => void,
 	selectedFilters: any[],
 	navExpanded: boolean
 }
