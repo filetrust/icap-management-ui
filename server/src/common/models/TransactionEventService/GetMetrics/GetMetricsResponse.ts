@@ -1,15 +1,25 @@
 import { ArgumentNullException } from "../../errors/errors";
 
+export interface DataPoint {
+    date: Date,
+    processed: number,
+    processedByOutcome: {
+        Failed: number,
+        Replace: number,
+        Unmodified: number
+    },
+    processedByNcfs: {
+        Blocked: number,
+        Relayed: number,
+        Replaced: number
+    }
+}
+
 export class GetMetricsResponse {
     totalProcessed: number;
-    data: [
-        {
-            date: Date,
-            processed: number
-        }
-    ]
+    data: DataPoint[]
 
-    constructor(totalProcessed: number, data: [{ date: Date, processed: number }]) {
+    constructor(totalProcessed: number, data: DataPoint[]) {
         if (totalProcessed === null) {
             throw new ArgumentNullException("totalProcessed");
         }

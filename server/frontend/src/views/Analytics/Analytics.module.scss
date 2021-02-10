@@ -1,11 +1,16 @@
-.Analytics {
-	overflow: hidden;
+.main {
+	top: 12rem !important;
+	height: calc(100% - 13.5rem);
+}
+
+.loading {
+	margin-top: 42vh;
+	margin-left: 42vw;
+}
+
+.container {
 	height: 100%;
-
-	//background: #ffffff;
-
-	//border: 1px solid #b6bfc9;
-	//border-radius: 0.6rem;
+	padding-top: 1rem;
 
 	.top {
 		display: flex;
@@ -33,40 +38,34 @@
 
 		padding-bottom: 14rem;
 
-		background: #ffffff;
-
-		border: 1px solid #b6bfc9;
-		border-radius: 0.6rem;
-
-		h3 {
-			font-size: 2.3rem;
-			line-height: 4rem;
-			font-weight: 500;
-			span {
-				font-size: 2rem;
-
-				font-style: italic;
-			}
-		}
-
 		overflow-y: auto;
+
 		.innerTop {
 			display: flex;
+			width: 100%;
+
+			.pieChartTitle {
+				text-align: center;
+			}
 		}
 	}
 
 	& .infoBlocks {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		flex-wrap: wrap;
-
-		margin: 5rem 2rem 4rem 2rem;
+		padding-left: 25%;
+		margin-top: 6rem;
 
 		& div {
 			margin: 2rem 2rem;
 		}
+	}
+
+	& .noMetrics {
+		display: flex;
+		padding-left: calc(50% - 37rem);
+	}
+
+	& .noMetricsFoundMessage {
+		margin-top: 10%;
 	}
 
 	& .pieChart {
@@ -103,8 +102,8 @@
 
 			& .pickers {
 				left: 50%;
-                transform: translateX(-50%);
-                position: absolute;
+				transform: translateX(-50%);
+				position: absolute;
 			}
 		}
 	}
