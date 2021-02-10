@@ -45,7 +45,7 @@ const Analytics = () => {
             catch (error) {
                 setStatus("ERROR");
                 // tslint:disable-next-line: no-console
-                console.error("RequestHistory: " + error);
+                console.error("Analytics: " + error);
             }
         }
 
