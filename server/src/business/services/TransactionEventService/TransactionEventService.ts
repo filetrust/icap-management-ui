@@ -66,7 +66,7 @@ class TransactionEventService implements ITransactionEventService {
             const response = await TransactionEventApi.getMetrics(
                 request.url, request.fromDate, request.toDate, cancellationToken);
 
-            metrics = new GetMetricsResponse(response.totalProcessed, response.data);
+            metrics = new GetMetricsResponse(response.totalProcessed, response.totalSentToNcfs, response.data);
 
             this.logger.info(`Retrieved Metrics from the TransactionEventService`);
         }

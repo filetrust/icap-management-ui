@@ -21,7 +21,7 @@ import Policy from "./views/Policy/Policy";
 import Confirm from "./views/Confirm/Confirm";
 import ResetPassword from "./views/ResetPassword/ResetPassword";
 import Users from "./views/Users/Users";
-import AnalyticsWrapper from "./views/Analytics/AnalyticsWrapper";
+import Analytics from "./views/Analytics/Analytics";
 
 const App = () => {
 	const { currentUser } = useContext(UserContext);
@@ -36,7 +36,7 @@ const App = () => {
 				<Redirect to="/request-history" />
 			</Route> */}
 
-			<Route path="/analytics" component={AnalyticsWrapper} />
+			<Route path="/analytics" component={Analytics} />
 
 			<Route path="/request-history" component={RequestHistory} />
 
