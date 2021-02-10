@@ -17,13 +17,19 @@ export interface DataPoint {
 
 export class GetMetricsResponse {
     totalProcessed: number;
+    totalSentToNcfs: number;
     data: DataPoint[]
 
-    constructor(totalProcessed: number, data: DataPoint[]) {
+    constructor(totalProcessed: number, totalSentToNcfs: number, data: DataPoint[]) {
         if (totalProcessed === null) {
             throw new ArgumentNullException("totalProcessed");
         }
         this.totalProcessed = totalProcessed;
+
+        if (totalSentToNcfs === null) {
+            throw new ArgumentNullException("totalProcessed");
+        }
+        this.totalSentToNcfs = totalSentToNcfs;
 
         if (data === null) {
             throw new ArgumentNullException("data");
