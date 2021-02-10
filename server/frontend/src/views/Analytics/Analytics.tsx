@@ -5,6 +5,7 @@ import MainTitle from "../../hoc/MainTitle/MainTitle";
 import Filters from "./Filters/Filters";
 import Main from "../../hoc/Main/Main";
 import InfoBlock from "../../components/UI/InfoBlock/InfoBlock";
+import OutcomePieChart from "./Charts/PieChart/OutcomePieChart";
 import LineChart from "./Charts/LineChart/LineChart";
 
 import { GlobalStoreContext } from '../../context/globalStore/globalStore-context';
@@ -21,7 +22,7 @@ const Analytics = () => {
 
     const { analyticsTimeFilter } = useContext(GlobalStoreContext);
 
-    const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">(null);
+    const [status, setStatus] = useState<"LOADING" | "LOADED" | "ERROR">("LOADING");
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -65,38 +66,48 @@ const Analytics = () => {
 
             <Filters disabled={status === "LOADING"} />
 
-            <Main>
+            <Main externalStyles={classes.main}>
                 {status === "LOADING" &&
-                    <div>Loading...</div>
+                    <div className={classes.loading}>Loading...</div>
                 }
 
                 {status === "LOADED" &&
                     <article className={classes.container}>
                         <div className={classes.innerContent}>
                             <div className={classes.innerTop}>
-                                <h3>
-                                    {
-                                        `Transactions From
-                                    ${analyticsTimeFilter.timestampRangeStart.format("DD/MM/YYYY H:mm A")}
-                                    to
-                                    ${analyticsTimeFilter.timestampRangeEnd.format("DD/MM/YYYY H:mm A")}`
-                                    }
-                                </h3>
-
-                                <div className={classes.infoBlocks}>
+                                <div className={`${classes.infoBlocks} ${data.totalProcessed < 1 ? classes.noMetrics : ""}`}>
                                     <InfoBlock title={"Total files processed"} sum={data.totalProcessed} />
                                     <InfoBlock title={"Files Submitted to the Non-Compliant File Service"} sum={0} />
                                 </div>
 
-                                {/*
+
                                 <div data-test-id="pieChart">
-                                <PieChart rawData={data} />
+                                    {data.totalProcessed > 0 &&
+                                        <>
+                                            <OutcomePieChart data={data.data} />
+                                            <h3 className={classes.pieChartTitle}>Files Processed by Outcome</h3>
+                                        </>
+                                    }
                                 </div>
-                            */}
+
                             </div>
+
+                            {data.totalProcessed < 1 &&
+                                <div className={classes.noMetricsFoundMessage}>
+                                    No Metrics Found between {
+                                        `${analyticsTimeFilter.timestampRangeStart.format("DD/MM/YYYY H:mm A")}
+                                        and
+                                        ${analyticsTimeFilter.timestampRangeEnd.format("DD/MM/YYYY H:mm A")}`
+                                    }
+                                </div>
+                            }
+
                             <div data-test-id="lineChart" className={classes.lineChart}>
                                 {data.totalProcessed > 0 &&
-                                    <LineChart data={data} />
+                                    <>
+                                        <h3>Files Processed by Outcome</h3>
+                                        <LineChart data={data.data} />
+                                    </>
                                 }
                             </div>
                         </div>
@@ -104,7 +115,7 @@ const Analytics = () => {
                 }
 
                 {status === "ERROR" &&
-                    <div>Error Getting Metrics</div>
+                    <div className={classes.loading}>Error Getting Metrics</div>
                 }
             </Main>
         </>

@@ -4,14 +4,14 @@ export interface DataPoint {
     date: Date,
     processed: number,
     processedByOutcome: {
-        failed: number,
-        replace: number,
-        unmodified: number
+        Failed: number,
+        Replace: number,
+        Unmodified: number
     },
     processedByNcfs: {
-        blocked: number,
-        relayed: number,
-        replaced: number
+        Blocked: number,
+        Relayed: number,
+        Replaced: number
     }
 }
 
