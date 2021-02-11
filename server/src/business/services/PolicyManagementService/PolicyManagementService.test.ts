@@ -268,6 +268,7 @@ describe("PolicyManagementService", () => {
 
         const policyHistory = new PolicyHistory(
             1,
+            1,
             [new Policy(
                 policyExample.id,
                 policyExample.policyType,
@@ -315,6 +316,7 @@ describe("PolicyManagementService", () => {
         let getPolicyHistoryStub: SinonStub;
 
         const policyHistory = new PolicyHistory(
+            1,
             1,
             [new Policy(
                 policyExample.id,
