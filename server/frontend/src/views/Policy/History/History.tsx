@@ -124,6 +124,7 @@ const History = () => {
 							(event: React.ChangeEvent<HTMLInputElement>) =>
 								setPageSize(parseInt(event.target.value, 10) as 25 | 50 | 100)
 						}
+						disabled={status === "LOADING"}
 					/>
 				</div>
 			</div>

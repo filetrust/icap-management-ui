@@ -10,7 +10,8 @@ export interface PaginationProps {
 	onChangePage: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, page: number) => void,
 	rowsPerPageOptions: number[],
 	rowsPerPage: number,
-	onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+	onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void,
+	disabled?: boolean
 }
 
 const useStyles = makeStyles(() => ({
@@ -48,10 +49,10 @@ const Pagination = (props: PaginationProps) => {
 			component="div"
 			count={props.count}
 			page={props.page}
-			onChangePage={props.onChangePage}
+			onChangePage={props.disabled ? () => { return; } : props.onChangePage}
 			rowsPerPage={props.rowsPerPage}
 			rowsPerPageOptions={props.rowsPerPageOptions}
-			onChangeRowsPerPage={props.onChangeRowsPerPage} />
+			onChangeRowsPerPage={props.disabled ? () => { return; } : props.onChangeRowsPerPage} />
 	);
 };
 
