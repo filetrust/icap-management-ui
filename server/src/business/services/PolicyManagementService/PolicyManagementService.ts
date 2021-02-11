@@ -156,7 +156,7 @@ class PolicyManagementService implements IPolicyManagementService {
             this.logger.info(`Retrieving Policy History from the PolicyManagementService`);
 
             const response = await PolicyManagementApi.getPolicyHistory(getPolicyHistoryUrl, cancellationToken);
-            policyHistory = new PolicyHistory(response.policiesCount, response.policies);
+            policyHistory = new PolicyHistory(response.policiesCount, response.totalPolicies, response.policies);
 
             this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
         }
@@ -177,7 +177,7 @@ class PolicyManagementService implements IPolicyManagementService {
             const response = await PolicyManagementApi.getPaginatedPolicyHistory(
                 request.url, request.pagination, cancellationToken);
 
-            policyHistory = new PolicyHistory(response.policiesCount, response.policies);
+            policyHistory = new PolicyHistory(response.policiesCount, response.totalPolicies, response.policies);
 
             this.logger.info(`Retrieved Policy History from the PolicyManagementService`);
         }

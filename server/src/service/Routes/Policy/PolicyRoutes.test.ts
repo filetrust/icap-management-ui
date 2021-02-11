@@ -331,6 +331,7 @@ describe("PolicyRoutes", () => {
             // Arrange
             const expectedResponse = new PolicyHistory(
                 1,
+                1,
                 [new Policy(
                     policyExample.id,
                     policyExample.policyType,
@@ -376,6 +377,7 @@ describe("PolicyRoutes", () => {
         describe("post_/policy/history", () => {
             // Arrange
             const expectedResponse = new PolicyHistory(
+                1,
                 1,
                 [new Policy(
                     policyExample.id,
