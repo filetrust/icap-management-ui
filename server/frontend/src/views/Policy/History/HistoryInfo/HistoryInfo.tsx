@@ -20,7 +20,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
 	];
 
-	const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
+	const [selectedTab, setSelectedTab] = useState<string | "Adaptation Policy" | "NCFS Policy">("Adaptation Policy");
 
 	const policyTimestampData = (
 		<div className={classes.tableContainer}>

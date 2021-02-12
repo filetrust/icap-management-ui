@@ -8,7 +8,10 @@ import {
 	TableBody,
 } from "@material-ui/core";
 import moment from "moment";
-import TransactionDetails from "../TransactionDetails/TransactionDetails";
+import Tab from "../../../components/Tabs/Tab/Tab";
+import TabNav from "../../../components/Tabs/TabNav/TabNav";
+import TransactionDetails from "./TransactionDetails/TransactionDetails";
+import ActivePolicy from "./ActivePolicy/ActivePolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
@@ -36,6 +39,12 @@ const FileInfo = (props: FileInfoProps) => {
 	const [transactionDetails, setTransactionDetails] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+
+	const tabs = [
+		{ testId: "buttonTransactionDetails", name: "Transaction Details" },
+		{ testId: "buttonActivePolicy", name: "Adaptation Policy" },
+	];
+	const [selectedTab, setSelectedTab] = useState<string | "Transaction Details" | "Adaptation Policy">("Transaction Details");
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -135,9 +144,19 @@ const FileInfo = (props: FileInfoProps) => {
 						}
 
 						{!isError &&
-							<div className={classes.transactionDetailsContainer}>
+							<div className={classes.tabContainer}>
 								{transactionDetails.status === FileDetailsStatus.Success &&
-									<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+									<TabNav
+										tabs={tabs}
+										selectedTabName={selectedTab}
+										onSetActiveTabHandler={tab => setSelectedTab(tab)}>
+										<Tab isSelected={selectedTab === "Transaction Details"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+										</Tab>
+										<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+											<ActivePolicy policyId={props.fileData.activePolicyId.value} />
+										</Tab>
+									</TabNav>
 								}
 							</div>
 						}
@@ -145,7 +164,7 @@ const FileInfo = (props: FileInfoProps) => {
 				}
 
 			</div>
-		</section>
+		</section >
 	);
 };
 

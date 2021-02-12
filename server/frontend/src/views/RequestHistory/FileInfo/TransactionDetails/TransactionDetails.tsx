@@ -6,10 +6,10 @@ import {
     TableCell,
     TableBody,
 } from "@material-ui/core";
-import Checkbox from "../../../components/UI/Checkbox/Checkbox";
-import Badge from "../../../components/UI/Badge/Badge";
+import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
+import Badge from "../../../../components/UI/Badge/Badge";
 
-import classes from "../FileInfo/FileInfo.module.scss";
+import classes from "../FileInfo.module.scss";
 
 export interface TransactionDetailsProps {
     analysisReport: any
