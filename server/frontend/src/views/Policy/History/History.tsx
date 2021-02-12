@@ -48,9 +48,17 @@ const History = () => {
 	};
 
 	const setPageSize = (pageSize: 25 | 50 | 100) => {
+		let index: number = policyHistoryPagination.zeroBasedIndex;
+
+		// Check if the current page is greater than the max number of pages
+		const lastPage = Math.max(0, Math.ceil(policyHistory.totalPolicies / pageSize) - 1);
+		if (policyHistoryPagination.zeroBasedIndex > lastPage) {
+			index = lastPage;
+		}
+
 		setPolicyHistoryPagination({
-			...policyHistoryPagination,
-			pageSize
+			pageSize,
+			zeroBasedIndex: index,
 		});
 	}
 
