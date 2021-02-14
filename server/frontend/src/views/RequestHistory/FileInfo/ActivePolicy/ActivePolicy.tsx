@@ -1,12 +1,13 @@
 import React from "react";
+import { Policy } from "../../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 
 export interface ActivePolicyProps {
-    policyId: string
+    policy: Policy
 }
 
 const ActivePolicy = (props: ActivePolicyProps) => {
     return (
-        <div>{props.policyId}</div>
+        <div>{props.policy.id}</div>
     );
 }
 

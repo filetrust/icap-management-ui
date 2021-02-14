@@ -8,7 +8,7 @@ import { PolicyHistory } from "../../../common/models/PolicyManagementService/Po
 export default class PolicyManagementApi {
     static getPolicyById = async (
         getPolicyByIdUrl: string,
-        policyId: Guid,
+        policyId: string,
         cancellationToken: CancelToken,
         headers?: { [header: string]: string }): Promise<string> => {
 

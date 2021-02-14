@@ -49,7 +49,7 @@ describe("PolicyManagementApi", () => {
     describe("getPolicyById", () => {
         describe("response_status_not_ok", () => {
             // Arrange
-            const policyId = Guid.create();
+            const policyId = "id";
             let error: any;
             const expectedError = new Error("Error");
 
@@ -81,7 +81,7 @@ describe("PolicyManagementApi", () => {
 
         describe("should_respond_with_response_json_if_OK", () => {
             // Arrange
-            const policyId = Guid.create();
+            const policyId = "id";
             const expectedRequestUrl = `${url}?id=${policyId.toString()}`;
             const expectedResponse = { test: "test" };
             let result: string;

@@ -15,7 +15,11 @@ import ActivePolicy from "./ActivePolicy/ActivePolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
+import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { getTransactionDetails } from "../api/index";
+import { getPolicyById } from "../../../context/policy/api/helpers/getPolicyById";
+
+import Routes from "../../../Routes";
 
 import classes from "./FileInfo.module.scss";
 
@@ -33,18 +37,22 @@ export interface FileInfoProps {
 }
 
 const FileInfo = (props: FileInfoProps) => {
+	const getPolicyRoute = new Routes().policyRoutes.getPolicyByIdRoute;
 	const CancelToken = axios.CancelToken;
 	const cancellationTokenSource = CancelToken.source();
 
 	const [transactionDetails, setTransactionDetails] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [isError, setIsError] = useState(false);
+	const [activePolicy, setActivePolicy] = useState<Policy>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isError, setIsError] = useState<boolean>(false);
 
 	const tabs = [
 		{ testId: "buttonTransactionDetails", name: "Transaction Details" },
-		{ testId: "buttonActivePolicy", name: "Adaptation Policy" },
+		{ testId: "buttonActivePolicyAdaptationPolicy", name: "Adaptation Policy" },
+		{ testId: "buttonActivePolicyNcfsPolicy", name: "NCFS Policy" }
 	];
-	const [selectedTab, setSelectedTab] = useState<string | "Transaction Details" | "Adaptation Policy">("Transaction Details");
+	const [selectedTab, setSelectedTab] =
+		useState<string | "Transaction Details" | "Adaptation Policy" | "NCFS Policy">("Transaction Details");
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -54,8 +62,11 @@ const FileInfo = (props: FileInfoProps) => {
 			try {
 				const transactionDetailResponse =
 					await getTransactionDetails(props.fileData.directory, cancellationTokenSource.token);
-
 				setTransactionDetails(transactionDetailResponse);
+
+				const activePolicyResponse =
+					await getPolicyById(getPolicyRoute, props.fileData.activePolicyId.value, cancellationTokenSource.token);
+				setActivePolicy(activePolicyResponse);
 			}
 			catch (error) {
 				setIsError(true);
@@ -154,7 +165,7 @@ const FileInfo = (props: FileInfoProps) => {
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 										</Tab>
 										<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<ActivePolicy policyId={props.fileData.activePolicyId.value} />
+											<ActivePolicy policy={activePolicy} />
 										</Tab>
 									</TabNav>
 								}
