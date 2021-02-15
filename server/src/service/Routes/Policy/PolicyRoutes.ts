@@ -48,14 +48,14 @@ class PolicyRoutes {
 
     setup = async () => {
         // Get Policy
-        this.app.get("/policy/getPolicy/", async (req, res) => {
+        this.app.post("/policy/getPolicy", async (req, res) => {
             const requestUrl = this.policyManagementServiceBaseUrl + this.getPolicyPath;
 
             const cancellationTokenSource = axios.CancelToken.source();
             handleCancellation(req, cancellationTokenSource, this.cancellationMessage);
 
             try {
-                const getPolicyRequest = new GetPolicyByIdRequest(requestUrl, req.query.policyId as string);
+                const getPolicyRequest = new GetPolicyByIdRequest(requestUrl, req.body.policyId);
 
                 const policy = await this.policyManagementService.getPolicy(getPolicyRequest, cancellationTokenSource.token);
 
