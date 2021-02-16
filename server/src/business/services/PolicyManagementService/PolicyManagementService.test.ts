@@ -80,7 +80,7 @@ describe("PolicyManagementService", () => {
             cancellationToken = cancellationTokenSource.token;
 
             getPolicyByIdStub = stub(PolicyManagementApi, "getPolicyById")
-                .resolves(JSON.stringify(responseString));
+                .resolves(responseString);
         });
 
         afterEach(() => {

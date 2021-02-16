@@ -61,7 +61,7 @@ describe("PolicyRoutes", () => {
 
         policyRoutes.setup();
 
-        describe("get_/policy/getPolicy", () => {
+        describe("post_/policy/getPolicy", () => {
             // Arrange
             const policyId = Guid.create().toString();
 
@@ -90,14 +90,16 @@ describe("PolicyRoutes", () => {
                 // Act
                 // Assert
                 request(app)
-                    .get("/policy/getPolicy/" + policyId)
+                    .post("/policy/getPolicy")
+                    .send({policyId})
                     .expect(200, done)
             });
 
             it("responds_with_correct_json", (done) => {
                 // Act
                 request(app)
-                    .get("/policy/getPolicy/" + policyId)
+                    .post("/policy/getPolicy")
+                    .send({policyId})
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.text).toEqual(JSON.stringify(expectedResponse));

@@ -11,7 +11,7 @@ import moment from "moment";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import TransactionDetails from "./TransactionDetails/TransactionDetails";
-import ActivePolicy from "./ActivePolicy/ActivePolicy";
+import ActiveAdaptationPolicy from "./ActivePolicy/ActiveAdaptationPolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
@@ -165,7 +165,14 @@ const FileInfo = (props: FileInfoProps) => {
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 										</Tab>
 										<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<ActivePolicy policy={activePolicy} />
+											<ActiveAdaptationPolicy
+												id={activePolicy.id}
+												published={activePolicy.published}
+												updatedBy={activePolicy.updatedBy}
+												adaptationPolicy={activePolicy.adaptionPolicy} />
+										</Tab>
+										<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+											<div>NCFS Policy</div>
 										</Tab>
 									</TabNav>
 								}

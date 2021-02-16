@@ -10,7 +10,7 @@ export default class PolicyManagementApi {
         getPolicyByIdUrl: string,
         policyId: string,
         cancellationToken: CancelToken,
-        headers?: { [header: string]: string }): Promise<string> => {
+        headers?: { [header: string]: string }): Promise<Policy | any> => {
 
         const url = `${getPolicyByIdUrl}?id=${policyId.toString()}`;
 
