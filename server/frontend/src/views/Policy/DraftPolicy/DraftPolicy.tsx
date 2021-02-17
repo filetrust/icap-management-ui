@@ -195,6 +195,7 @@ const DraftPolicy = () => {
 
                                     <PolicyForNonCompliantFiles
                                         ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
+                                        currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
                                         updateNcfsActions={updateNcfsActions} />
                                 </div>
                             </Tab>

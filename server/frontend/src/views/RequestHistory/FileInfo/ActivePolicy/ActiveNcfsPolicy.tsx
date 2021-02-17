@@ -50,6 +50,7 @@ const ActiveNcfsPolicy = (props: ActiveAdaptationPolicyProps) => {
 
             <PolicyForNonCompliantFiles
                 ncfsActions={props.adaptationPolicy.ncfsActions}
+                currentNcfsActions={props.adaptationPolicy.ncfsActions}
                 disabled />
         </>
     );

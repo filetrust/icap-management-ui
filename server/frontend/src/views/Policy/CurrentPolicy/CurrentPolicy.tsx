@@ -122,6 +122,7 @@ const CurrentPolicy = () => {
 
 										<PolicyForNonCompliantFiles
 											ncfsActions={currentPolicy.adaptionPolicy.ncfsActions}
+											currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
 											disabled />
 									</div>
 								</>

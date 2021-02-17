@@ -76,6 +76,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 
 								<PolicyForNonCompliantFiles
 									ncfsActions={props.policy.adaptionPolicy.ncfsActions}
+									currentNcfsActions={props.policy.adaptionPolicy.ncfsActions}
 									disabled />
 							</div>
 						</>
