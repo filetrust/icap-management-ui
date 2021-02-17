@@ -26,7 +26,7 @@ module.exports = {
         "react/no-string-refs": ["error"],
         "jsx-quotes": ["error", "prefer-double"],
         "func-style": ["error", "expression", { "allowArrowFunctions": true }],
-        indent: ["error", 4, { SwitchCase: 1 }],
+        indent: ["error", "tab", { SwitchCase: 1 }],
         "linebreak-style": ["error", "windows"],
         quotes: ["error", "double"],
         semi: ["error", "always"],
