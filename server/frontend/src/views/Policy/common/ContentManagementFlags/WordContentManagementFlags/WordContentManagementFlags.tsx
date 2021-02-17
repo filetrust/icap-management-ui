@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { WordContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/WordContentFlags";
-import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
 
 export interface WordContentManagementFlagsProps {
     initialWordContentFlags: WordContentFlags,
     updateWordContentFlags: (initialWordContentFlags: WordContentFlags) => void,
+    currentWordContentFlags: WordContentFlags,
     allDisabled?: boolean
 }
 
 const WordContentManagementFlags = (props: WordContentManagementFlagsProps) => {
-    const { initialWordContentFlags, updateWordContentFlags } = props;
-
-    const {
-        currentPolicy
-    } = useContext(PolicyContext);
-    const currentWordContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.wordContentManagement;
+    const { initialWordContentFlags, updateWordContentFlags, currentWordContentFlags } = props;
 
     const updateContentFlagAction = (flagActionName: string) => {
         const newContentAction = initialWordContentFlags[flagActionName as keyof WordContentFlags]

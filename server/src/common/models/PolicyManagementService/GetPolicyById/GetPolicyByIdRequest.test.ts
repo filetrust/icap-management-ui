@@ -1,4 +1,3 @@
-import { Guid } from "guid-typescript";
 import { GetPolicyByIdRequest } from "./GetPolicyByIdRequest";
 
 describe("GetPolicyByIdRequest", () => {
@@ -6,7 +5,7 @@ describe("GetPolicyByIdRequest", () => {
         it("should_construct_with_valid_arguments", () => {
             // Arrange
             const url = "www.glasswall.com";
-            const policyId = Guid.create();
+            const policyId = "id";
 
             // Act
             const getPolicyByIdRequest = new GetPolicyByIdRequest(
@@ -22,7 +21,7 @@ describe("GetPolicyByIdRequest", () => {
         it("throws_ArgumentNullException_if_url_is_empty", () => {
             // Arrange
             const url = "";
-            const policyId = Guid.create();
+            const policyId = "id";
 
             try {
                 // Act
@@ -42,7 +41,7 @@ describe("GetPolicyByIdRequest", () => {
         it("throws_ArgumentNullException_if_policyId_is_empty", () => {
             // Arrange
             const url = "www.glasswall.com";
-            const policyId: Guid = null;
+            const policyId: string = "";
 
             try {
                 // Act

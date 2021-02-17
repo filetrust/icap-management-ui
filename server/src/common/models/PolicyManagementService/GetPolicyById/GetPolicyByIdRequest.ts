@@ -1,11 +1,10 @@
-import { Guid } from "guid-typescript";
 import { ArgumentNullException } from "../../errors/errors";
 
 export class GetPolicyByIdRequest {
     url: string;
-    policyId: Guid;
+    policyId: string;
 
-    constructor(url: string, policyId: Guid) {
+    constructor(url: string, policyId: string) {
         if (!url) {
             throw new ArgumentNullException("url");
         }

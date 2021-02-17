@@ -15,12 +15,13 @@ import classes from "./ContentManagementFlags.module.scss";
 
 export interface ContentManagementFlagsProps {
     contentManagementFlags: ContentFlags,
+    currentPolicyContentManagementFlags: ContentFlags,
     updateContentFlags?: (newContentFlags: ContentFlags) => void,
     disabled?: boolean
 }
 
 const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
-    const { contentManagementFlags, updateContentFlags } = props;
+    const { contentManagementFlags, currentPolicyContentManagementFlags, updateContentFlags } = props;
 
     const updateWordContentFlags = (newWordContentFlags: WordContentFlags) => {
         updateContentFlags({
@@ -58,6 +59,7 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
                     <WordContentManagementFlags
                         initialWordContentFlags={contentManagementFlags.wordContentManagement}
                         updateWordContentFlags={updateWordContentFlags}
+                        currentWordContentFlags={currentPolicyContentManagementFlags.wordContentManagement}
                         allDisabled={props.disabled} />
                 </div>
             </div>
@@ -67,6 +69,7 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
                     <ExcelContentManagementFlags
                         initialExcelContentFlags={contentManagementFlags.excelContentManagement}
                         updateExcelContentFlags={updateExcelContentFlags}
+                        currentExcelContentFlags={currentPolicyContentManagementFlags.excelContentManagement}
                         allDisabled={props.disabled} />
                 </div>
             </div>
@@ -76,6 +79,7 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
                     <PowerpointContentManagementFlags
                         initialPowerpointContentFlags={contentManagementFlags.powerPointContentManagement}
                         updatePowerpointContentFlags={updatePowerpointContentFlags}
+                        currentPowerPointContentFlags={currentPolicyContentManagementFlags.powerPointContentManagement}
                         allDisabled={props.disabled} />
                 </div>
             </div>
@@ -86,6 +90,7 @@ const ContentManagementFlags = (props: ContentManagementFlagsProps) => {
                     <PdfContentManagementFlags
                         initialPdfContentFlags={contentManagementFlags.pdfContentManagement}
                         updatePdfContentFlags={updatePdfContentFlags}
+                        currentPdfContentFlags={currentPolicyContentManagementFlags.pdfContentManagement}
                         allDisabled={props.disabled} />
                 </div>
             </div>

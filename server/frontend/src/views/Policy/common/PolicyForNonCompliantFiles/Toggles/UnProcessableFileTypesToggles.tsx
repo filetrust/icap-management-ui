@@ -1,21 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { NcfsOption } from "../../../../../../../src/common/models/enums/NcfsOption";
-import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 
 import classes from "./Toggles.module.scss";
 
 export interface UnProcessableFileTypesTogglesProps {
 	unprocessableFileTypeAction: NcfsOption,
 	updateOption?: (newOption: NcfsOption) => void,
+	currentOption: NcfsOption,
 	disabled?: boolean
 }
 
 const UnProcessableFileTypesToggles = (props: UnProcessableFileTypesTogglesProps) => {
-	const {
-		currentPolicy
-	} = useContext(PolicyContext);
-	const currentOption = currentPolicy.adaptionPolicy.ncfsActions.unprocessableFileTypeAction;
-
 	return (
 		<div className={classes.Toggles}>
 			<form method="post" action="">
@@ -29,7 +24,7 @@ const UnProcessableFileTypesToggles = (props: UnProcessableFileTypesTogglesProps
 						disabled={props.disabled} />
 
 					<label
-						className={currentOption === NcfsOption.Relay && props.unprocessableFileTypeAction !== NcfsOption.Relay ? classes.touched : ""}
+						className={props.currentOption === NcfsOption.Relay && props.unprocessableFileTypeAction !== NcfsOption.Relay ? classes.touched : ""}
 						htmlFor="relay-unprocessableFileTypes">
 						{" "}
 						<strong>Relay </strong>- The unmodified original file should be
@@ -46,7 +41,7 @@ const UnProcessableFileTypesToggles = (props: UnProcessableFileTypesTogglesProps
 						disabled={props.disabled} />
 
 					<label
-						className={currentOption === NcfsOption.Block && props.unprocessableFileTypeAction !== NcfsOption.Block ? classes.touched : ""}
+						className={props.currentOption === NcfsOption.Block && props.unprocessableFileTypeAction !== NcfsOption.Block ? classes.touched : ""}
 						htmlFor="block-unprocessableFileTypes">
 						{" "}
 						<strong>Block </strong>- The original file should be blocked. An
@@ -64,7 +59,7 @@ const UnProcessableFileTypesToggles = (props: UnProcessableFileTypesTogglesProps
 						disabled={props.disabled} />
 
 					<label
-						className={currentOption === NcfsOption.Refer && props.unprocessableFileTypeAction !== NcfsOption.Refer ? classes.touched : ""}
+						className={props.currentOption === NcfsOption.Refer && props.unprocessableFileTypeAction !== NcfsOption.Refer ? classes.touched : ""}
 						htmlFor="refer-unprocessableFileTypes">
 						{" "}
 						<strong>Refer </strong>- The document it is submitted to the

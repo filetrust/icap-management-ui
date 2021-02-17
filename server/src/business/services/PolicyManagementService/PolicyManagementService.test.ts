@@ -80,7 +80,7 @@ describe("PolicyManagementService", () => {
             cancellationToken = cancellationTokenSource.token;
 
             getPolicyByIdStub = stub(PolicyManagementApi, "getPolicyById")
-                .resolves(JSON.stringify(responseString));
+                .resolves(responseString);
         });
 
         afterEach(() => {
@@ -90,7 +90,7 @@ describe("PolicyManagementService", () => {
         it("returns_correct_response", async () => {
             // Arrange
             const policyManagementService = new PolicyManagementService(logger);
-            const request = new GetPolicyByIdRequest("www.glasswall.com", Guid.create());
+            const request = new GetPolicyByIdRequest("www.glasswall.com", "id");
 
             // Act
             const result = await policyManagementService.getPolicy(request, cancellationToken);

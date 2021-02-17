@@ -8,13 +8,22 @@ import {
 	TableBody,
 } from "@material-ui/core";
 import moment from "moment";
-import TransactionDetails from "../TransactionDetails/TransactionDetails";
+import Tab from "../../../components/Tabs/Tab/Tab";
+import TabNav from "../../../components/Tabs/TabNav/TabNav";
+import TransactionDetails from "./TransactionDetails/TransactionDetails";
+import ActiveContentManagementFlags from "./ActivePolicy/ActiveContentManagementFlags";
+// import ActiveNcfsPolicy from "./ActivePolicy/ActiveNcfsPolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
+import { Policy } from "../../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { getTransactionDetails } from "../api/index";
+import { getPolicyById } from "../../../context/policy/api/helpers/getPolicyById";
+
+import Routes from "../../../Routes";
 
 import classes from "./FileInfo.module.scss";
+import ActivePolicyDetails from "./ActivePolicy/ActivePolicyDetails";
 
 interface FileData {
 	timestamp: string,
@@ -30,12 +39,22 @@ export interface FileInfoProps {
 }
 
 const FileInfo = (props: FileInfoProps) => {
+	const getPolicyRoute = new Routes().policyRoutes.getPolicyByIdRoute;
 	const CancelToken = axios.CancelToken;
 	const cancellationTokenSource = CancelToken.source();
 
 	const [transactionDetails, setTransactionDetails] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [isError, setIsError] = useState(false);
+	const [activePolicy, setActivePolicy] = useState<Policy>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isError, setIsError] = useState<boolean>(false);
+
+	const tabs = [
+		{ testId: "buttonAnalysis", name: "Analysis" },
+		{ testId: "buttonContentManagementFlags", name: "Content Management Flags" },
+		// { testId: "buttonActivePolicyNcfsPolicy", name: "NCFS Policy" }
+	];
+	const [selectedTab, setSelectedTab] =
+		useState<string | "Analysis" | "Content Management Flags" | "NCFS Policy">("Analysis");
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -45,8 +64,17 @@ const FileInfo = (props: FileInfoProps) => {
 			try {
 				const transactionDetailResponse =
 					await getTransactionDetails(props.fileData.directory, cancellationTokenSource.token);
-
 				setTransactionDetails(transactionDetailResponse);
+
+				const activePolicyResponse =
+					await getPolicyById(getPolicyRoute, props.fileData.activePolicyId.value, cancellationTokenSource.token);
+
+				if (!activePolicyResponse.adaptionPolicy) {
+					// tslint:disable-next-line: no-console
+					console.error(`Adaptation Policy Cannot be null - PolicyId: ${props.fileData.activePolicyId.value}`);
+					setIsError(true);
+				}
+				setActivePolicy(activePolicyResponse);
 			}
 			catch (error) {
 				setIsError(true);
@@ -95,7 +123,6 @@ const FileInfo = (props: FileInfoProps) => {
 
 			<div className={classes.inner}>
 				<div className={classes.requestInfo}>
-					Request Info
 					<Table className={classes.table}>
 						<TableHead>
 							<TableRow>
@@ -117,7 +144,15 @@ const FileInfo = (props: FileInfoProps) => {
 				</div>
 
 				{isLoading &&
-					<div>Loading...</div>
+					<Table className={classes.table}>
+						<TableBody>
+							<TableRow>
+								<TableCell className={classes.emptyTableCell}>
+									Loading...
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
 				}
 
 				{!isLoading &&
@@ -127,7 +162,7 @@ const FileInfo = (props: FileInfoProps) => {
 								<TableBody>
 									<TableRow>
 										<TableCell className={classes.emptyTableCell}>
-											<h2>Error Getting Transaction Details</h2>
+											Error Getting Transaction Details
 										</TableCell>
 									</TableRow>
 								</TableBody>
@@ -135,9 +170,49 @@ const FileInfo = (props: FileInfoProps) => {
 						}
 
 						{!isError &&
-							<div className={classes.transactionDetailsContainer}>
+							<div className={classes.tabContainer}>
 								{transactionDetails.status === FileDetailsStatus.Success &&
-									<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+									<TabNav
+										tabs={tabs}
+										selectedTabName={selectedTab}
+										onSetActiveTabHandler={tab => setSelectedTab(tab)}>
+
+										<Tab
+											isSelected={selectedTab === "Analysis"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
+											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+
+										</Tab>
+
+										<Tab
+											isSelected={selectedTab === "Content Management Flags"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
+											<ActivePolicyDetails
+												id={activePolicy.id}
+												published={activePolicy.published}
+												updatedBy={activePolicy.updatedBy} />
+
+											<ActiveContentManagementFlags adaptationPolicy={activePolicy.adaptionPolicy} />
+
+										</Tab>
+
+										{/* <Tab isSelected={selectedTab === "NCFS Policy"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
+											<ActivePolicyDetails
+												id={activePolicy.id}
+												published={activePolicy.published}
+												updatedBy={activePolicy.updatedBy} />
+
+											<ActiveNcfsPolicy adaptationPolicy={activePolicy.adaptionPolicy} />
+
+										</Tab> */}
+									</TabNav>
 								}
 							</div>
 						}
@@ -145,7 +220,7 @@ const FileInfo = (props: FileInfoProps) => {
 				}
 
 			</div>
-		</section>
+		</section >
 	);
 };
 

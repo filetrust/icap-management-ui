@@ -61,7 +61,7 @@ describe("PolicyRoutes", () => {
 
         policyRoutes.setup();
 
-        describe("get_/policy/getPolicy", () => {
+        describe("post_/policy/getPolicy", () => {
             // Arrange
             const policyId = Guid.create().toString();
 
@@ -87,17 +87,18 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
-                    .get("/policy/getPolicy/" + policyId)
+                    .post("/policy/getPolicy")
+                    .send({policyId})
                     .expect(200, done)
             });
 
             it("responds_with_correct_json", (done) => {
                 // Act
                 request(app)
-                    .get("/policy/getPolicy/" + policyId)
+                    .post("/policy/getPolicy")
+                    .send({policyId})
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.text).toEqual(JSON.stringify(expectedResponse));
@@ -130,7 +131,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/current")
@@ -173,7 +173,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/draft")
@@ -209,7 +208,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .put("/policy/draft")
@@ -261,7 +259,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .put("/policy/publish/" + policyId)
@@ -304,7 +301,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .delete("/policy/draft/" + policyId)
@@ -355,7 +351,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/history")
@@ -404,7 +399,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/policy/history")

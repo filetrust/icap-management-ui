@@ -7,6 +7,7 @@ import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/Rou
 import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
+import { NcfsRoute } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsRoute";
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 import Button from "../../../components/UI/Button/Button";
 import Modal from "../../../components/UI/Modal/Modal";
@@ -16,6 +17,8 @@ import ConfirmDraftDeleteModal from "./ConfirmDraftDeleteModal/ConfirmDraftDelet
 import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
 
 import classes from "./DraftPolicy.module.scss";
+
+const returnNcfsRoutingUrl = (ncfsRoutes: NcfsRoute) => ncfsRoutes ? ncfsRoutes.ncfsRoutingUrl : null;
 
 const DraftPolicy = () => {
     const {
@@ -82,8 +85,7 @@ const DraftPolicy = () => {
         const draft = {
             adaptionPolicy: {
                 ...newDraftPolicy.adaptionPolicy,
-                ncfsRoute: newDraftPolicy.adaptionPolicy.ncfsRoute ?
-                    newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : null
+                ncfsRoute: returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)
             },
             ...newDraftPolicy.ncfsPolicy,
         };
@@ -91,8 +93,7 @@ const DraftPolicy = () => {
         const current = {
             adaptionPolicy: {
                 ...currentPolicy.adaptionPolicy,
-                ncfsRoute: currentPolicy.adaptionPolicy.ncfsRoute ?
-                    currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : null
+                ncfsRoute: returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)
             },
             ...currentPolicy.ncfsPolicy
         };
@@ -158,6 +159,7 @@ const DraftPolicy = () => {
                                 </h2>
                                 <ContentManagementFlags
                                     contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
+                                    currentPolicyContentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
                                     updateContentFlags={updateContentManagementFlags} />
                             </Tab>
 
@@ -188,11 +190,13 @@ const DraftPolicy = () => {
                                         </div>
                                     </section>
                                     <RoutesForNonCompliantFiles
-                                        ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute ? newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+                                        ncfsRoutingUrl={returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)}
+                                        currentPolicyRoutingUrl={returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)}
                                         changeInput={updateNcfsRoute} />
 
                                     <PolicyForNonCompliantFiles
                                         ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
+                                        currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
                                         updateNcfsActions={updateNcfsActions} />
                                 </div>
                             </Tab>

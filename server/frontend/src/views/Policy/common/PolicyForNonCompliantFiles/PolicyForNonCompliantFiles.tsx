@@ -9,6 +9,7 @@ import UnProcessableFileTypesToggles from "./Toggles/UnProcessableFileTypesToggl
 export interface PolicyForNonCompliantFilesProps {
 	ncfsActions: NcfsActions,
 	updateNcfsActions?: (newNcfsActions: NcfsActions) => void,
+	currentNcfsActions: NcfsActions,
 	disabled?: boolean
 }
 
@@ -34,12 +35,14 @@ const PolicyForNonCompliantFiles = (props: PolicyForNonCompliantFilesProps) => {
 				<UnProcessableFileTypesToggles
 					unprocessableFileTypeAction={props.ncfsActions.unprocessableFileTypeAction}
 					updateOption={updateUnProcessableFileTypes}
+					currentOption={props.currentNcfsActions.unprocessableFileTypeAction}
 					disabled={props.disabled} />
 
 				<label className={classes.toggleHead}>Glasswall Blocked Files</label>
 				<GlasswallBlockedFilesToggles
 					glasswallBlockedFilesAction={props.ncfsActions.glasswallBlockedFilesAction}
 					updateOption={updateGlasswallBlockedFiles}
+					currentOption={props.currentNcfsActions.glasswallBlockedFilesAction}
 					disabled={props.disabled} />
 
 			</section>
