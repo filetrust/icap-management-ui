@@ -1,4 +1,3 @@
-import { Guid } from "guid-typescript";
 import { GetPolicyByIdRequest } from "./GetPolicyByIdRequest";
 
 describe("GetPolicyByIdRequest", () => {
