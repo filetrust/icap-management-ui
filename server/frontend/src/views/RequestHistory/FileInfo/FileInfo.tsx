@@ -23,6 +23,7 @@ import { getPolicyById } from "../../../context/policy/api/helpers/getPolicyById
 import Routes from "../../../Routes";
 
 import classes from "./FileInfo.module.scss";
+import ActivePolicyDetails from "./ActivePolicy/ActivePolicyDetails";
 
 interface FileData {
 	timestamp: string,
@@ -144,14 +145,14 @@ const FileInfo = (props: FileInfoProps) => {
 
 				{isLoading &&
 					<Table className={classes.table}>
-					<TableBody>
-						<TableRow>
-							<TableCell className={classes.emptyTableCell}>
-								Loading...
+						<TableBody>
+							<TableRow>
+								<TableCell className={classes.emptyTableCell}>
+									Loading...
 							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
+							</TableRow>
+						</TableBody>
+					</Table>
 				}
 
 				{!isLoading &&
@@ -179,18 +180,20 @@ const FileInfo = (props: FileInfoProps) => {
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 										</Tab>
 										<Tab isSelected={selectedTab === "Content Management Flags"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<ActiveContentManagementFlags
+											<ActivePolicyDetails
 												id={activePolicy.id}
 												published={activePolicy.published}
-												updatedBy={activePolicy.updatedBy}
-												adaptationPolicy={activePolicy.adaptionPolicy} />
+												updatedBy={activePolicy.updatedBy} />
+
+											<ActiveContentManagementFlags adaptationPolicy={activePolicy.adaptionPolicy} />
 										</Tab>
 										{/* <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<ActiveNcfsPolicy
+											<ActivePolicyDetails
 												id={activePolicy.id}
 												published={activePolicy.published}
-												updatedBy={activePolicy.updatedBy}
-												adaptationPolicy={activePolicy.adaptionPolicy} />
+												updatedBy={activePolicy.updatedBy} />
+
+											<ActiveNcfsPolicy adaptationPolicy={activePolicy.adaptionPolicy} />
 										</Tab> */}
 									</TabNav>
 								}
