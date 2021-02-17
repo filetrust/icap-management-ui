@@ -67,6 +67,12 @@ const FileInfo = (props: FileInfoProps) => {
 
 				const activePolicyResponse =
 					await getPolicyById(getPolicyRoute, props.fileData.activePolicyId.value, cancellationTokenSource.token);
+
+				if (!activePolicyResponse.adaptionPolicy) {
+					// tslint:disable-next-line: no-console
+					console.error(`Adaptation Policy Cannot be null - PolicyId: ${props.fileData.activePolicyId.value}`);
+					setIsError(true);
+				}
 				setActivePolicy(activePolicyResponse);
 			}
 			catch (error) {
@@ -116,7 +122,6 @@ const FileInfo = (props: FileInfoProps) => {
 
 			<div className={classes.inner}>
 				<div className={classes.requestInfo}>
-					Request Info
 					<Table className={classes.table}>
 						<TableHead>
 							<TableRow>
@@ -138,7 +143,15 @@ const FileInfo = (props: FileInfoProps) => {
 				</div>
 
 				{isLoading &&
-					<div>Loading...</div>
+					<Table className={classes.table}>
+					<TableBody>
+						<TableRow>
+							<TableCell className={classes.emptyTableCell}>
+								Loading...
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
 				}
 
 				{!isLoading &&
@@ -148,7 +161,7 @@ const FileInfo = (props: FileInfoProps) => {
 								<TableBody>
 									<TableRow>
 										<TableCell className={classes.emptyTableCell}>
-											<h2>Error Getting Transaction Details</h2>
+											Error Getting Transaction Details
 										</TableCell>
 									</TableRow>
 								</TableBody>
