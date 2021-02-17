@@ -149,7 +149,7 @@ const FileInfo = (props: FileInfoProps) => {
 							<TableRow>
 								<TableCell className={classes.emptyTableCell}>
 									Loading...
-							</TableCell>
+								</TableCell>
 							</TableRow>
 						</TableBody>
 					</Table>
@@ -176,24 +176,41 @@ const FileInfo = (props: FileInfoProps) => {
 										tabs={tabs}
 										selectedTabName={selectedTab}
 										onSetActiveTabHandler={tab => setSelectedTab(tab)}>
-										<Tab isSelected={selectedTab === "Analysis"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+
+										<Tab
+											isSelected={selectedTab === "Analysis"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
+
 										</Tab>
-										<Tab isSelected={selectedTab === "Content Management Flags"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+
+										<Tab
+											isSelected={selectedTab === "Content Management Flags"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
 											<ActivePolicyDetails
 												id={activePolicy.id}
 												published={activePolicy.published}
 												updatedBy={activePolicy.updatedBy} />
 
 											<ActiveContentManagementFlags adaptationPolicy={activePolicy.adaptionPolicy} />
+
 										</Tab>
-										{/* <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+
+										{/* <Tab isSelected={selectedTab === "NCFS Policy"}
+											externalStyles={classes.Tab}
+											innnerContentStyles={classes.tabInnerContent}>
+
 											<ActivePolicyDetails
 												id={activePolicy.id}
 												published={activePolicy.published}
 												updatedBy={activePolicy.updatedBy} />
 
 											<ActiveNcfsPolicy adaptationPolicy={activePolicy.adaptionPolicy} />
+
 										</Tab> */}
 									</TabNav>
 								}
