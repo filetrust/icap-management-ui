@@ -87,7 +87,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/policy/getPolicy")
@@ -132,7 +131,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/current")
@@ -175,7 +173,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/draft")
@@ -211,7 +208,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .put("/policy/draft")
@@ -263,7 +259,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .put("/policy/publish/" + policyId)
@@ -306,7 +301,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .delete("/policy/draft/" + policyId)
@@ -357,7 +351,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .get("/policy/history")
@@ -406,7 +399,6 @@ describe("PolicyRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/policy/history")
