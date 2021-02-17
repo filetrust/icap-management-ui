@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { PdfContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PdfContentFlags";
 import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
-import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 
 export interface PdfContentManagementFlagsProps {
     initialPdfContentFlags: PdfContentFlags,
     updatePdfContentFlags: (initialPdfContentFlags: PdfContentFlags) => void,
+    currentPdfContentFlags: PdfContentFlags,
     allDisabled?: boolean
 }
 
 const PdfContentManagementFlags = (props: PdfContentManagementFlagsProps) => {
-    const { initialPdfContentFlags, updatePdfContentFlags } = props;
-
-    const {
-        currentPolicy
-    } = useContext(PolicyContext);
-    const currentPdfContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.pdfContentManagement;
+    const { initialPdfContentFlags, updatePdfContentFlags, currentPdfContentFlags } = props;
 
     const updateContentFlagAction = (flagActionName: string) => {
         const newContentAction = initialPdfContentFlags[flagActionName as keyof PdfContentFlags]

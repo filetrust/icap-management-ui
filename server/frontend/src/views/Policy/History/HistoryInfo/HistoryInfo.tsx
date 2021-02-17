@@ -20,7 +20,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
 	];
 
-	const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
+	const [selectedTab, setSelectedTab] = useState<string | "Adaptation Policy" | "NCFS Policy">("Adaptation Policy");
 
 	const policyTimestampData = (
 		<div className={classes.tableContainer}>
@@ -61,6 +61,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 						<h2 className={classes.head}>Content Management Flags</h2>
 						<ContentManagementFlags
 							contentManagementFlags={props.policy.adaptionPolicy.contentManagementFlags}
+							currentPolicyContentManagementFlags={props.policy.adaptionPolicy.contentManagementFlags}
 							disabled />
 					</Tab>
 
@@ -70,10 +71,12 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 							<div className={classes.ncfsContainer}>
 								<RoutesForNonCompliantFiles
 									ncfsRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+									currentPolicyRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
 									disabled />
 
 								<PolicyForNonCompliantFiles
 									ncfsActions={props.policy.adaptionPolicy.ncfsActions}
+									currentNcfsActions={props.policy.adaptionPolicy.ncfsActions}
 									disabled />
 							</div>
 						</>

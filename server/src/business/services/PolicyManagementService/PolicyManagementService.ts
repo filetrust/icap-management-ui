@@ -37,8 +37,7 @@ class PolicyManagementService implements IPolicyManagementService {
 
             const response = await PolicyManagementApi.getPolicyById(
                 request.url, request.policyId, cancellationToken, { "Content-Type": "application/json" });
-            const responseJSON = JSON.parse(response);
-            policy = this.createPolicyModel(responseJSON);
+            policy = this.createPolicyModel(response);
 
             if (policy) {
                 this.logger.info(`Retrieved Policy - PolicyId: ${request.policyId}`);

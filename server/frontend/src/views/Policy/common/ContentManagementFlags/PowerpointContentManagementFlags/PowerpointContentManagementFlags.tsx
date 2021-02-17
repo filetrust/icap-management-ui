@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { PowerpointContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/PowerpointContentFlags";
 import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
-import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 
 export interface PowerpointContentManagementFlagsProps {
     initialPowerpointContentFlags: PowerpointContentFlags,
     updatePowerpointContentFlags: (initialPowerpointContentFlags: PowerpointContentFlags) => void,
+    currentPowerPointContentFlags: PowerpointContentFlags,
     allDisabled?: boolean
 }
 
 const PowerpointContentManagementFlags = (props: PowerpointContentManagementFlagsProps) => {
-    const { initialPowerpointContentFlags, updatePowerpointContentFlags } = props;
-
-    const {
-        currentPolicy
-    } = useContext(PolicyContext);
-    const currentPowerPointContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.powerPointContentManagement;
+    const { initialPowerpointContentFlags, updatePowerpointContentFlags, currentPowerPointContentFlags } = props;
 
     const updateContentFlagAction = (flagActionName: string) => {
         const newContentAction = initialPowerpointContentFlags[flagActionName as keyof PowerpointContentFlags]

@@ -88,6 +88,7 @@ const CurrentPolicy = () => {
 								{policyTimestampData}
 								<ContentManagementFlags
 									contentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
+									currentPolicyContentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
 									disabled />
 							</Tab>
 
@@ -116,10 +117,12 @@ const CurrentPolicy = () => {
 										<RoutesForNonCompliantFiles
 											ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute ?
 												currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+											currentPolicyRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl}
 											disabled />
 
 										<PolicyForNonCompliantFiles
 											ncfsActions={currentPolicy.adaptionPolicy.ncfsActions}
+											currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
 											disabled />
 									</div>
 								</>

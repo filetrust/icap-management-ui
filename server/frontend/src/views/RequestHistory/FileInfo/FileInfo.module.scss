@@ -116,6 +116,26 @@
 		}
 	}
 
+	.tabContainer {
+		width: 100%;
+		height: calc(100% - 11rem);
+
+		overflow: hidden;
+
+		.head {
+			background: #ffffff;
+			border-bottom: 1px solid #b6bfc9;
+		}
+	}
+
+	.tabInnerContent {
+		height: auto;
+	}
+
+	.Tab {
+		overflow-y: auto;
+	}
+
 	& .buttonClose {
 		margin-right: 1rem;
 	}

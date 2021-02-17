@@ -1,22 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ContentManagementFlagAction } from "../../../../../../../src/common/models/enums/ContentManagementFlagAction";
 import { ExcelContentFlags } from "../../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ExcelContentFlags";
-import { PolicyContext } from "../../../../../context/policy/PolicyContext";
 import RadioButton from "../../../../../components/UI/RadioButton/RadioButton";
 
 export interface ExcelContentManagementFlagsProps {
     initialExcelContentFlags: ExcelContentFlags,
     updateExcelContentFlags: (initialExcelContentFlags: ExcelContentFlags) => void,
+    currentExcelContentFlags: ExcelContentFlags,
     allDisabled?: boolean
 }
 
 const ExcelContentManagementFlags = (props: ExcelContentManagementFlagsProps) => {
-    const {initialExcelContentFlags, updateExcelContentFlags} = props;
-
-    const {
-		currentPolicy
-    } = useContext(PolicyContext);
-    const currentExcelContentFlags = currentPolicy.adaptionPolicy.contentManagementFlags.excelContentManagement;
+    const {initialExcelContentFlags, updateExcelContentFlags, currentExcelContentFlags } = props;
 
     const updateContentFlagAction = (flagActionName: string) => {
         const newContentAction = initialExcelContentFlags[flagActionName as keyof ExcelContentFlags]
