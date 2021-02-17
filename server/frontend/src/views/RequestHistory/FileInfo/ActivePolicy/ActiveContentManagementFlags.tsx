@@ -12,14 +12,14 @@ import { AdaptionPolicy } from "../../../../../../src/common/models/PolicyManage
 
 import classes from "../FileInfo.module.scss";
 
-export interface ActiveAdaptationPolicyProps {
+export interface ActiveContentManagementFlagsProps {
     id: string,
     published: Date,
     updatedBy: string,
     adaptationPolicy: AdaptionPolicy
 }
 
-const ActiveAdaptationPolicy = (props: ActiveAdaptationPolicyProps) => {
+const ActiveContentManagementFlags = (props: ActiveContentManagementFlagsProps) => {
     return (
         <>
             <Table className={classes.table} id={props.id}>
@@ -49,4 +49,4 @@ const ActiveAdaptationPolicy = (props: ActiveAdaptationPolicyProps) => {
     );
 }
 
-export default ActiveAdaptationPolicy;
+export default ActiveContentManagementFlags;

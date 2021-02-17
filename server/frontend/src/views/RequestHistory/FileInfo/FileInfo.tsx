@@ -11,8 +11,8 @@ import moment from "moment";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import TransactionDetails from "./TransactionDetails/TransactionDetails";
-import ActiveAdaptationPolicy from "./ActivePolicy/ActiveAdaptationPolicy";
-import ActiveNcfsPolicy from "./ActivePolicy/ActiveNcfsPolicy";
+import ActiveContentManagementFlags from "./ActivePolicy/ActiveContentManagementFlags";
+// import ActiveNcfsPolicy from "./ActivePolicy/ActiveNcfsPolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
@@ -49,11 +49,11 @@ const FileInfo = (props: FileInfoProps) => {
 
 	const tabs = [
 		{ testId: "buttonAnalysis", name: "Analysis" },
-		{ testId: "buttonActivePolicyAdaptationPolicy", name: "Adaptation Policy" },
-		{ testId: "buttonActivePolicyNcfsPolicy", name: "NCFS Policy" }
+		{ testId: "buttonContentManagementFlags", name: "Content Management Flags" },
+		// { testId: "buttonActivePolicyNcfsPolicy", name: "NCFS Policy" }
 	];
 	const [selectedTab, setSelectedTab] =
-		useState<string | "Analysis" | "Adaptation Policy" | "NCFS Policy">("Analysis");
+		useState<string | "Analysis" | "Content Management Flags" | "NCFS Policy">("Analysis");
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -178,20 +178,20 @@ const FileInfo = (props: FileInfoProps) => {
 										<Tab isSelected={selectedTab === "Analysis"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 										</Tab>
-										<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<ActiveAdaptationPolicy
+										<Tab isSelected={selectedTab === "Content Management Flags"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+											<ActiveContentManagementFlags
 												id={activePolicy.id}
 												published={activePolicy.published}
 												updatedBy={activePolicy.updatedBy}
 												adaptationPolicy={activePolicy.adaptionPolicy} />
 										</Tab>
-										<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+										{/* <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
 											<ActiveNcfsPolicy
 												id={activePolicy.id}
 												published={activePolicy.published}
 												updatedBy={activePolicy.updatedBy}
 												adaptationPolicy={activePolicy.adaptionPolicy} />
-										</Tab>
+										</Tab> */}
 									</TabNav>
 								}
 							</div>
