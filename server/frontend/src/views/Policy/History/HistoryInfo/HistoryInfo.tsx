@@ -61,6 +61,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 						<h2 className={classes.head}>Content Management Flags</h2>
 						<ContentManagementFlags
 							contentManagementFlags={props.policy.adaptionPolicy.contentManagementFlags}
+							currentPolicyContentManagementFlags={props.policy.adaptionPolicy.contentManagementFlags}
 							disabled />
 					</Tab>
 
@@ -70,6 +71,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 							<div className={classes.ncfsContainer}>
 								<RoutesForNonCompliantFiles
 									ncfsRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+									currentPolicyRoutingUrl={props.policy.adaptionPolicy.ncfsRoute ? props.policy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
 									disabled />
 
 								<PolicyForNonCompliantFiles

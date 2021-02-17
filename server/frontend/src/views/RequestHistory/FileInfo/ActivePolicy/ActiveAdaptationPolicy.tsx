@@ -1,6 +1,16 @@
 import React from "react";
+
+import {
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+} from "@material-ui/core";
+import ContentManagementFlags from "../../../Policy/common/ContentManagementFlags/ContentManagementFlags";
 import { AdaptionPolicy } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/AdaptionPolicy";
-import { Policy } from "../../../../../../src/common/models/PolicyManagementService/Policy/Policy";
+
+import classes from "../FileInfo.module.scss";
 
 export interface ActiveAdaptationPolicyProps {
     id: string,
@@ -11,7 +21,31 @@ export interface ActiveAdaptationPolicyProps {
 
 const ActiveAdaptationPolicy = (props: ActiveAdaptationPolicyProps) => {
     return (
-        <div>{props.id}</div>
+        <>
+            <Table className={classes.table} id={props.id}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Published</TableCell>
+                        <TableCell>Last Updated By</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody className={classes.tbody}>
+                    <TableRow>
+                        <TableCell>
+                            {new Date(props.published).toLocaleString()}
+                        </TableCell>
+                        <TableCell>
+                            {props.updatedBy ? props.updatedBy : "N/A"}
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <ContentManagementFlags
+                contentManagementFlags={props.adaptationPolicy.contentManagementFlags}
+                currentPolicyContentManagementFlags={props.adaptationPolicy.contentManagementFlags}
+                disabled />
+        </>
     );
 }
 

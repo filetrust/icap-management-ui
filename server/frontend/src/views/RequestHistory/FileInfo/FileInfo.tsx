@@ -12,6 +12,7 @@ import Tab from "../../../components/Tabs/Tab/Tab";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import TransactionDetails from "./TransactionDetails/TransactionDetails";
 import ActiveAdaptationPolicy from "./ActivePolicy/ActiveAdaptationPolicy";
+import ActiveNcfsPolicy from "./ActivePolicy/ActiveNcfsPolicy";
 import { FileDetailsStatus } from "../../../../../src/common/models/enums/FileDetailsStatus";
 import { FileType } from "../../../../../src/common/models/enums/FileType";
 import { Risk } from "../../../../../src/common/models/enums/Risk";
@@ -47,12 +48,12 @@ const FileInfo = (props: FileInfoProps) => {
 	const [isError, setIsError] = useState<boolean>(false);
 
 	const tabs = [
-		{ testId: "buttonTransactionDetails", name: "Transaction Details" },
+		{ testId: "buttonAnalysis", name: "Analysis" },
 		{ testId: "buttonActivePolicyAdaptationPolicy", name: "Adaptation Policy" },
 		{ testId: "buttonActivePolicyNcfsPolicy", name: "NCFS Policy" }
 	];
 	const [selectedTab, setSelectedTab] =
-		useState<string | "Transaction Details" | "Adaptation Policy" | "NCFS Policy">("Transaction Details");
+		useState<string | "Analysis" | "Adaptation Policy" | "NCFS Policy">("Analysis");
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -161,7 +162,7 @@ const FileInfo = (props: FileInfoProps) => {
 										tabs={tabs}
 										selectedTabName={selectedTab}
 										onSetActiveTabHandler={tab => setSelectedTab(tab)}>
-										<Tab isSelected={selectedTab === "Transaction Details"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
+										<Tab isSelected={selectedTab === "Analysis"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
 											<TransactionDetails analysisReport={transactionDetails.analysisReport} />
 										</Tab>
 										<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
@@ -172,7 +173,11 @@ const FileInfo = (props: FileInfoProps) => {
 												adaptationPolicy={activePolicy.adaptionPolicy} />
 										</Tab>
 										<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab} innnerContentStyles={classes.tabInnerContent}>
-											<div>NCFS Policy</div>
+											<ActiveNcfsPolicy
+												id={activePolicy.id}
+												published={activePolicy.published}
+												updatedBy={activePolicy.updatedBy}
+												adaptationPolicy={activePolicy.adaptionPolicy} />
 										</Tab>
 									</TabNav>
 								}

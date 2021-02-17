@@ -158,6 +158,7 @@ const DraftPolicy = () => {
                                 </h2>
                                 <ContentManagementFlags
                                     contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
+                                    currentPolicyContentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
                                     updateContentFlags={updateContentManagementFlags} />
                             </Tab>
 
@@ -189,6 +190,7 @@ const DraftPolicy = () => {
                                     </section>
                                     <RoutesForNonCompliantFiles
                                         ncfsRoutingUrl={newDraftPolicy.adaptionPolicy.ncfsRoute ? newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+                                        currentPolicyRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute ? newDraftPolicy.adaptionPolicy.ncfsRoute.ncfsRoutingUrl : ""}
                                         changeInput={updateNcfsRoute} />
 
                                     <PolicyForNonCompliantFiles
