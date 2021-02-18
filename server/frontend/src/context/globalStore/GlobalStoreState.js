@@ -63,7 +63,7 @@ export const GlobalStoreState = ({ children }) => {
 
 	const toggleNavExpanded = () => {
 		dispatch({ type: actionTypes.TOGGLE_NAV_EXPANDED });
-	}
+	};
 
 	useEffect(() => {
 		(async () => {
@@ -98,9 +98,10 @@ export const GlobalStoreState = ({ children }) => {
 				updateRequestHistoryTimeFilter,
 				updateAnalyticsTimeFilter,
 				toggleNavExpanded
-			}}
-		>
+			}}>
+
 			{children}
+
 		</GlobalStoreContext.Provider>
 	);
 };
