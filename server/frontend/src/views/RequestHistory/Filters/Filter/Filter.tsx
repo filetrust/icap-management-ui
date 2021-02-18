@@ -16,7 +16,6 @@ export interface FilterProps {
 }
 
 const Filter = (props: FilterProps) => {
-	// @ts-ignore
 	const { addFilterFromCheckbox } = useContext(GlobalStoreContext);
 
 	const handleChange = (selectedCheckbox: TransactionLogFilter) => {
@@ -24,28 +23,27 @@ const Filter = (props: FilterProps) => {
 	};
 
 	const checkboxes = props.checkboxList.map((checkbox) => {
-			return (
-				<Checkbox
-					key={checkbox.id}
-					label={checkbox.title}
-					isChecked={checkbox.isChecked}
-					filter={props.filterName}
-					backgroundColor={checkbox.titleColor}
-					disabled={props.disabled}
-					onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-						handleChange({
-							title: checkbox.title,
-							filterName: props.filterName,
-							id: checkbox.id,
-							isChecked: evt.target.checked,
-							titleColor: checkbox.titleColor,
-							fileTypeEnum: checkbox.fileTypeEnum,
-							riskEnum: checkbox.riskEnum
-						})
-					}
-				/>
-			);
-		}
+		return (
+			<Checkbox
+				key={checkbox.id}
+				label={checkbox.title}
+				isChecked={checkbox.isChecked}
+				filter={props.filterName}
+				backgroundColor={checkbox.titleColor}
+				disabled={props.disabled}
+				onHandleChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+					handleChange({
+						title: checkbox.title,
+						filterName: props.filterName,
+						id: checkbox.id,
+						isChecked: evt.target.checked,
+						titleColor: checkbox.titleColor,
+						fileTypeEnum: checkbox.fileTypeEnum,
+						riskEnum: checkbox.riskEnum
+					})
+				} />
+		);
+	}
 	);
 
 	return (

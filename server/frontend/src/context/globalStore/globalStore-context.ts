@@ -48,6 +48,7 @@ export interface GlobalStoreContextProps {
 	]
 	removeFilter: (filter: any) => void,
 	updateRequestHistoryTimeFilter: (timeDateFilter: any) => void,
+	addFilterFromCheckbox: (filter: any) => void
 }
 
 export const GlobalStoreContext = createContext<Partial<GlobalStoreContextProps>>({});
