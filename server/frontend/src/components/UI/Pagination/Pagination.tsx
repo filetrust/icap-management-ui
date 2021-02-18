@@ -49,9 +49,11 @@ const Pagination = (props: PaginationProps) => {
 			component="div"
 			count={props.count}
 			page={props.page}
-			onChangePage={props.disabled ? () => { } : props.onChangePage}
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			onChangePage={props.disabled ? () => {  } : props.onChangePage}
 			rowsPerPage={props.rowsPerPage}
 			rowsPerPageOptions={props.rowsPerPageOptions}
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			onChangeRowsPerPage={props.disabled ? () => { } : props.onChangeRowsPerPage} />
 	);
 };
