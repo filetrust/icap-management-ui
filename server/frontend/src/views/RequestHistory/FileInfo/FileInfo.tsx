@@ -86,7 +86,7 @@ const FileInfo = (props: FileInfoProps) => {
 
 		return () => {
 			cancellationTokenSource.cancel();
-		}
+		};
 
 		// eslint-disable-next-line
 	}, [setIsLoading, setIsError, setTransactionDetails, props.fileData.directory]);
