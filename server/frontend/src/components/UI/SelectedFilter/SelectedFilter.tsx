@@ -9,7 +9,7 @@ export interface SelectedFilterProps {
 	filterName: string,
 	title: string,
 	titleColor?: string,
-	remove: () => void,
+	remove: (object: {id: string, filterName: string}) => void,
 	disabled?: boolean
 }
 
