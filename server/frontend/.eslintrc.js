@@ -1,5 +1,5 @@
 module.exports = {
-	parser: "babel-eslint",
+	parser: "@typescript-eslint/parser",
 	ignorePatterns: ["serviceWorker.js", "node_modules/"],
 	env: {
 		browser: true,
@@ -16,7 +16,9 @@ module.exports = {
 		},
 		sourceType: "module",
 	},
-	plugins: ["react"],
+	plugins: [
+		"react", "@typescript-eslint"
+	],
 	rules: {
 		"react/prop-types": ["off"],
 		"react/display-name": ["off"],
