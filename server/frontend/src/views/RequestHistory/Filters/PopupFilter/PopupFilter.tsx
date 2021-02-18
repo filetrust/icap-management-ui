@@ -32,10 +32,10 @@ const PopupFilter = (props: PopupFilterProps) => {
 		<section
 			data-test-id={props.testId}
 			className={[classes.PopupFilter, props.externalStyles].join(" ")}
-			onMouseEnter={props.openPopupHover}
-			// onMouseLeave={closePopupHover}
-		>
+			onMouseEnter={props.openPopupHover}>
+
 			<div className={classes.inner}>{addedFilter}</div>
+
 		</section>
 	);
 };
