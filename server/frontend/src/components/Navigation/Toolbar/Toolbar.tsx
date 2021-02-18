@@ -101,8 +101,7 @@ const Toolbar = () => {
 					username={currentUser.username}
 					expanded={navExpanded}
 					openPopup={() => setUserLinkIsOpen(true)}
-					closePopup={() => setUserLinkIsOpen(false)}
-				/>
+					closePopup={() => setUserLinkIsOpen(false)} />
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
 				{version !== "" &&
 					<span>v{version}</span>
@@ -113,8 +112,7 @@ const Toolbar = () => {
 					popupButtons={accountLinks}
 					externalStyles={classes.popup}
 					openPopupHover={() => setUserLinkIsOpen(true)}
-					closePopupHover={() => setUserLinkIsOpen(false)}
-				/>
+					closePopupHover={() => setUserLinkIsOpen(false)} />
 			)}
 			{/* {changePasswordModalIsOpen &&
 				<ChangePassword closeModal={() => setChangePasswordModalIsOpen(false)} />
