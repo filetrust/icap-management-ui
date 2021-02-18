@@ -43,6 +43,7 @@ module.exports = {
 		yoda: ["error", "never", { exceptRange: true }],
 	},
 	globals: {
-		"JSX": "readonly"
+		"JSX": "readonly",
+		"Partial": "readonly"
 	}
 };
