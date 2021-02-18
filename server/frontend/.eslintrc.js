@@ -33,7 +33,7 @@ module.exports = {
 		"jsx-quotes": ["error", "prefer-double"],
 		"func-style": ["error", "expression", { "allowArrowFunctions": true }],
 		indent: ["error", "tab", { SwitchCase: 1 }],
-		"linebreak-style": ["error", "windows"],
+		"linebreak-style": ["off"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
 		"no-console": ["warn", { allow: ["clear", "info", "error", "dir", "trace"] }],
