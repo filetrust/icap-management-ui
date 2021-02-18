@@ -38,8 +38,7 @@ const ApiUrl = (props: ApiUrlProps) => {
 							touched={props.isChanged}
 							onChange={props.onChangeInputHandler}
 							disabled={props.disabled}
-							value={props.value}
-						/>
+							value={props.value} />
 					</TableCell>
 					{/* <TableCell>
 						<TickIcon stroke="#73AE6F" />
