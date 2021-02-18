@@ -15,23 +15,24 @@ const Modal = (props: ModalProps) => {
 		if (event.key === "Escape") {
 			props.onCloseHandler();
 		}
-	}
+	};
 
 	useEffect(() => {
 		window.addEventListener("keydown", handleEscape);
 
 		return () => {
 			window.removeEventListener("keydown", handleEscape);
-		}
+		};
 	});
 
 	return (
 		<section className={[classes.Modal, props.externalStyles].join(" ")}>
 			<ButtonClose
 				externalStyles={classes.buttonClose}
-				onButtonClick={props.onCloseHandler}
-			/>
+				onButtonClick={props.onCloseHandler} />
+
 			{props.children}
+
 		</section>
 	);
 };

@@ -26,11 +26,10 @@ const Popup = (props: PopupProps) => {
 					data-test-id={testId}
 					key={name}
 					onClick={onClickButtonHandler}
-					style={{
-						backgroundImage: `url(${icon})`,
-					}}
-				>
+					style={{ backgroundImage: `url(${icon})` }}>
+
 					<p>{name}</p>
+
 				</button>
 			);
 		});
@@ -40,10 +39,11 @@ const Popup = (props: PopupProps) => {
 		<div
 			className={[classes.Popup, props.externalStyles].join(" ")}
 			onMouseEnter={props.openPopupHover}
-			onMouseLeave={props.closePopupHover}
-		>
+			onMouseLeave={props.closePopupHover} >
+
 			{buttonList}
 			{props.children}
+
 		</div>
 	);
 };
