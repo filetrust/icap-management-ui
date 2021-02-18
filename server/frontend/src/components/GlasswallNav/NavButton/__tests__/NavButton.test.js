@@ -6,31 +6,31 @@ import { NavButton } from "../NavButton";
 const selected = true;
 
 const clickHandler = () => {
-    console.log("click handled.")
+	console.log("click handled.");
 };
 
 const props = {
-    selected: selected,
-    clickHandler: clickHandler
+	selected: selected,
+	clickHandler: clickHandler
 };
 
 test("NavButton_Snapshot", () => {
-    // Arrange
-    const component = TestRenderer.create(<NavButton {...props} />);
+	// Arrange
+	const component = TestRenderer.create(<NavButton {...props} />);
 
-    // Act
-    let tree = component.toJSON();
+	// Act
+	let tree = component.toJSON();
 
-    // Assert
-    expect(tree).toMatchSnapshot();
+	// Assert
+	expect(tree).toMatchSnapshot();
 });
 
 test("Displays_Correct_Props", () => {
-    // Arrange
-    // Act
-    const navButtonComponent = mount(<NavButton {...props}/>);
+	// Arrange
+	// Act
+	const navButtonComponent = mount(<NavButton {...props} />);
 
-    // Assert
-    expect(navButtonComponent.prop("selected")).toEqual(props.selected);
-    expect(navButtonComponent.prop("clickHandler")).toEqual(props.clickHandler);    
+	// Assert
+	expect(navButtonComponent.prop("selected")).toEqual(props.selected);
+	expect(navButtonComponent.prop("clickHandler")).toEqual(props.clickHandler);
 });
