@@ -9,31 +9,31 @@ const setStatus = (state: TUserState, status: "LOADING" | "ERROR" | "LOADED") =>
 	return updateObject(state, {
 		status
 	});
-}
+};
 
 const setUsersHaveChanges = (state: TUserState, changed: boolean) => {
 	return updateObject(state, {
 		usersHaveChanges: changed
 	});
-}
+};
 
 const setCurrentUser = (state: TUserState, user: User) => {
 	return updateObject(state, {
 		currentUser: user
 	});
-}
+};
 
 const setUsers = (state: TUserState, users: User[]) => {
 	return updateObject(state, {
 		users
 	});
-}
+};
 
 const setUpdatedUsers = (state: TUserState, updatedUsers: User[]) => {
 	return updateObject(state, {
 		updatedUsers
 	});
-}
+};
 
 const editUser = (state: TUserState, user: User) => {
 	let changed: boolean;
@@ -62,7 +62,7 @@ const editUser = (state: TUserState, user: User) => {
 		users,
 		usersHaveChanges
 	});
-}
+};
 
 const addNewUser = (state: TUserState, newUser: NewUser) => {
 	return updateObject(state, {
@@ -72,7 +72,7 @@ const addNewUser = (state: TUserState, newUser: NewUser) => {
 		],
 		usersHaveChanges: true
 	});
-}
+};
 
 const deleteNewUser = (state: TUserState, index: number) => {
 	const newUsers = state.newUsers;
@@ -85,7 +85,7 @@ const deleteNewUser = (state: TUserState, index: number) => {
 		newUsers,
 		usersHaveChanges: hasNewUsers || usersHaveChanges
 	});
-}
+};
 
 const editNewUser = (state: TUserState, newUser: NewUser, index: number) => {
 	const newUsers = state.newUsers;
@@ -94,7 +94,7 @@ const editNewUser = (state: TUserState, newUser: NewUser, index: number) => {
 	return updateObject(state, {
 		newUsers
 	});
-}
+};
 
 const cancelChanges = (state: TUserState) => {
 	return updateObject(state, {
@@ -102,7 +102,7 @@ const cancelChanges = (state: TUserState) => {
 		newUsers: [],
 		usersHaveChanges: false
 	});
-}
+};
 
 export const userReducer = (state: TUserState, action: { [actionName: string]: any }) => {
 	switch (action.type) {
