@@ -27,25 +27,25 @@ const UserRow = (props: UserRowProps) => {
 			...props.user,
 			username
 		});
-	}
+	};
 
 	const updateFirstName = (firstName: string) => {
 		editUser({
 			...props.user,
 			firstName
 		});
-	}
+	};
 
 	const updateLastName = (lastName: string) => {
 		editUser({
 			...props.user,
 			lastName
 		});
-	}
+	};
 
 	const revertEdit = () => {
 		setEditable(false);
-	}
+	};
 
 	const deleteUser = () => {
 		editUser({
@@ -53,7 +53,7 @@ const UserRow = (props: UserRowProps) => {
 			deleted: true
 		});
 		setEditable(false);
-	}
+	};
 
 	return (
 		<TableRow className={`${classes.User} ${props.user.deleted ? classes.deletedRow : ""}`}>
@@ -141,6 +141,6 @@ const UserRow = (props: UserRowProps) => {
 			</TableCell>
 		</TableRow>
 	);
-}
+};
 
 export default UserRow;
