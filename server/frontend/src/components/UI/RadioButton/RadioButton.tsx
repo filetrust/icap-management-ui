@@ -32,9 +32,9 @@ const RadioButton = (props: RadioButtonProps) => {
 					value="0"
 					name={props.buttonId + "disallow"}
 					tabIndex={-1}
-					disabled={props.disabled}
-				/>
+					disabled={props.disabled} />
 				<label htmlFor={props.buttonId + "disallow"}>Disallow</label>
+
 				<input
 					checked={props.position === ContentManagementFlagAction.Sanitise}
 					onChange={() =>
@@ -45,8 +45,8 @@ const RadioButton = (props: RadioButtonProps) => {
 					value="1"
 					name={props.buttonId + "sanitise"}
 					tabIndex={-1}
-					disabled={props.disabled}
-				/>
+					disabled={props.disabled} />
+
 				<label htmlFor={props.buttonId + "sanitise"}>Sanitise</label>
 			</div>
 		</div>
