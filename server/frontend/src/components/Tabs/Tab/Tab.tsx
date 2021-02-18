@@ -16,6 +16,8 @@ const Tab = (props: TabProps) => {
 			</div>
 		);
 	}
+
+	return null;
 };
 
 export default Tab;

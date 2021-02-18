@@ -37,10 +37,6 @@ export const GlobalStoreState = ({ children }) => {
 		dispatch({ type: actionTypes.SET_VERSION, version: serverVersion });
 	};
 
-	const changePageTitleHandler = (pageTitle) => {
-		dispatch({ type: actionTypes.CHANGE_PAGE_TITLE, title: pageTitle });
-	};
-
 	const addFilterFromCheckbox = (filter) => {
 		dispatch({ type: actionTypes.ADD_FILTER_FROM_CHECKBOXES, filter });
 	};
@@ -91,7 +87,6 @@ export const GlobalStoreState = ({ children }) => {
 				requestHistoryTimeFilter: globalStoreState.requestHistoryTimeFilter,
 				analyticsTimeFilter: globalStoreState.analyticsTimeFilter,
 				navExpanded: globalStoreState.navExpanded,
-				changePageTitleHandler,
 				addFilterFromCheckbox,
 				addFilterInput,
 				removeFilter,
