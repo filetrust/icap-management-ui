@@ -21,9 +21,10 @@ const Button = (props: ButtonProps) => {
 			style={props.buttonStyle}
 			type={props.buttonType}
 			id={props.buttonId}
-			disabled={props.disabled}
-		>
+			disabled={props.disabled}>
+
 			{props.children}
+
 		</button>
 	);
 };

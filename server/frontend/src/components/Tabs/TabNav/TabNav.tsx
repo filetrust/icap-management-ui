@@ -42,15 +42,13 @@ const TabNav = (props: TabNavProps) => {
 					exit: classes.tabExit,
 					exitActive: classes.tabExitActive,
 					exitDone: classes.tabExitDone,
-				}}
-			>
+				}}>
 				<li className={clsLink.join(" ")}>
 					<button
 						data-test-id={tab.testId}
 						className={clsButton.join(" ")}
 						onClick={() => props.onSetActiveTabHandler(tab.name)}
-						disabled={tab.disabled}
-					>
+						disabled={tab.disabled}>
 						{icon ? <img src={icon} alt={tab.name} /> : null}
 						{tab.name}
 					</button>
