@@ -8,7 +8,7 @@ export interface MainProps { children?: React.ReactNode, externalStyles?: string
 const Main = (props: MainProps) => {
 	const { navExpanded } = useContext(GlobalStoreContext);
 
-return (
+	return (
 		<>
 			<div
 				className={`${styles.main} ${navExpanded ? styles.expanded : ""} ${props.externalStyles}`}>
