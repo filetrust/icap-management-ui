@@ -19,10 +19,6 @@ jobs:
         with:
           node-version: '15'
 
-      - name: Install Backend Modules
-        run: yarn install
-        working-directory: ./server
-
       - name: Installation ⏳
         run: yarn install
         working-directory: ${{env.working-directory}}
