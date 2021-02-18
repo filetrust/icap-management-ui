@@ -69,7 +69,6 @@ const Toolbar = () => {
 	const [userLinkIsOpen, setUserLinkIsOpen] = useState(false);
 	// const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
 
-	// @ts-ignore
 	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
 
 	const cls = [classes.Toolbar];

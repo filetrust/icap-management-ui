@@ -12,7 +12,8 @@ export interface GlobalStoreContextProps {
 	analyticsTimeFilter: AnalyticsTimeFilter,
 	updateAnalyticsTimeFilter: (timeDateFilter: any) => void,
 	selectedFilters: any[],
-	navExpanded: boolean
+	navExpanded: boolean,
+	toggleNavExpanded: () => void
 }
 
 export const GlobalStoreContext = createContext<Partial<GlobalStoreContextProps>>({});

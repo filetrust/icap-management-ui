@@ -43,6 +43,7 @@ const TabNav = (props: TabNavProps) => {
 					exitActive: classes.tabExitActive,
 					exitDone: classes.tabExitDone,
 				}}>
+
 				<li className={clsLink.join(" ")}>
 					<button
 						data-test-id={tab.testId}
@@ -53,6 +54,7 @@ const TabNav = (props: TabNavProps) => {
 						{tab.name}
 					</button>
 				</li>
+
 			</CSSTransition>
 		);
 	});

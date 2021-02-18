@@ -8,7 +8,11 @@ module.exports = {
 		node: true,
 		jest: true,
 	},
-	extends: ["eslint:recommended", "plugin:react/recommended"],
+	extends: [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
 	parserOptions: {
 		ecmaFeatures: {
 			experimentalObjectRestSpread: true,
@@ -43,9 +47,13 @@ module.exports = {
 		strict: "error",
 		"symbol-description": "error",
 		yoda: ["error", "never", { exceptRange: true }],
+		"no-unused-vars": ["off"],
+		"@typescript-eslint/no-unused-vars": "error",
+		"@typescript-eslint/explicit-module-boundary-types": "off"
 	},
 	globals: {
 		"JSX": "readonly",
-		"Partial": "readonly"
+		"Partial": "readonly",
+		"interface": "readonly"
 	}
 };
