@@ -21,14 +21,9 @@ const UserLink = (props: UserLinkProps) => {
 		<section
 			className={cls.join(" ")}
 			onMouseEnter={props.openPopup}
-			onMouseLeave={props.closePopup}
-		>
-			<div
-				data-test-id="userLink"
-				style={{
-					backgroundImage: `url(${AccountIcon})`,
-				}}
-			>
+			onMouseLeave={props.closePopup} >
+
+			<div data-test-id="userLink" style={{ backgroundImage: `url(${AccountIcon})` }}>
 				<p className={classes.clip}>{props.username}</p>
 			</div>
 		</section>
