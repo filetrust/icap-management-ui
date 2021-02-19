@@ -10,6 +10,7 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     env:
+      backend-working-directory: ./server
       working-directory: ./server/frontend
 
     steps:
@@ -18,6 +19,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12'
+
+      - name: Install Backend ⏳
+        run: yarn install --fronzen-lockfile
+        working-directory: ${{env.backend-working-directory}}
 
       - name: Installation ⏳
         run: yarn install --frozen-lockfile
