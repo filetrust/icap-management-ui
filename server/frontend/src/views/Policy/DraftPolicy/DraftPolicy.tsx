@@ -21,209 +21,217 @@ import classes from "./DraftPolicy.module.scss";
 const returnNcfsRoutingUrl = (ncfsRoutes: NcfsRoute) => ncfsRoutes ? ncfsRoutes.ncfsRoutingUrl : null;
 
 const DraftPolicy = () => {
-    const {
-        isPolicyChanged,
-        newDraftPolicy,
-        currentPolicy,
-        status,
-        setNewDraftPolicy,
-        saveDraftChanges,
-        cancelDraftChanges,
-    } = useContext(PolicyContext);
+	const {
+		isPolicyChanged,
+		newDraftPolicy,
+		currentPolicy,
+		status,
+		setNewDraftPolicy,
+		saveDraftChanges,
+		cancelDraftChanges,
+	} = useContext(PolicyContext);
 
-    const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
-    const [showPublishModal, setShowPublishModal] = useState(false);
-    const [showDeleteModal, setshowDeleteModal] = useState(false);
+	const [selectedTab, setSelectedTab] = useState("Adaptation Policy");
+	const [showPublishModal, setShowPublishModal] = useState(false);
+	const [showDeleteModal, setshowDeleteModal] = useState(false);
 
-    const tabs = [
-        { testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
-        { testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
-    ];
+	const tabs = [
+		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
+		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+	];
 
-    const closePublishModal = () => setShowPublishModal(false);
+	const closePublishModal = () => setShowPublishModal(false);
 
-    const closeDeleteModal = () => setshowDeleteModal(false);
+	const closeDeleteModal = () => setshowDeleteModal(false);
 
-    const updateContentManagementFlags = (newContentFlags: ContentFlags) => {
-        setNewDraftPolicy({
-            ...newDraftPolicy,
-            adaptionPolicy: {
-                ...newDraftPolicy.adaptionPolicy,
-                contentManagementFlags: newContentFlags
-            }
-        });
-    };
+	const updateContentManagementFlags = (newContentFlags: ContentFlags) => {
+		setNewDraftPolicy({
+			...newDraftPolicy,
+			adaptionPolicy: {
+				...newDraftPolicy.adaptionPolicy,
+				contentManagementFlags: newContentFlags
+			}
+		});
+	};
 
-    const updateNcfsRoute = (newRoutingUrl: string) => {
-        setNewDraftPolicy({
-            ...newDraftPolicy,
-            adaptionPolicy: {
-                ...newDraftPolicy.adaptionPolicy,
-                ncfsRoute: {
-                    ncfsRoutingUrl: newRoutingUrl,
-                    isDeleted: false,
-                    isValidated: false
-                }
-            }
-        });
-    };
+	const updateNcfsRoute = (newRoutingUrl: string) => {
+		setNewDraftPolicy({
+			...newDraftPolicy,
+			adaptionPolicy: {
+				...newDraftPolicy.adaptionPolicy,
+				ncfsRoute: {
+					ncfsRoutingUrl: newRoutingUrl,
+					isDeleted: false,
+					isValidated: false
+				}
+			}
+		});
+	};
 
-    const updateNcfsActions = (newActions: NcfsActions) => {
-        setNewDraftPolicy({
-            ...newDraftPolicy,
-            adaptionPolicy: {
-                ...newDraftPolicy.adaptionPolicy,
-                ncfsActions: {
-                    glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
-                    unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
-                }
-            }
-        });
-    };
+	const updateNcfsActions = (newActions: NcfsActions) => {
+		setNewDraftPolicy({
+			...newDraftPolicy,
+			adaptionPolicy: {
+				...newDraftPolicy.adaptionPolicy,
+				ncfsActions: {
+					glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
+					unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
+				}
+			}
+		});
+	};
 
-    const showPublishButton = () => {
-        const draft = {
-            adaptionPolicy: {
-                ...newDraftPolicy.adaptionPolicy,
-                ncfsRoute: returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)
-            },
-            ...newDraftPolicy.ncfsPolicy,
-        };
+	const showPublishButton = () => {
+		const draft = {
+			adaptionPolicy: {
+				...newDraftPolicy.adaptionPolicy,
+				ncfsRoute: returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)
+			},
+			...newDraftPolicy.ncfsPolicy,
+		};
 
-        const current = {
-            adaptionPolicy: {
-                ...currentPolicy.adaptionPolicy,
-                ncfsRoute: returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)
-            },
-            ...currentPolicy.ncfsPolicy
-        };
+		const current = {
+			adaptionPolicy: {
+				...currentPolicy.adaptionPolicy,
+				ncfsRoute: returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)
+			},
+			...currentPolicy.ncfsPolicy
+		};
 
-        return !isPolicyChanged && !equal(draft, current);
-    }
+		return !isPolicyChanged && !equal(draft, current);
+	};
 
-    const saveCancelButtons = (
-        <div className={classes.buttons}>
-            <Button
-                externalStyles={classes.cancelButton}
-                onButtonClick={() => cancelDraftChanges()}
-                buttonType="button">Cancel Changes</Button>
-            <Button
-                externalStyles={classes.saveButton}
-                onButtonClick={() => saveDraftChanges()}
-                buttonType="button">Save Changes</Button>
-        </div>
-    );
+	const saveCancelButtons = (
+		<div className={classes.buttons}>
+			<Button
+				externalStyles={classes.cancelButton}
+				onButtonClick={() => cancelDraftChanges()}
+				buttonType="button">
+				Cancel Changes
+			</Button>
+			<Button
+				externalStyles={classes.saveButton}
+				onButtonClick={() => saveDraftChanges()}
+				buttonType="button">
+				Save Changes
+			</Button>
+		</div>
+	);
 
-    const publishDeleteButtons = (
-        <div className={classes.buttons}>
-            <Button
-                externalStyles={classes.deleteButton}
-                onButtonClick={() => setshowDeleteModal(true)}
-                buttonType="button">Delete</Button>
-            <Button
-                externalStyles={classes.publishButton}
-                onButtonClick={() => setShowPublishModal(true)}
-                buttonType="button">Publish</Button>
-        </div>
-    );
+	const publishDeleteButtons = (
+		<div className={classes.buttons}>
+			<Button
+				externalStyles={classes.deleteButton}
+				onButtonClick={() => setshowDeleteModal(true)}
+				buttonType="button">
+				Delete
+			</Button>
+			<Button
+				externalStyles={classes.publishButton}
+				onButtonClick={() => setShowPublishModal(true)}
+				buttonType="button">
+				Publish
+			</Button>
+		</div>
+	);
 
-    return (
-        <div className={classes.Draft}>
-            {status === "LOADING" &&
-                <div>Loading...</div>
-            }
+	return (
+		<div className={classes.Draft}>
+			{status === "LOADING" &&
+				<div>Loading...</div>
+			}
 
-            {status === "ERROR" &&
-                <div>Error getting Policy data.</div>
-            }
+			{status === "ERROR" &&
+				<div>Error getting Policy data.</div>
+			}
 
-            {status === "LOADED" &&
-                <>
-                    <UnsavedChangesPrompt
-                        when={isPolicyChanged}
-                        message="You have unsaved changes, are you sure you want to leave the page?" />
+			{status === "LOADED" &&
+				<>
+					<UnsavedChangesPrompt
+						when={isPolicyChanged}
+						message="You have unsaved changes, are you sure you want to leave the page?" />
 
-                    <TabNav
-                        tabs={tabs}
-                        selectedTabName={selectedTab}
-                        onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
+					<TabNav
+						tabs={tabs}
+						selectedTabName={selectedTab}
+						onSetActiveTabHandler={(tab) => setSelectedTab(tab)}>
 
-                        <div className={classes.innerContent}>
-                            <Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
-                                <h2 className={classes.head}>
-                                    <div className={classes.header}>
-                                        Content Management Flags
-                                    {isPolicyChanged && <>{saveCancelButtons}</>}
-                                        {showPublishButton() && publishDeleteButtons}
-                                    </div>
-                                </h2>
-                                <ContentManagementFlags
-                                    contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
-                                    currentPolicyContentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
-                                    updateContentFlags={updateContentManagementFlags} />
-                            </Tab>
+						<div className={classes.innerContent}>
+							<Tab isSelected={selectedTab === "Adaptation Policy"} externalStyles={classes.Tab}>
+								<h2 className={classes.head}>
+									<div className={classes.header}>
+										Content Management Flags
+										{isPolicyChanged && <>{saveCancelButtons}</>}
+										{showPublishButton() && publishDeleteButtons}
+									</div>
+								</h2>
+								<ContentManagementFlags
+									contentManagementFlags={newDraftPolicy.adaptionPolicy.contentManagementFlags}
+									currentPolicyContentManagementFlags={currentPolicy.adaptionPolicy.contentManagementFlags}
+									updateContentFlags={updateContentManagementFlags} />
+							</Tab>
 
-                            <Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
-                                <h2 className={classes.head}>
-                                    <div className={classes.header}>
-                                        Config for non-compliant files
-                                    {isPolicyChanged && <>{saveCancelButtons}</>}
-                                        {showPublishButton() && publishDeleteButtons}
-                                    </div>
-                                </h2>
-                                <div className={classes.ncfsContainer}>
-                                    <section className={classes.info}>
-                                        <div>
-                                            <h3>
-                                                <strong>Un-Processable File Types</strong>{" "}
-                                            </h3>
-                                            <p>
-                                                When the filetype of the original file is identified as one that
-                                                the Glasswall SDK cannot rebuild.
+							<Tab isSelected={selectedTab === "NCFS Policy"} externalStyles={classes.Tab}>
+								<h2 className={classes.head}>
+									<div className={classes.header}>
+										Config for non-compliant files
+										{isPolicyChanged && <>{saveCancelButtons}</>}
+										{showPublishButton() && publishDeleteButtons}
+									</div>
+								</h2>
+								<div className={classes.ncfsContainer}>
+									<section className={classes.info}>
+										<div>
+											<h3>
+												<strong>Un-Processable File Types</strong>{" "}
+											</h3>
+											<p>
+												When the filetype of the original file is identified as one that
+												the Glasswall SDK cannot rebuild.
 											</p>
-                                        </div>
-                                        <div>
-                                            <h3>
-                                                <strong>Glasswall Blocked Files</strong>
-                                            </h3>
-                                            <p>The original file cannot be rebuilt by the Glasswall SDK</p>
-                                        </div>
-                                    </section>
-                                    <RoutesForNonCompliantFiles
-                                        ncfsRoutingUrl={returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)}
-                                        currentPolicyRoutingUrl={returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)}
-                                        changeInput={updateNcfsRoute} />
+										</div>
+										<div>
+											<h3>
+												<strong>Glasswall Blocked Files</strong>
+											</h3>
+											<p>The original file cannot be rebuilt by the Glasswall SDK</p>
+										</div>
+									</section>
+									<RoutesForNonCompliantFiles
+										ncfsRoutingUrl={returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)}
+										currentPolicyRoutingUrl={returnNcfsRoutingUrl(currentPolicy.adaptionPolicy.ncfsRoute)}
+										changeInput={updateNcfsRoute} />
 
-                                    <PolicyForNonCompliantFiles
-                                        ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
-                                        currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
-                                        updateNcfsActions={updateNcfsActions} />
-                                </div>
-                            </Tab>
-                        </div>
-                    </TabNav>
+									<PolicyForNonCompliantFiles
+										ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
+										currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
+										updateNcfsActions={updateNcfsActions} />
+								</div>
+							</Tab>
+						</div>
+					</TabNav>
 
-                    {showPublishModal &&
-                        <>
-                            <Modal onCloseHandler={closePublishModal} externalStyles={classes.modal}>
-                                <ConfirmDraftPublishModal onCancelHandler={closePublishModal} />
-                            </Modal>
-                            <Backdrop onClickOutside={closePublishModal} />
-                        </>
-                    }
+					{showPublishModal &&
+						<>
+							<Modal onCloseHandler={closePublishModal} externalStyles={classes.modal}>
+								<ConfirmDraftPublishModal onCancelHandler={closePublishModal} />
+							</Modal>
+							<Backdrop onClickOutside={closePublishModal} />
+						</>
+					}
 
-                    {showDeleteModal &&
-                        <>
-                            <Modal onCloseHandler={closeDeleteModal} externalStyles={classes.modal}>
-                                <ConfirmDraftDeleteModal onCancelHandler={closeDeleteModal} />
-                            </Modal>
-                            <Backdrop onClickOutside={closeDeleteModal} />
-                        </>
-                    }
-                </>
-            }
-        </div >
-    )
-}
+					{showDeleteModal &&
+						<>
+							<Modal onCloseHandler={closeDeleteModal} externalStyles={classes.modal}>
+								<ConfirmDraftDeleteModal onCancelHandler={closeDeleteModal} />
+							</Modal>
+							<Backdrop onClickOutside={closeDeleteModal} />
+						</>
+					}
+				</>
+			}
+		</div >
+	);
+};
 
 export default DraftPolicy;

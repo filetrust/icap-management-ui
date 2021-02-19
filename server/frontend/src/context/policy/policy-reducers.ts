@@ -24,7 +24,7 @@ const setPolicyError = (state: TPolicyState, error: any) => {
 const setStatus = (state: TPolicyState, status: "LOADING" | "ERROR" | "LOADED") => {
 	return updateObject(state, {
 		status
-	})
+	});
 };
 
 const setCurrentPolicy = (state: TPolicyState, policy: Policy) => {
@@ -42,8 +42,8 @@ const setDraftPolicy = (state: TPolicyState, policy: Policy) => {
 const setPolicyHistory = (state: TPolicyState, history: PolicyHistory) => {
 	return updateObject(state, {
 		policyHistory: history
-	})
-}
+	});
+};
 
 const setNewDraftPolicy = (state: TPolicyState, policy: Policy) => {
 	const isPolicyEqual = equal(state.draftPolicy, policy);
@@ -65,7 +65,7 @@ const setPolicyHistoryPagination = (state: TPolicyState, pagination: PaginationM
 	return updateObject(state, {
 		policyHistoryPagination: pagination
 	});
-}
+};
 
 export const policyReducer = (state: TPolicyState, action: { [actionName: string]: any }) => {
 	switch (action.type) {

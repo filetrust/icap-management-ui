@@ -48,6 +48,10 @@ const History = () => {
 	};
 
 	const setPageSize = (pageSize: 25 | 50 | 100) => {
+		if (status === "LOADING") {
+			return;
+		}
+
 		let index: number = policyHistoryPagination.zeroBasedIndex;
 
 		// Check if the current page is greater than the max number of pages
@@ -60,14 +64,18 @@ const History = () => {
 			pageSize,
 			zeroBasedIndex: index,
 		});
-	}
+	};
 
 	const setIndex = (index: number) => {
+		if (status === "LOADING") {
+			return;
+		}
+
 		setPolicyHistoryPagination({
 			...policyHistoryPagination,
 			zeroBasedIndex: index
 		});
-	}
+	};
 
 	return (
 		<>
@@ -107,9 +115,8 @@ const History = () => {
 														openPreviousPolicyModalHandler={() => openPolicyModal(policy.id)}
 														activatePreviousPolicyHandler={() => openConfirmPublishModal(policy.id)}
 														timestamp={new Date(policy.created).toLocaleString()}
-														updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"}
-													/>
-												)
+														updatedBy={policy.updatedBy ? policy.updatedBy : "N/A"} />
+												);
 											})}
 										</>
 									}
@@ -132,8 +139,7 @@ const History = () => {
 							(event: React.ChangeEvent<HTMLInputElement>) =>
 								setPageSize(parseInt(event.target.value, 10) as 25 | 50 | 100)
 						}
-						disabled={status === "LOADING"}
-					/>
+						disabled={status === "LOADING"} />
 				</div>
 			</div>
 
@@ -181,9 +187,10 @@ const History = () => {
 					enterActive: classes.openBackdropEnterActive,
 					exit: classes.closeBackdropExit,
 					exitActive: classes.closeBackdropExitActive,
-				}}
-			>
+				}}>
+
 				<Backdrop onClickOutside={() => setShowPolicyModal(false)} />
+
 			</CSSTransition>
 		</>
 	);

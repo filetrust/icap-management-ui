@@ -7,7 +7,7 @@ import { UserContext } from "../../../context/user/UserContext";
 import { GlobalStoreContext } from "../../../context/globalStore/globalStore-context";
 
 import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
-import NavigationItems from "../NavigationItems/NavigationItems";
+import NavigationItems, { NavigationItemsProps } from "../NavigationItems/NavigationItems";
 import { ExpandButton } from "../../GlasswallNav/GlasswallNav";
 import UserLink from "../../UI/UserLink/UserLink";
 import Popup, { PopupButton } from "../../UI/Popup/Popup";
@@ -20,22 +20,22 @@ import logoutIcon from "../../../assets/svg/account-icons/logout-icon.svg";
 // import changePassIcon from "../../../assets/svg/account-icons/change-password-icon.svg";
 // import ChangePassword from "../../ChangePassword/ChangePassword";
 
-const navLinks = [
+const navLinks: NavigationItemsProps["items"] = [
 	{
 		link: "/analytics",
 		name: "Analytics",
 		icon: dashIcon,
 		id: "id-1",
-		exact: true,
-		testId: "navLinkAnalytics"
+		testId: "navLinkAnalytics",
+		exact: true
 	},
 	{
 		link: "/request-history",
 		name: "Request history",
 		icon: transactionIcon,
 		id: "id-2",
-		exact: true,
-		testId: "navLinkRequestHistory"
+		testId: "navLinkRequestHistory",
+		exact: true
 	},
 	// {
 	// 	link: "/file-drop",
@@ -69,7 +69,6 @@ const Toolbar = () => {
 	const [userLinkIsOpen, setUserLinkIsOpen] = useState(false);
 	// const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] = useState(false);
 
-	// @ts-ignore
 	const { version, navExpanded, toggleNavExpanded } = useContext(GlobalStoreContext);
 
 	const cls = [classes.Toolbar];
@@ -101,8 +100,7 @@ const Toolbar = () => {
 					username={currentUser.username}
 					expanded={navExpanded}
 					openPopup={() => setUserLinkIsOpen(true)}
-					closePopup={() => setUserLinkIsOpen(false)}
-				/>
+					closePopup={() => setUserLinkIsOpen(false)} />
 				<ExpandButton expanded={navExpanded} clickHandler={toggleNavExpanded} />
 				{version !== "" &&
 					<span>v{version}</span>
@@ -113,8 +111,7 @@ const Toolbar = () => {
 					popupButtons={accountLinks}
 					externalStyles={classes.popup}
 					openPopupHover={() => setUserLinkIsOpen(true)}
-					closePopupHover={() => setUserLinkIsOpen(false)}
-				/>
+					closePopupHover={() => setUserLinkIsOpen(false)} />
 			)}
 			{/* {changePasswordModalIsOpen &&
 				<ChangePassword closeModal={() => setChangePasswordModalIsOpen(false)} />

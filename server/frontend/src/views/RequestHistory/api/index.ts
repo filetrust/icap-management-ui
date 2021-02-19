@@ -1,3 +1,3 @@
-export { getTransactions } from "./getTranasctions";
+export { getTransactions } from "./getTransactions";
 
 export { getTransactionDetails } from "./getTransactionDetails";

@@ -9,20 +9,20 @@ export interface NavBarProps { logo: boolean, expanded: boolean, children: React
 
 const NavBar = (props: NavBarProps) => {
 
-    return (
-        <div className={`${styles.navBar} ${props.expanded ? styles.expanded : ""}`}>
-            {props.logo &&
-                <GlasswallLogo className={styles.logo} />
-            }
+	return (
+		<div className={`${styles.navBar} ${props.expanded ? styles.expanded : ""}`}>
+			{props.logo &&
+				<GlasswallLogo className={styles.logo} />
+			}
 
-            {props.children}
+			{props.children}
 
-        </div>
-    );
+		</div>
+	);
 };
 
 NavBar.propTypes = {
-    logo: PropTypes.bool
+	logo: PropTypes.bool
 };
 
 export { NavBar };

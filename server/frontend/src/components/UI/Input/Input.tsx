@@ -9,7 +9,7 @@ export interface InputProps {
 	style?: React.CSSProperties,
 	externalStyles?: string,
 	valid?: boolean,
-	touched?: boolean
+	touched?: boolean,
 	type: string,
 	onChange: React.ChangeEventHandler,
 	placeholder?: string,
@@ -39,14 +39,14 @@ const Input = (props: InputProps) => {
 				autoFocus={props.autofocus}
 				required={props.required}
 				disabled={props.disabled}
-				minLength={props.minLength}
-			/>
+				minLength={props.minLength} />
 
 			{props.loading &&
 				<div className={classes.iconContainer}>
 					<i className={classes.loader}></i>
 				</div>
 			}
+
 		</div>
 	);
 };

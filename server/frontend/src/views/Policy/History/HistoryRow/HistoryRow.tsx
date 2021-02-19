@@ -29,14 +29,18 @@ const HistoryRow = (props: HistoryRowProps) => {
 				<Button
 					onButtonClick={props.openPreviousPolicyModalHandler}
 					externalStyles="policyHistoryViewButton"
-					buttonType="button">View</Button>
+					buttonType="button">
+					View
+				</Button>
 			</TableCell>
 			<TableCell component="th" scope="row" id={props.id}>
 				<Button
 					onButtonClick={props.activatePreviousPolicyHandler}
 					disabled={props.isCurrent}
 					externalStyles="policyHistoryActivateButton"
-					buttonType="button">Activate</Button>
+					buttonType="button">
+					Activate
+				</Button>
 			</TableCell>
 		</TableRow>
 	);

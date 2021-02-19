@@ -15,7 +15,7 @@ const RoutesForNonCompliantFiles = (props: RoutesForNonCompliantFilesProps) => {
 		if (props.changeInput) {
 			props.changeInput(newUrl);
 		}
-	}
+	};
 
 	return (
 		<section className={classes.routes}>

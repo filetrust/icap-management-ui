@@ -4,18 +4,18 @@ import ContentManagementFlags from "../../../Policy/common/ContentManagementFlag
 import { AdaptionPolicy } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/AdaptionPolicy";
 
 export interface ActiveContentManagementFlagsProps {
-    adaptationPolicy: AdaptionPolicy
+	adaptationPolicy: AdaptionPolicy
 }
 
 const ActiveContentManagementFlags = (props: ActiveContentManagementFlagsProps) => {
-    return (
-        <>
-            <ContentManagementFlags
-                contentManagementFlags={props.adaptationPolicy.contentManagementFlags}
-                currentPolicyContentManagementFlags={props.adaptationPolicy.contentManagementFlags}
-                disabled />
-        </>
-    );
-}
+	return (
+		<>
+			<ContentManagementFlags
+				contentManagementFlags={props.adaptationPolicy.contentManagementFlags}
+				currentPolicyContentManagementFlags={props.adaptationPolicy.contentManagementFlags}
+				disabled />
+		</>
+	);
+};
 
 export default ActiveContentManagementFlags;

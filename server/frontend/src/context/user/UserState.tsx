@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { CancelToken } from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 import { UserContext } from "./UserContext";
 import { userReducer } from "./user-reducers";
@@ -37,19 +37,19 @@ export const UserState = (props: { children: React.ReactNode }) => {
 
 	const setStatus = (status: "LOADING" | "ERROR" | "LOADED") => {
 		dispatch({ type: actionTypes.SET_STATUS, status });
-	}
+	};
 
 	const setCurrentUser = (user: User) => {
 		dispatch({ type: actionTypes.SET_CURRENT_USER, user });
-	}
+	};
 
 	const setUsers = (users: User[]) => {
 		dispatch({ type: actionTypes.SET_USERS, users });
-	}
+	};
 
 	const setUpdatedUsers = (updatedUsers: User[]) => {
 		dispatch({ type: actionTypes.SET_UPDATED_USERS, updatedUsers });
-	}
+	};
 
 	const getUsers = async (cancellationToken: CancelToken) => {
 		setStatus("LOADING");
@@ -63,7 +63,7 @@ export const UserState = (props: { children: React.ReactNode }) => {
 		catch (error) {
 			setStatus("ERROR");
 		}
-	}
+	};
 
 	const login = (username: string, password: string, cancellationToken: CancelToken) => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -98,16 +98,16 @@ export const UserState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
-	}
+	};
 
 	const logout = () => {
 		setCurrentUser(null);
 		localStorage.removeItem("currentUser");
-	}
+	};
 
 	const editUser = (user: User) => {
 		dispatch({ type: actionTypes.EDIT_USER, user });
-	}
+	};
 
 	const addNewUser = () => {
 		const newUser: NewUser = {
@@ -118,15 +118,15 @@ export const UserState = (props: { children: React.ReactNode }) => {
 		};
 
 		dispatch({ type: actionTypes.ADD_NEW_USER, newUser });
-	}
+	};
 
 	const deleteNewUser = (index: number) => {
 		dispatch({ type: actionTypes.DELETE_NEW_USER, index });
-	}
+	};
 
 	const editNewUser = (newUser: NewUser, index: number) => {
 		dispatch({ type: actionTypes.EDIT_NEW_USER, newUser, index });
-	}
+	};
 
 	const saveChanges = async (cancellationToken: CancelToken) => {
 		let valid = true;
@@ -172,11 +172,11 @@ export const UserState = (props: { children: React.ReactNode }) => {
 				console.error(error);
 			}
 		}
-	}
+	};
 
 	const cancelChanges = () => {
 		dispatch({ type: actionTypes.CANCEL_USERS_CHANGES });
-	}
+	};
 
 	return (
 		<UserContext.Provider value={{
@@ -200,4 +200,4 @@ export const UserState = (props: { children: React.ReactNode }) => {
 			{ props.children}
 		</UserContext.Provider>
 	);
-}
+};

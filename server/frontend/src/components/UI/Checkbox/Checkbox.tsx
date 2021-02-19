@@ -36,8 +36,7 @@ const Checkbox = (props: CheckboxProps) => {
 				onChange={props.onHandleChange}
 				checkedIcon={<span className={classes.icon} />}
 				icon={<span className={classes.icon} />}
-				disabled={props.disabled}
-			/>
+				disabled={props.disabled} />
 		);
 	} else {
 		checkbox = (
@@ -49,8 +48,7 @@ const Checkbox = (props: CheckboxProps) => {
 				color="primary"
 				checkedIcon={props.checkedIcon}
 				icon={props.checkboxIcon}
-				disabled={props.disabled}
-			/>
+				disabled={props.disabled} />
 		);
 	}
 
@@ -61,8 +59,7 @@ const Checkbox = (props: CheckboxProps) => {
 			label={props.label}
 			labelPlacement={props.filter !== "Risk" ? "start" : "end"}
 			control={checkbox}
-			disabled={props.disabled}
-		/>
+			disabled={props.disabled} />
 	);
 };
 

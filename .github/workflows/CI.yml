@@ -10,15 +10,22 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     env:
+      backend-working-directory: ./server
       working-directory: ./server/frontend
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Install Backend ⏳
+        run: yarn install --fronzen-lockfile
+        working-directory: ${{env.backend-working-directory}}
 
       - name: Installation ⏳
-        run: yarn install
+        run: yarn install --frozen-lockfile
         working-directory: ${{env.working-directory}}
 
       - name: Test 🧪

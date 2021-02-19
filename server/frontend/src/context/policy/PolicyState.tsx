@@ -37,7 +37,7 @@ const _handleNullPolicies = (policy: Policy, policyType: PolicyType) => {
 	if (policy.ncfsPolicy === null || undefined) {
 		throw new Error(`${PolicyType[policyType]} Policy - NCFS Policy cannot be null`);
 	}
-}
+};
 
 export const PolicyState = (props: { children: React.ReactNode }) => {
 	const user = useContext(UserContext).currentUser;
@@ -52,37 +52,37 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		isPolicyChanged: false,
 		status: "LOADING",
 		policyError: ""
-	}
+	};
 
 	const [policyState, dispatch] = useReducer(policyReducer, initialState);
 
 	const setPolicyError = (error: string) => {
 		dispatch({ type: actionTypes.SET_POLICY_ERROR, error });
-	}
+	};
 
 	const setStatus = (status: "LOADING" | "ERROR" | "LOADED") => {
 		dispatch({ type: actionTypes.SET_STATUS, status });
-	}
+	};
 
 	const setIsPolicyChanged = (changed: boolean) => {
 		dispatch({ type: actionTypes.SET_IS_POLICY_CHANGED, changed });
-	}
+	};
 
 	const setCurrentPolicy = (policy: Policy) => {
 		dispatch({ type: actionTypes.SET_CURRENT_POLICY, currentPolicy: policy });
-	}
+	};
 
 	const setDraftPolicy = (policy: Policy) => {
 		dispatch({ type: actionTypes.SET_DRAFT_POLICY, draftPolicy: policy });
-	}
+	};
 
 	const setPolicyHistory = (policyHistory: PolicyHistory) => {
 		dispatch({ type: actionTypes.SET_POLICY_HISTORY, policyHistory });
-	}
+	};
 
 	const setNewDraftPolicy = (policy: Policy) => {
 		dispatch({ type: actionTypes.SET_NEW_DRAFT_POLICY, newPolicy: policy });
-	}
+	};
 
 	const _loadPolicyHistory = async (pagination: PaginationModel) => {
 		const policyHistory = await getPaginatedPolicyHistory(pagination, cancellationTokenSource.token);
@@ -94,7 +94,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		}
 
 		return policyHistory;
-	}
+	};
 
 	const _loadPolicies = async () => {
 		const requestChain = [
@@ -113,7 +113,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		setNewDraftPolicy(draftPolicy as Policy);
 
 		setPolicyHistory(policyHistory as PolicyHistory);
-	}
+	};
 
 	const saveDraftChanges = () => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -134,11 +134,11 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
-	}
+	};
 
 	const cancelDraftChanges = () => {
 		dispatch({ type: actionTypes.CANCEL_DRAFT_CHANGES });
-	}
+	};
 
 	const publishPolicy = (policyId: Guid) => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -160,7 +160,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
-	}
+	};
 
 	const deleteDraftPolicy = (policyId: Guid) => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -182,7 +182,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
-	}
+	};
 
 	const setPolicyHistoryPagination = (pagination: PaginationModel) => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -203,7 +203,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 				setStatus(status);
 			}
 		})();
-	}
+	};
 
 	useEffect(() => {
 		let status: "LOADING" | "ERROR" | "LOADED" = "LOADING";
@@ -228,7 +228,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			if (policyState.status === "LOADING") {
 				cancellationTokenSource.cancel();
 			}
-		}
+		};
 
 		// eslint-disable-next-line
 	}, []);
@@ -253,4 +253,4 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 			{ props.children}
 		</PolicyContext.Provider>
 	);
-}
+};

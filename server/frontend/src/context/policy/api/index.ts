@@ -10,33 +10,33 @@ import PaginationModel from "../../../../../src/common/models/PolicyManagementSe
 const routes = new Routes().policyRoutes;
 
 export const getCurrentPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
-    return await getPolicy(routes.getCurrentPolicyRoute, cancellationToken);
-}
+	return await getPolicy(routes.getCurrentPolicyRoute, cancellationToken);
+};
 
 export const getDraftPolicy = async (cancellationToken: CancelToken): Promise<Policy> => {
-    return await getPolicy(routes.getDraftPolicyRoute, cancellationToken);
-}
+	return await getPolicy(routes.getDraftPolicyRoute, cancellationToken);
+};
 
 export const saveDraftPolicy = async (policy: Policy, cancellationToken: CancelToken): Promise<void> => {
-    return await axiosRequestHelper(routes.saveDraftPolicyRoute, "PUT", cancellationToken, policy);
-}
+	return await axiosRequestHelper(routes.saveDraftPolicyRoute, "PUT", cancellationToken, policy);
+};
 
 export const publishPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
-    const url = `${routes.publishPolicyRoute}/${policyId.toString()}`;
+	const url = `${routes.publishPolicyRoute}/${policyId.toString()}`;
 
-    return await axiosRequestHelper(url, "PUT", cancellationToken);
-}
+	return await axiosRequestHelper(url, "PUT", cancellationToken);
+};
 
 export const deleteDraftPolicy = async (policyId: Guid, cancellationToken: CancelToken): Promise<void> => {
-    const url = `${routes.deletePolicyRoute}/${policyId.toString()}`;
+	const url = `${routes.deletePolicyRoute}/${policyId.toString()}`;
 
-    return await axiosRequestHelper(url, "DELETE", cancellationToken);
-}
+	return await axiosRequestHelper(url, "DELETE", cancellationToken);
+};
 
 export const getPolicyHistory = async (cancellationToken: CancelToken): Promise<PolicyHistory> => {
-    return await axiosRequestHelper(routes.getPolicyHistory, "GET", cancellationToken);
-}
+	return await axiosRequestHelper(routes.getPolicyHistory, "GET", cancellationToken);
+};
 
-export const getPaginatedPolicyHistory = async(pagination: PaginationModel, cancellationToken: CancelToken) => {
-    return await axiosRequestHelper(routes.getPaginatedPolicyHistoryPath, "POST", cancellationToken, {pagination});
-}
+export const getPaginatedPolicyHistory = async (pagination: PaginationModel, cancellationToken: CancelToken) => {
+	return await axiosRequestHelper(routes.getPaginatedPolicyHistoryPath, "POST", cancellationToken, { pagination });
+};
