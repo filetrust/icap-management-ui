@@ -8,51 +8,50 @@ import { GlobalStoreContext } from "../../../context/globalStore/globalStore-con
 import classes from "./Filters.module.scss";
 
 export interface FiltersProps {
-    disabled?: boolean
+	disabled?: boolean
 }
 
 const Filters = (props: FiltersProps) => {
-    const {
-        navExpanded,
-        analyticsTimeFilter,
-        updateAnalyticsTimeFilter
-    } = useContext(GlobalStoreContext);
+	const {
+		navExpanded,
+		analyticsTimeFilter,
+		updateAnalyticsTimeFilter
+	} = useContext(GlobalStoreContext);
 
-    const [dateRangeFilter, setDateRangeFilter] = useState({
-        start: analyticsTimeFilter.timestampRangeStart,
-        end: analyticsTimeFilter.timestampRangeEnd
-    });
+	const [dateRangeFilter, setDateRangeFilter] = useState({
+		start: analyticsTimeFilter.timestampRangeStart,
+		end: analyticsTimeFilter.timestampRangeEnd
+	});
 
-    useEffect(() => {
-        const newTimeFilter = {
-            timestampRangeStart: dateRangeFilter.start,
-            timestampRangeEnd: dateRangeFilter.end
-        };
+	useEffect(() => {
+		const newTimeFilter = {
+			timestampRangeStart: dateRangeFilter.start,
+			timestampRangeEnd: dateRangeFilter.end
+		};
 
-        updateAnalyticsTimeFilter(newTimeFilter);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dateRangeFilter]);
+		updateAnalyticsTimeFilter(newTimeFilter);
+	}, [dateRangeFilter]);
 
-    const onRangeChange = (start: Moment, end: Moment) => {
-        setDateRangeFilter({ start, end });
-    }
+	const onRangeChange = (start: Moment, end: Moment) => {
+		setDateRangeFilter({ start, end });
+	};
 
-    return (
-        <>
-            <section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
-                <div className={classes.wrap}>
-                    <div className={classes.header}>
-                        <h2 className={classes.head}>Filters</h2>
-                        <DaterangePicker
-                            initialRange={dateRangeFilter}
-                            onRangeChange={onRangeChange}
-                            externalStyles={classes.pickers}
-                            disabled={props.disabled} />
-                    </div>
-                </div>
-            </section>
-        </>
-    );
-}
+	return (
+		<>
+			<section className={`${classes.Filters} ${navExpanded ? classes.expanded : ""}`}>
+				<div className={classes.wrap}>
+					<div className={classes.header}>
+						<h2 className={classes.head}>Filters</h2>
+						<DaterangePicker
+							initialRange={dateRangeFilter}
+							onRangeChange={onRangeChange}
+							externalStyles={classes.pickers}
+							disabled={props.disabled} />
+					</div>
+				</div>
+			</section>
+		</>
+	);
+};
 
 export default Filters;

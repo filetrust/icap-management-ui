@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import "./index.scss";
 import "./normalize.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import { GlobalStoreState } from "./context/globalStore/GlobalStoreState";
 import { UserState } from "./context/user/UserState";
@@ -14,9 +14,9 @@ import * as serviceWorker from "./serviceWorker";
 ReactDOM.render(
 	// <React.StrictMode>
 	<GlobalStoreState>
-			<UserState>
-				<App />
-			</UserState>
+		<UserState>
+			<App />
+		</UserState>
 	</GlobalStoreState>,
 	// </React.StrictMode>,
 	document.getElementById("root")

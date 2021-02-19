@@ -1,6 +1,5 @@
 /node_modules
 /src/assets/UIicons
-yarn.lock
 .DS_Store
 .env.local
 .env.development.local

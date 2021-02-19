@@ -45,8 +45,7 @@ const Login = () => {
 							backgroundImage: `url(${iconUser})`
 						}}
 						required
-						disabled={status === "LOADING"}
-					/>
+						disabled={status === "LOADING"} />
 
 					<Input
 						data-test-id="inputPassword"
@@ -63,8 +62,7 @@ const Login = () => {
 						required
 						minLength={MINIMUM_PASSWORD_LENGTH}
 						disabled={status === "LOADING"}
-						loading={status === "LOADING"}
-					/>
+						loading={status === "LOADING"} />
 
 					<p className={classes.linkTerms}>
 						By logging in your agree to the &nbsp;
@@ -74,7 +72,9 @@ const Login = () => {
 					<Button
 						data-test-id="buttonLogin"
 						buttonType={"submit"}
-						disabled={status === "LOADING"}>Log In</Button>
+						disabled={status === "LOADING"}>
+							Log In
+					</Button>
 				</form>
 				<p className={classes.rePassLink}>
 					<Link data-test-id="linkForgottenPassword" to={"/forgot-password"}>Forgotten password?</Link>

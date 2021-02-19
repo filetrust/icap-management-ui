@@ -5,7 +5,7 @@ export interface ButtonProps {
 	testId?: string,
 	onButtonClick?: React.MouseEventHandler<HTMLButtonElement>,
 	buttonId?: string,
-	buttonType: 'submit' | 'reset' | 'button',
+	buttonType: "submit" | "reset" | "button",
 	externalStyles?: string,
 	buttonStyle?: React.CSSProperties,
 	children: React.ReactNode,
@@ -21,9 +21,10 @@ const Button = (props: ButtonProps) => {
 			style={props.buttonStyle}
 			type={props.buttonType}
 			id={props.buttonId}
-			disabled={props.disabled}
-		>
+			disabled={props.disabled}>
+
 			{props.children}
+
 		</button>
 	);
 };

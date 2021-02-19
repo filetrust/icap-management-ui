@@ -23,7 +23,7 @@ class TransactionEventService implements ITransactionEventService {
             transactions = new GetTransactionsResponse(transactionsResponse.count, transactionsResponse.files);
 
             if (transactions) {
-                this.logger.info(`Retrieved ${transactions.count} Transactions: ${JSON.stringify(transactionsResponse)}`);
+                this.logger.info(`Retrieved ${transactions.count} Transactions: ${JSON.stringify(transactions.files.map(file => file.fileId.toString()))}`);
             }
         }
         catch (error) {

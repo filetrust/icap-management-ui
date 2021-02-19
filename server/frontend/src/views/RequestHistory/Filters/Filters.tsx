@@ -22,8 +22,15 @@ export interface FiltersProps {
 }
 
 const Filters = (props: FiltersProps) => {
-	// @ts-ignore
-	const { addFilterInput, fileFilter, riskFilter, selectedFilters, removeFilter, navExpanded, updateRequestHistoryTimeFilter, requestHistoryTimeFilter } = useContext(GlobalStoreContext);
+	const {
+		addFilterInput,
+		fileFilter,
+		riskFilter,
+		selectedFilters,
+		removeFilter,
+		navExpanded,
+		updateRequestHistoryTimeFilter,
+		requestHistoryTimeFilter } = useContext(GlobalStoreContext);
 
 	const [openFilter, setOpenFilter] = useState(null);
 
@@ -86,7 +93,7 @@ const Filters = (props: FiltersProps) => {
 
 	const onRangeChange = (start: moment.Moment, end: moment.Moment) => {
 		setDateRangeFilter({ start, end });
-	}
+	};
 
 	let selectedFilter = null;
 	let filterStyle = null;
@@ -137,7 +144,6 @@ const Filters = (props: FiltersProps) => {
 
 		updateRequestHistoryTimeFilter(newTimeFilter);
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dateRangeFilter]);
 
 	return (
@@ -176,8 +182,7 @@ const Filters = (props: FiltersProps) => {
 											title={filter.title}
 											titleColor={filter.titleColor}
 											remove={removeFilter}
-											disabled={props.disabled}
-										/>
+											disabled={props.disabled} />
 									);
 								}
 								)}
@@ -212,8 +217,7 @@ const Filters = (props: FiltersProps) => {
 									externalStyles={filterStyle}
 									openPopupHover={() => props.setShowAddFilter(true)}
 									closePopupHover={hideAddFilterList}
-									disabled={props.disabled}
-								/>
+									disabled={props.disabled} />
 							)}
 						</Popup>
 
@@ -221,8 +225,8 @@ const Filters = (props: FiltersProps) => {
 							<form
 								className={classes.fileId}
 								onSubmit={addFileIdFilter}
-								onMouseEnter={() => props.setShowAddFilter(true)}
-							>
+								onMouseEnter={() => props.setShowAddFilter(true)}>
+
 								<Input
 									type="text"
 									name="fileId"
@@ -234,12 +238,14 @@ const Filters = (props: FiltersProps) => {
 									onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 										updateFileId(event.target.value);
 									}}
-									disabled={props.disabled}
-								/>
+									disabled={props.disabled} />
+
 								<button
 									type="submit"
 									className={classes.addButton}
-									disabled={!isValid}>+ ADD</button>
+									disabled={!isValid}>
+									+ ADD
+								</button>
 
 								<button
 									type="button"
@@ -248,7 +254,9 @@ const Filters = (props: FiltersProps) => {
 										setShowFileIdInput(false);
 										setFileId("");
 										setIsTouched(false);
-									}}>Cancel</button>
+									}}>
+									Cancel
+								</button>
 							</form>
 						)}
 					</>

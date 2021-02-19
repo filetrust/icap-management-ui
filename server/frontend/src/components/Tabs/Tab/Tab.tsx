@@ -15,9 +15,9 @@ const Tab = (props: TabProps) => {
 				<div className={[classes.innerContent, props.innnerContentStyles].join(" ")}>{props.children}</div>
 			</div>
 		);
-	} else {
-		return null;
 	}
+
+	return null;
 };
 
 export default Tab;

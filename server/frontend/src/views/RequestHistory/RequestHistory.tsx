@@ -157,7 +157,7 @@ const RequestHistory = () => {
 				// tslint:disable-next-line: no-console
 				console.error("RequestHistory: " + error);
 			}
-		}
+		};
 
 		getTransactionsAsync();
 
@@ -165,7 +165,7 @@ const RequestHistory = () => {
 			if (status === "LOADING") {
 				cancellationTokenSource.cancel();
 			}
-		}
+		};
 
 		// eslint-disable-next-line
 	}, [selectedFilters, requestHistoryTimeFilter.timestampRangeStart, requestHistoryTimeFilter.timestampRangeEnd]);
@@ -199,11 +199,11 @@ const RequestHistory = () => {
 
 											<TableCell>
 												File ID
-												</TableCell>
+											</TableCell>
 
 											<TableCell>
 												File Type
-												</TableCell>
+											</TableCell>
 
 											<TableCell>
 												Risk (Transaction)

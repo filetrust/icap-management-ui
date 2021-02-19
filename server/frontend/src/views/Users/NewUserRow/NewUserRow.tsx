@@ -9,112 +9,112 @@ import { UserContext } from "../../../context/user/UserContext";
 import classes from "./NewUserRow.module.scss";
 
 export interface NewUserRowProps {
-    newUser: NewUser,
-    index: number
+	newUser: NewUser,
+	index: number
 }
 
 const NewUserRow = (props: NewUserRowProps) => {
-    const { editNewUser, deleteNewUser } = useContext(UserContext);
+	const { editNewUser, deleteNewUser } = useContext(UserContext);
 
-    const emailInput = useRef(null);
+	const emailInput = useRef(null);
 
-    const updateUsername = (username: string) => {
-        editNewUser(
-            {
-                ...props.newUser,
-                username
-            },
-            props.index
-        );
-    }
+	const updateUsername = (username: string) => {
+		editNewUser(
+			{
+				...props.newUser,
+				username
+			},
+			props.index
+		);
+	};
 
-    const updateFirstName = (firstName: string) => {
-        editNewUser(
-            {
-                ...props.newUser,
-                firstName
-            },
-            props.index
-        );
-    }
+	const updateFirstName = (firstName: string) => {
+		editNewUser(
+			{
+				...props.newUser,
+				firstName
+			},
+			props.index
+		);
+	};
 
-    const updateLastName = (lastName: string) => {
-        editNewUser(
-            {
-                ...props.newUser,
-                lastName
-            },
-            props.index
-        );
-    }
+	const updateLastName = (lastName: string) => {
+		editNewUser(
+			{
+				...props.newUser,
+				lastName
+			},
+			props.index
+		);
+	};
 
-    const updateEmail = (email: string) => {
-        emailInput.current.reportValidity();
+	const updateEmail = (email: string) => {
+		emailInput.current.reportValidity();
 
-        editNewUser(
-            {
-                ...props.newUser,
-                email
-            },
-            props.index
-        );
-    }
+		editNewUser(
+			{
+				...props.newUser,
+				email
+			},
+			props.index
+		);
+	};
 
-    return (
-        <TableRow className={classes.NewUser}>
-            <TableCell>
-                <Input
-                    type="text"
-                    value={props.newUser.username}
-                    touched={!props.newUser.username}
-                    onChange={
-                        (event: ChangeEvent<HTMLInputElement>) =>
-                            updateUsername(event.target.value)} />
-            </TableCell>
+	return (
+		<TableRow className={classes.NewUser}>
+			<TableCell>
+				<Input
+					type="text"
+					value={props.newUser.username}
+					touched={!props.newUser.username}
+					onChange={
+						(event: ChangeEvent<HTMLInputElement>) =>
+							updateUsername(event.target.value)} />
+			</TableCell>
 
-            <TableCell>
-                <Input
-                    type="text"
-                    value={props.newUser.firstName}
-                    touched={!props.newUser.firstName}
-                    onChange={
-                        (event: ChangeEvent<HTMLInputElement>) =>
-                            updateFirstName(event.target.value)} />
-            </TableCell>
+			<TableCell>
+				<Input
+					type="text"
+					value={props.newUser.firstName}
+					touched={!props.newUser.firstName}
+					onChange={
+						(event: ChangeEvent<HTMLInputElement>) =>
+							updateFirstName(event.target.value)} />
+			</TableCell>
 
-            <TableCell>
-                <Input
-                    type="text"
-                    value={props.newUser.lastName}
-                    touched={!props.newUser.lastName}
-                    onChange={
-                        (event: ChangeEvent<HTMLInputElement>) =>
-                            updateLastName(event.target.value)} />
-            </TableCell>
+			<TableCell>
+				<Input
+					type="text"
+					value={props.newUser.lastName}
+					touched={!props.newUser.lastName}
+					onChange={
+						(event: ChangeEvent<HTMLInputElement>) =>
+							updateLastName(event.target.value)} />
+			</TableCell>
 
-            <TableCell>
-                <form ref={emailInput}>
-                    <Input
-                        type="email"
-                        value={props.newUser.email}
-                        touched={!props.newUser.email}
-                        required
-                        onChange={
-                            (event: ChangeEvent<HTMLInputElement>) =>
-                                updateEmail(event.target.value)} />
-                </form>
-            </TableCell>
+			<TableCell>
+				<form ref={emailInput}>
+					<Input
+						type="email"
+						value={props.newUser.email}
+						touched={!props.newUser.email}
+						required
+						onChange={
+							(event: ChangeEvent<HTMLInputElement>) =>
+								updateEmail(event.target.value)} />
+				</form>
+			</TableCell>
 
-            <TableCell></TableCell>
+			<TableCell></TableCell>
 
-            <TableCell>
-                <DeleteIcon
-                    className={classes.deleteIcon}
-                    stroke="#D69598"
-                    onClick={() => deleteNewUser(props.index)} />
-            </TableCell>
-        </TableRow>
-    );
-}
+			<TableCell>
+				<DeleteIcon
+					className={classes.deleteIcon}
+					stroke="#D69598"
+					onClick={() => deleteNewUser(props.index)} />
+			</TableCell>
+		</TableRow>
+	);
+};
 
 export default NewUserRow;

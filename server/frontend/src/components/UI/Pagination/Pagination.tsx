@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 	root: {
 		"& > *": {
 			justifyContent: "center",
-			display: 'flex'
+			display: "flex"
 		},
 		overflow: "hidden"
 	},
@@ -49,10 +49,10 @@ const Pagination = (props: PaginationProps) => {
 			component="div"
 			count={props.count}
 			page={props.page}
-			onChangePage={props.disabled ? () => { return; } : props.onChangePage}
+			onChangePage={props.onChangePage}
 			rowsPerPage={props.rowsPerPage}
 			rowsPerPageOptions={props.rowsPerPageOptions}
-			onChangeRowsPerPage={props.disabled ? () => { return; } : props.onChangeRowsPerPage} />
+			onChangeRowsPerPage={props.onChangeRowsPerPage} />
 	);
 };
 

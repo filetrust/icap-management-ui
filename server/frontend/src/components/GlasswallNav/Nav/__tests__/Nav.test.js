@@ -7,27 +7,27 @@ const expanded = true;
 const bottom = false;
 
 const props = {
-    expanded: expanded,
-    bottom: bottom
+	expanded: expanded,
+	bottom: bottom
 };
 
 test("Nav_Snapshot", () => {
-    // Arrange
-    const component = TestRenderer.create(<Nav {...props} />);
+	// Arrange
+	const component = TestRenderer.create(<Nav {...props} />);
 
-    // Act
-    let tree = component.toJSON();
+	// Act
+	let tree = component.toJSON();
 
-    // Assert
-    expect(tree).toMatchSnapshot();
+	// Assert
+	expect(tree).toMatchSnapshot();
 });
 
 test("Displays_Correct_Props", () => {
-    // Arrange
-    // Act
-    const navComponent = mount(<Nav {...props}/>);
+	// Arrange
+	// Act
+	const navComponent = mount(<Nav {...props} />);
 
-    // Assert
-    expect(navComponent.prop("expanded")).toEqual(props.expanded);
-    expect(navComponent.prop("clickHandler")).toEqual(props.clickHandler);    
+	// Assert
+	expect(navComponent.prop("expanded")).toEqual(props.expanded);
+	expect(navComponent.prop("clickHandler")).toEqual(props.clickHandler);
 });
