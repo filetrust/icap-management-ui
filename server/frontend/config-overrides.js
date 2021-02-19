@@ -7,6 +7,7 @@ module.exports = override(
 	removeModuleScopePlugin(),
 	babelInclude([
 		path.resolve("src"),
+		path.resolve("../src/node_modules"),
 		path.resolve("../src/common/models")
 	])
 );
