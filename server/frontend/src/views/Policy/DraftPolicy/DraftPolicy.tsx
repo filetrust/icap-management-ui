@@ -38,6 +38,7 @@ const DraftPolicy = () => {
 	const tabs = [
 		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+		{ testId: "buttonReferenceNcfsTab", name: "Reference NCFS" }
 	];
 
 	const closePublishModal = () => setShowPublishModal(false);
@@ -135,6 +136,26 @@ const DraftPolicy = () => {
 		</div>
 	);
 
+	const ncfsActionsDescriptions = (
+		<>
+			<div>
+				<h3>
+					<strong>Un-Processable File Types</strong>{" "}
+				</h3>
+				<p>
+					When the filetype of the original file is identified as one that
+					the Glasswall SDK cannot rebuild.
+				</p>
+			</div>
+			<div>
+				<h3>
+					<strong>Glasswall Blocked Files</strong>
+				</h3>
+				<p>The original file cannot be rebuilt by the Glasswall SDK</p>
+			</div>
+		</>
+	);
+
 	return (
 		<div className={classes.Draft}>
 			{status === "LOADING" &&
@@ -181,21 +202,7 @@ const DraftPolicy = () => {
 								</h2>
 								<div className={classes.ncfsContainer}>
 									<section className={classes.info}>
-										<div>
-											<h3>
-												<strong>Un-Processable File Types</strong>{" "}
-											</h3>
-											<p>
-												When the filetype of the original file is identified as one that
-												the Glasswall SDK cannot rebuild.
-											</p>
-										</div>
-										<div>
-											<h3>
-												<strong>Glasswall Blocked Files</strong>
-											</h3>
-											<p>The original file cannot be rebuilt by the Glasswall SDK</p>
-										</div>
+										{ncfsActionsDescriptions}
 									</section>
 									<RoutesForNonCompliantFiles
 										ncfsRoutingUrl={returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)}
@@ -206,6 +213,21 @@ const DraftPolicy = () => {
 										ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
 										currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
 										updateNcfsActions={updateNcfsActions} />
+								</div>
+							</Tab>
+
+							<Tab isSelected={selectedTab === "Reference NCFS"} externalStyles={classes.Tab}>
+								<h2 className={classes.head}>
+									<div className={classes.header}>
+										Reference NCFS Actions
+										{isPolicyChanged && <>{saveCancelButtons}</>}
+										{showPublishButton() && publishDeleteButtons}
+									</div>
+								</h2>
+								<div className={classes.ncfsContainer}>
+									<section className={classes.info}>
+										{ncfsActionsDescriptions}
+									</section>
 								</div>
 							</Tab>
 						</div>
