@@ -3,8 +3,9 @@ import equal from "deep-equal";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import ContentManagementFlags from "../common/ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import RoutesForNonCompliantFiles from "../common/Ncfs/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../common/Ncfs/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ReferenceNcfs from "../common/Ncfs/ReferenceNcfs/ReferenceNcfs";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 import { NcfsRoute } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsRoute";
@@ -74,6 +75,19 @@ const DraftPolicy = () => {
 			...newDraftPolicy,
 			adaptionPolicy: {
 				...newDraftPolicy.adaptionPolicy,
+				ncfsActions: {
+					glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
+					unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
+				}
+			}
+		});
+	};
+
+	const updateReferenceNcfsActions = (newActions: NcfsActions) => {
+		setNewDraftPolicy({
+			...newDraftPolicy,
+			ncfsPolicy: {
+				...newDraftPolicy.ncfsPolicy,
 				ncfsActions: {
 					glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
 					unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
@@ -228,6 +242,11 @@ const DraftPolicy = () => {
 									<section className={classes.info}>
 										{ncfsActionsDescriptions}
 									</section>
+
+									<ReferenceNcfs
+										ncfsActions={newDraftPolicy.ncfsPolicy.ncfsActions}
+										currentNcfsActions={currentPolicy.ncfsPolicy.ncfsActions === null ? newDraftPolicy.ncfsPolicy.ncfsActions : currentPolicy.ncfsPolicy.ncfsActions}
+										updateNcfsActions={updateReferenceNcfsActions} />
 								</div>
 							</Tab>
 						</div>
