@@ -140,6 +140,7 @@ const CurrentPolicy = () => {
 								<h2 className={classes.head}>
 									<div className={classes.header}>Reference NCFS Actions</div>
 								</h2>
+								{policyTimestampData}
 								<div className={classes.ncfsContainer}>
 									<section className={classes.info}>
 										{ncfsActionsDescriptions}
