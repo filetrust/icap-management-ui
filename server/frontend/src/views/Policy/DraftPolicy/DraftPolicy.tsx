@@ -243,10 +243,24 @@ const DraftPolicy = () => {
 										{ncfsActionsDescriptions}
 									</section>
 
-									<ReferenceNcfs
-										ncfsActions={newDraftPolicy.ncfsPolicy.ncfsActions}
-										currentNcfsActions={currentPolicy.ncfsPolicy.ncfsActions === null ? newDraftPolicy.ncfsPolicy.ncfsActions : currentPolicy.ncfsPolicy.ncfsActions}
-										updateNcfsActions={updateReferenceNcfsActions} />
+									{/* TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions */}
+									{newDraftPolicy.ncfsPolicy.ncfsActions === null &&
+										<section style={{ marginLeft: "2rem", padding: "2rem 0" }}>
+											<div>
+												<p>
+													The Reference NCFS Policy is missing.<br /><br />
+													Please refresh the page and click 'Save Changes' to see the Reference NCFS actions.
+												</p>
+											</div>
+										</section>
+									}
+
+									{newDraftPolicy.ncfsPolicy.ncfsActions &&
+										<ReferenceNcfs
+											ncfsActions={newDraftPolicy.ncfsPolicy.ncfsActions}
+											currentNcfsActions={currentPolicy.ncfsPolicy.ncfsActions === null ? newDraftPolicy.ncfsPolicy.ncfsActions : currentPolicy.ncfsPolicy.ncfsActions}
+											updateNcfsActions={updateReferenceNcfsActions} />
+									}
 								</div>
 							</Tab>
 						</div>
