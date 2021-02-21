@@ -1,7 +1,7 @@
 import React from "react";
 
-import RoutesForNonCompliantFiles from "../../../Policy/common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../../../Policy/common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import RoutesForNonCompliantFiles from "../../../Policy/common/Ncfs/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../../../Policy/common/Ncfs/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
 import { AdaptionPolicy } from "../../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/AdaptionPolicy";
 
 
