@@ -148,10 +148,10 @@ const CurrentPolicy = () => {
 
 									{/* TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions */}
 									{currentPolicy.ncfsPolicy.ncfsActions === null &&
-										<section style={{marginLeft: "2rem", padding: "2rem 0"}}>
+										<section style={{ marginLeft: "2rem", padding: "2rem 0" }}>
 											<div>
 												<p>
-													The current Reference NCFS Policy is missing.<br/><br/>
+													The current Reference NCFS Policy is missing.<br /><br />
 													Please publish the draft policy to see the current Reference NCFS actions.
 												</p>
 											</div>
