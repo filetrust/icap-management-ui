@@ -43,14 +43,14 @@ const CurrentPolicy = () => {
 					<Table className={classes.table} id={currentPolicy.id}>
 						<TableHead>
 							<TableRow>
-								<TableCell>Timestamp</TableCell>
+								<TableCell>Published</TableCell>
 								<TableCell>Updated By</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody className={classes.tbody}>
 							<TableRow>
 								<TableCell>
-									{new Date(currentPolicy.created).toLocaleString()}
+									{new Date(currentPolicy.published).toLocaleString()}
 								</TableCell>
 								<TableCell>
 									{currentPolicy.updatedBy ? currentPolicy.updatedBy : "N/A"}
