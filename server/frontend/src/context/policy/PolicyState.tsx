@@ -17,6 +17,7 @@ import {
 	getPaginatedPolicyHistory
 } from "./api";
 import PaginationModel from "../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import { NcfsOption } from "../../../../src/common/models/enums/NcfsOption";
 
 interface InitialPolicyState {
 	currentPolicy: Policy,
@@ -109,6 +110,15 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		setCurrentPolicy(currentPolicy as Policy);
 
 		_handleNullPolicies(draftPolicy as Policy, PolicyType.Draft);
+
+		// TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions
+		if ((draftPolicy as Policy).ncfsPolicy.ncfsActions === null) {
+			(draftPolicy as Policy).ncfsPolicy.ncfsActions = {
+				unprocessableFileTypeAction: NcfsOption.Relay,
+				glasswallBlockedFilesAction: NcfsOption.Relay
+			};
+		}
+
 		setDraftPolicy(draftPolicy as Policy);
 		setNewDraftPolicy(draftPolicy as Policy);
 
