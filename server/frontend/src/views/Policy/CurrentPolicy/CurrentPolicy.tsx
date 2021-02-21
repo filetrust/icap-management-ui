@@ -11,8 +11,9 @@ import {
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import ContentManagementFlags from "../common/ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import RoutesForNonCompliantFiles from "../common/Ncfs/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../common/Ncfs/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ReferenceNcfs from "../common/Ncfs/ReferenceNcfs/ReferenceNcfs";
 import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
 
 import { PolicyContext } from "../../../context/policy/PolicyContext";
@@ -31,6 +32,7 @@ const CurrentPolicy = () => {
 	const tabs = [
 		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+		{ testId: "buttonReferenceNcfsTab", name: "Reference NCFS" }
 	];
 
 	let policyTimestampData: any = null;
@@ -60,6 +62,26 @@ const CurrentPolicy = () => {
 			</div>
 		);
 	}
+
+	const ncfsActionsDescriptions = (
+		<>
+			<div>
+				<h3>
+					<strong>Un-Processable File Types</strong>{" "}
+				</h3>
+				<p>
+					When the filetype of the original file is identified as one that
+					the Glasswall SDK cannot rebuild.
+				</p>
+			</div>
+			<div>
+				<h3>
+					<strong>Glasswall Blocked Files</strong>
+				</h3>
+				<p>The original file cannot be rebuilt by the Glasswall SDK</p>
+			</div>
+		</>
+	);
 
 	return (
 		<div className={classes.Current}>
@@ -98,21 +120,7 @@ const CurrentPolicy = () => {
 									{policyTimestampData}
 									<div className={classes.ncfsContainer}>
 										<section className={classes.info}>
-											<div>
-												<h3>
-													<strong>Un-Processable File Types</strong>{" "}
-												</h3>
-												<p>
-													When the filetype of the original file is identified as one that
-													the Glasswall SDK cannot rebuild.
-												</p>
-											</div>
-											<div>
-												<h3>
-													<strong>Glasswall Blocked Files</strong>
-												</h3>
-												<p>The original file cannot be rebuilt by the Glasswall SDK</p>
-											</div>
+											{ncfsActionsDescriptions}
 										</section>
 										<RoutesForNonCompliantFiles
 											ncfsRoutingUrl={currentPolicy.adaptionPolicy.ncfsRoute ?
@@ -126,6 +134,36 @@ const CurrentPolicy = () => {
 											disabled />
 									</div>
 								</>
+							</Tab>
+
+							<Tab isSelected={selectedTab === "Reference NCFS"} externalStyles={classes.Tab}>
+								<h2 className={classes.head}>
+									<div className={classes.header}>Reference NCFS Actions</div>
+								</h2>
+								<div className={classes.ncfsContainer}>
+									<section className={classes.info}>
+										{ncfsActionsDescriptions}
+									</section>
+
+									{/* TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions */}
+									{currentPolicy.ncfsPolicy.ncfsActions === null &&
+										<section style={{marginLeft: "2rem", padding: "2rem 0"}}>
+											<div>
+												<p>
+													The current Reference NCFS Policy is missing.<br/><br/>
+													Please publish the draft policy to see the current Reference NCFS actions.
+												</p>
+											</div>
+										</section>
+									}
+
+									{currentPolicy.ncfsPolicy.ncfsActions &&
+										<ReferenceNcfs
+											ncfsActions={currentPolicy.ncfsPolicy.ncfsActions}
+											currentNcfsActions={currentPolicy.ncfsPolicy.ncfsActions}
+											disabled />
+									}
+								</div>
 							</Tab>
 						</div>
 					</TabNav>
