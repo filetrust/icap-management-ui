@@ -7,6 +7,7 @@ export interface UnProcessableFileTypesTogglesProps {
 	unprocessableFileTypeAction: NcfsOption,
 	updateOption?: (newOption: NcfsOption) => void,
 	currentOption: NcfsOption,
+	referenceNcfs?: boolean,
 	disabled?: boolean
 }
 
@@ -49,25 +50,27 @@ const UnProcessableFileTypesToggles = (props: UnProcessableFileTypesTogglesProps
 						the Adaptation Policy.
 					</label>
 				</div>
-				<div className={classes.input}>
-					<input data-test-id="input-unprocessableFileTypes-refer"
-						id="refer-unprocessableFileTypes"
-						type="radio"
-						name="toggle"
-						checked={props.unprocessableFileTypeAction === NcfsOption.Refer}
-						onChange={() => props.updateOption(NcfsOption.Refer)}
-						disabled={props.disabled} />
+				{!props.referenceNcfs &&
+					<div className={classes.input}>
+						<input data-test-id="input-unprocessableFileTypes-refer"
+							id="refer-unprocessableFileTypes"
+							type="radio"
+							name="toggle"
+							checked={props.unprocessableFileTypeAction === NcfsOption.Refer}
+							onChange={() => props.updateOption(NcfsOption.Refer)}
+							disabled={props.disabled} />
 
-					<label
-						className={props.currentOption === NcfsOption.Refer && props.unprocessableFileTypeAction !== NcfsOption.Refer ? classes.touched : ""}
-						htmlFor="refer-unprocessableFileTypes">
-						{" "}
-						<strong>Refer </strong>- The document it is submitted to the
-						'Non-compliant File Service' (see section 1.4.5 Non-compliant File
-						Service). The return information from this call is then used to
-						construct the Transaction Outcome message.
-					</label>
-				</div>
+						<label
+							className={props.currentOption === NcfsOption.Refer && props.unprocessableFileTypeAction !== NcfsOption.Refer ? classes.touched : ""}
+							htmlFor="refer-unprocessableFileTypes">
+							{" "}
+							<strong>Refer </strong>- The document is submitted to the
+							'Non-compliant File Service' (see section 1.4.5 Non-compliant File
+							Service). The return information from this call is then used to
+							construct the Transaction Outcome message.
+						</label>
+					</div>
+				}
 			</form>
 		</div>
 	);

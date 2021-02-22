@@ -1,5 +1,5 @@
-import { NcfsDecision } from "../../../enums/NcfsDecision";
+import { NcfsActions } from "./NcfsActions";
 
 export interface NcfsPolicy {
-    ncfsDecision: NcfsDecision
+    ncfsActions: NcfsActions
 }

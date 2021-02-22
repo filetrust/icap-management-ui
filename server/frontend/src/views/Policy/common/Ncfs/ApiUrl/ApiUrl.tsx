@@ -10,7 +10,7 @@ import {
 
 import classes from "./ApiUrl.module.scss";
 
-import Input from "../../../../components/UI/Input/Input";
+import Input from "../../../../../components/UI/Input/Input";
 
 export interface ApiUrlProps {
 	value: string,
