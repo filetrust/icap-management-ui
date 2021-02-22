@@ -4,8 +4,9 @@ import { Policy } from "../../../../../../src/common/models/PolicyManagementServ
 import Tab from "../../../../components/Tabs/Tab/Tab";
 import TabNav from "../../../../components/Tabs/TabNav/TabNav";
 import ContentManagementFlags from "../../common/ContentManagementFlags/ContentManagementFlags";
-import PolicyForNonCompliantFiles from "../../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
-import RoutesForNonCompliantFiles from "../../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../../common/Ncfs/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ReferenceNcfs from "../../common/Ncfs/ReferenceNcfs/ReferenceNcfs";
+import RoutesForNonCompliantFiles from "../../common/Ncfs/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
 
 import classes from "./HistoryInfo.module.scss";
 
@@ -18,6 +19,7 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 	const tabs = [
 		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+		{ testId: "buttonReferenceNcfsTab", name: "Reference NCFS" }
 	];
 
 	const [selectedTab, setSelectedTab] = useState<string | "Adaptation Policy" | "NCFS Policy">("Adaptation Policy");
@@ -80,6 +82,31 @@ const HistoryInfo = (props: HistoryInfoProps) => {
 									disabled />
 							</div>
 						</>
+					</Tab>
+
+					<Tab isSelected={selectedTab === "Reference NCFS"} externalStyles={classes.Tab}>
+						<h2 className={classes.head}>
+							<div className={classes.header}>Reference NCFS Actions</div>
+						</h2>
+						<div className={classes.ncfsContainer}>
+							{/* TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions */}
+							{props.policy.ncfsPolicy.ncfsActions === null &&
+								<section style={{ marginLeft: "2rem", padding: "2rem 0" }}>
+									<div>
+										<p>
+											The Reference NCFS settings for this policy are missing.
+										</p>
+									</div>
+								</section>
+							}
+
+							{props.policy.ncfsPolicy.ncfsActions &&
+								<ReferenceNcfs
+									ncfsActions={props.policy.ncfsPolicy.ncfsActions}
+									currentNcfsActions={props.policy.ncfsPolicy.ncfsActions}
+									disabled />
+							}
+						</div>
 					</Tab>
 				</div>
 			</TabNav>

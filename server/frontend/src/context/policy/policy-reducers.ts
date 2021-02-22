@@ -5,6 +5,7 @@ import { TPolicyState } from "./PolicyContext";
 import { Policy } from "../../../../src/common/models/PolicyManagementService/Policy/Policy";
 import { PolicyHistory } from "../../../../src/common/models/PolicyManagementService/PolicyHistory/PolicyHistory";
 import PaginationModel from "../../../../src/common/models/PolicyManagementService/PolicyHistory/GetPaginatedPolicyHistoryRequest/PaginationModel/PaginationModel";
+import { NcfsOption } from "../../../../src/common/models/enums/NcfsOption";
 
 const setIsPolicyChanged = (state: TPolicyState, changed: boolean) => {
 	return updateObject(state, {
@@ -46,11 +47,23 @@ const setPolicyHistory = (state: TPolicyState, history: PolicyHistory) => {
 };
 
 const setNewDraftPolicy = (state: TPolicyState, policy: Policy) => {
+	// TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions
+	const defaultNcfsPolicy = {
+		ncfsActions: {
+			unprocessableFileTypeAction: NcfsOption.Relay,
+			glasswallBlockedFilesAction: NcfsOption.Relay
+		}
+	};
+
+
 	const isPolicyEqual = equal(state.draftPolicy, policy);
 
 	return updateObject(state, {
-		newDraftPolicy: policy,
-		isPolicyChanged: !isPolicyEqual,
+		newDraftPolicy: {
+			...policy,
+			ncfsPolicy: policy.ncfsPolicy.ncfsActions === null ? defaultNcfsPolicy : policy.ncfsPolicy
+		},
+		isPolicyChanged: policy.ncfsPolicy.ncfsActions === null ? true : !isPolicyEqual,
 	});
 };
 

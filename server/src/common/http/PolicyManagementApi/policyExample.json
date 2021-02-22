@@ -1,64 +1,67 @@
 {
-    "id": "407cb267-e588-43c1-a7a2-7c3e87c2274b",
-    "policyType": 1,
-    "published": "2020-11-13T11:37:41+00:00",
-    "lastEdited": "2020-11-13T11:37:41+00:00",
-    "created": "2020-11-13T11:37:41+00:00",
-    "updatedBy": "publisher@users.com",
-    "adaptionPolicy": {
-        "contentManagementFlags": {
-            "pdfContentManagement": {
-                "acroform": 1,
-                "actionsAll": 2,
-                "embeddedFiles": 1,
-                "embeddedImages": 1,
-                "externalHyperlinks": 1,
-                "internalHyperlinks": 2,
-                "javascript": 2,
-                "metadata": 2
-            },
-            "wordContentManagement": {
-                "dynamicDataExchange": 1,
-                "embeddedFiles": 2,
-                "embeddedImages": 1,
-                "externalHyperlinks": 2,
-                "internalHyperlinks": 1,
-                "macros": 1,
-                "metadata": 2,
-                "reviewComments": 1
-            },
-            "excelContentManagement": {
-                "dynamicDataExchange": 1,
-                "embeddedFiles": 2,
-                "embeddedImages": 1,
-                "externalHyperlinks": 1,
-                "internalHyperlinks": 2,
-                "macros": 2,
-                "metadata": 2,
-                "reviewComments": 1
-            },
-            "powerPointContentManagement": {
-                "embeddedFiles": 2,
-                "embeddedImages": 1,
-                "externalHyperlinks": 1,
-                "internalHyperlinks": 2,
-                "macros": 2,
-                "metadata": 2,
-                "reviewComments": 1
-            }
-        },
-        "errorReportTemplate": "Please contact your administrator for more information.",
-        "ncfsRoute": {
-            "ncfsRoutingUrl": "8e2cf278-ac71-4c11-bba9-c33a8b26d0b6",
-            "isDeleted": true,
-            "isValidated": true
-        },
-        "ncfsActions": {
-            "unprocessableFileTypeAction": 2,
-            "glasswallBlockedFilesAction": 2
-        }
+  "id": "407cb267-e588-43c1-a7a2-7c3e87c2274b",
+  "policyType": 1,
+  "published": "2020-11-13T11:37:41+00:00",
+  "lastEdited": "2020-11-13T11:37:41+00:00",
+  "created": "2020-11-13T11:37:41+00:00",
+  "updatedBy": "publisher@users.com",
+  "adaptionPolicy": {
+    "contentManagementFlags": {
+      "pdfContentManagement": {
+        "acroform": 1,
+        "actionsAll": 2,
+        "embeddedFiles": 1,
+        "embeddedImages": 1,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 2,
+        "javascript": 2,
+        "metadata": 2
+      },
+      "wordContentManagement": {
+        "dynamicDataExchange": 1,
+        "embeddedFiles": 2,
+        "embeddedImages": 1,
+        "externalHyperlinks": 2,
+        "internalHyperlinks": 1,
+        "macros": 1,
+        "metadata": 2,
+        "reviewComments": 1
+      },
+      "excelContentManagement": {
+        "dynamicDataExchange": 1,
+        "embeddedFiles": 2,
+        "embeddedImages": 1,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 2,
+        "macros": 2,
+        "metadata": 2,
+        "reviewComments": 1
+      },
+      "powerPointContentManagement": {
+        "embeddedFiles": 2,
+        "embeddedImages": 1,
+        "externalHyperlinks": 1,
+        "internalHyperlinks": 2,
+        "macros": 2,
+        "metadata": 2,
+        "reviewComments": 1
+      }
     },
-    "ncfsPolicy": {
-        "ncfsDecision": 2
+    "errorReportTemplate": "Please contact your administrator for more information.",
+    "ncfsRoute": {
+      "ncfsRoutingUrl": "8e2cf278-ac71-4c11-bba9-c33a8b26d0b6",
+      "isDeleted": true,
+      "isValidated": true
+    },
+    "ncfsActions": {
+      "unprocessableFileTypeAction": 2,
+      "glasswallBlockedFilesAction": 2
     }
+  },
+  "ncfsPolicy": {
+    "ncfsActions": {
+      "unprocessableFileTypeAction": 2,
+      "glasswallBlockedFilesAction": 2
+    }
+  }
 }

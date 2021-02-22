@@ -1,0 +1,17 @@
+.ReferenceNcfs {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.wrapBlocksToggle {
+	padding: 1rem;
+
+	.toggleHead {
+		padding: 1rem;
+		font-size: 1.2rem;
+		color: #0c3450;
+		border: none;
+		text-transform: uppercase;
+	}
+}

@@ -3,8 +3,9 @@ import equal from "deep-equal";
 import TabNav from "../../../components/Tabs/TabNav/TabNav";
 import Tab from "../../../components/Tabs/Tab/Tab";
 import ContentManagementFlags from "../common/ContentManagementFlags/ContentManagementFlags";
-import RoutesForNonCompliantFiles from "../common/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
-import PolicyForNonCompliantFiles from "../common/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import RoutesForNonCompliantFiles from "../common/Ncfs/RoutesForNonCompliantFiles/RoutesForNonCompliantFiles";
+import PolicyForNonCompliantFiles from "../common/Ncfs/PolicyForNonCompliantFiles/PolicyForNonCompliantFiles";
+import ReferenceNcfs from "../common/Ncfs/ReferenceNcfs/ReferenceNcfs";
 import { ContentFlags } from "../../../../../src/common/models/PolicyManagementService/Policy/AdaptationPolicy/ContentFlags/ContentFlags";
 import { NcfsActions } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsActions";
 import { NcfsRoute } from "../../../../../src/common/models/PolicyManagementService/Policy/NcfsPolicy/NcfsRoute";
@@ -38,6 +39,7 @@ const DraftPolicy = () => {
 	const tabs = [
 		{ testId: "buttonCurrentAdaptationPolicyTab", name: "Adaptation Policy" },
 		{ testId: "buttonCurrentNcfsPolicyTab", name: "NCFS Policy" },
+		{ testId: "buttonReferenceNcfsTab", name: "Reference NCFS" }
 	];
 
 	const closePublishModal = () => setShowPublishModal(false);
@@ -73,6 +75,19 @@ const DraftPolicy = () => {
 			...newDraftPolicy,
 			adaptionPolicy: {
 				...newDraftPolicy.adaptionPolicy,
+				ncfsActions: {
+					glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
+					unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
+				}
+			}
+		});
+	};
+
+	const updateReferenceNcfsActions = (newActions: NcfsActions) => {
+		setNewDraftPolicy({
+			...newDraftPolicy,
+			ncfsPolicy: {
+				...newDraftPolicy.ncfsPolicy,
 				ncfsActions: {
 					glasswallBlockedFilesAction: newActions.glasswallBlockedFilesAction,
 					unprocessableFileTypeAction: newActions.unprocessableFileTypeAction
@@ -135,6 +150,26 @@ const DraftPolicy = () => {
 		</div>
 	);
 
+	const ncfsActionsDescriptions = (
+		<>
+			<div>
+				<h3>
+					<strong>Un-Processable File Types</strong>{" "}
+				</h3>
+				<p>
+					When the filetype of the original file is identified as one that
+					the Glasswall SDK cannot rebuild.
+				</p>
+			</div>
+			<div>
+				<h3>
+					<strong>Glasswall Blocked Files</strong>
+				</h3>
+				<p>The original file cannot be rebuilt by the Glasswall SDK</p>
+			</div>
+		</>
+	);
+
 	return (
 		<div className={classes.Draft}>
 			{status === "LOADING" &&
@@ -181,21 +216,7 @@ const DraftPolicy = () => {
 								</h2>
 								<div className={classes.ncfsContainer}>
 									<section className={classes.info}>
-										<div>
-											<h3>
-												<strong>Un-Processable File Types</strong>{" "}
-											</h3>
-											<p>
-												When the filetype of the original file is identified as one that
-												the Glasswall SDK cannot rebuild.
-											</p>
-										</div>
-										<div>
-											<h3>
-												<strong>Glasswall Blocked Files</strong>
-											</h3>
-											<p>The original file cannot be rebuilt by the Glasswall SDK</p>
-										</div>
+										{ncfsActionsDescriptions}
 									</section>
 									<RoutesForNonCompliantFiles
 										ncfsRoutingUrl={returnNcfsRoutingUrl(newDraftPolicy.adaptionPolicy.ncfsRoute)}
@@ -206,6 +227,40 @@ const DraftPolicy = () => {
 										ncfsActions={newDraftPolicy.adaptionPolicy.ncfsActions}
 										currentNcfsActions={currentPolicy.adaptionPolicy.ncfsActions}
 										updateNcfsActions={updateNcfsActions} />
+								</div>
+							</Tab>
+
+							<Tab isSelected={selectedTab === "Reference NCFS"} externalStyles={classes.Tab}>
+								<h2 className={classes.head}>
+									<div className={classes.header}>
+										Reference NCFS Actions
+										{isPolicyChanged && <>{saveCancelButtons}</>}
+										{showPublishButton() && publishDeleteButtons}
+									</div>
+								</h2>
+								<div className={classes.ncfsContainer}>
+									<section className={classes.info}>
+										{ncfsActionsDescriptions}
+									</section>
+
+									{/* TODO: Remove once Policy Management API doesn't return null for ncfsPolicy.ncfsActions */}
+									{newDraftPolicy.ncfsPolicy.ncfsActions === null &&
+										<section style={{ marginLeft: "2rem", padding: "2rem 0" }}>
+											<div>
+												<p>
+													The Reference NCFS Policy is missing.<br /><br />
+													Please refresh the page and click 'Save Changes' to see the Reference NCFS actions.
+												</p>
+											</div>
+										</section>
+									}
+
+									{newDraftPolicy.ncfsPolicy.ncfsActions &&
+										<ReferenceNcfs
+											ncfsActions={newDraftPolicy.ncfsPolicy.ncfsActions}
+											currentNcfsActions={currentPolicy.ncfsPolicy.ncfsActions === null ? newDraftPolicy.ncfsPolicy.ncfsActions : currentPolicy.ncfsPolicy.ncfsActions}
+											updateNcfsActions={updateReferenceNcfsActions} />
+									}
 								</div>
 							</Tab>
 						</div>
