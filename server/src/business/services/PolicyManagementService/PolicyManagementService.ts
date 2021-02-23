@@ -117,16 +117,18 @@ class PolicyManagementService implements IPolicyManagementService {
 
         try {
             this.logger.info(`Publishing Policy - PolicyId: ${policyId}`);
+            await PolicyManagementApi.publishPolicy(publishPolicyUrl, policyId, headers),
 
+            this.logger.info(`Successfully Published Policy - ${policyId}`);
+
+            this.logger.info("Distributing Policy");
             const requestChain = [
-                PolicyManagementApi.publishPolicy(publishPolicyUrl, policyId, headers),
                 PolicyManagementApi.distributeAdaptationPolicy(distributeAdaptationPolicyUrl, headers),
                 PolicyManagementApi.distributeNcfsPolicy(distributeNcfsPolicyUrl, headers)
             ];
-
             await Promise.all(requestChain);
 
-            this.logger.info(`Published Policy - PolicyId: ${policyId}`);
+            this.logger.info("Successfully Distributed Policy");
         }
         catch (error) {
             this.logger.error(`Couldn't Publish Policy - PolicyId: ${policyId}`);
