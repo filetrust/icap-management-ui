@@ -39,6 +39,7 @@
 		padding-bottom: 14rem;
 
 		overflow-y: auto;
+		overflow-x: hidden;
 
 		.innerTop {
 			display: flex;
@@ -51,7 +52,7 @@
 	}
 
 	& .infoBlocks {
-		padding-left: 25%;
+		padding-left: 42rem;
 		margin-top: 6rem;
 
 		& div {
@@ -104,6 +105,21 @@
 				left: 50%;
 				transform: translateX(-50%);
 				position: absolute;
+			}
+		}
+	}
+}
+
+@media(min-width: 992px) and (max-width: 1800px) {
+	.main {
+		top: 12rem !important;
+		height: calc(100% - 5.5rem);
+	}
+
+	.container {
+		.innerContent {
+			.infoBlocks {
+				padding-left: 7rem;
 			}
 		}
 	}
