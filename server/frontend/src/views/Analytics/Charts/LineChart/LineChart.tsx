@@ -80,7 +80,7 @@ const LineChart = (props: LineChartProps) => {
 					hidden: true
 				},
 				{
-					label: "Replaced",
+					label: "Replace",
 					data: replace,
 					lineTension: 0,
 					borderColor: "#5469ff",

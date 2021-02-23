@@ -58,7 +58,7 @@ const OutcomePieChart = (props: OutcomePieChartProps) => {
 			.reduce(reducer);
 
 		setChartData({
-			labels: ["Failed", "Replaced", "Unmodified"],
+			labels: ["Failed", "Replace", "Unmodified"],
 			datasets: [
 				{
 					data: [failed, replaced, unmodified],

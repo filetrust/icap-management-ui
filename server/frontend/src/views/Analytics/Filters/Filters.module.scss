@@ -54,10 +54,11 @@
 @media(min-width: 992px) and (max-width: 1800px) {
 	.Filters {
 		padding-top: 2rem;
+		margin-bottom: 0;
 
 		&.expanded {
 			width: calc(100% - 22rem);
-			margin-left: 22rem;			
+			margin-left: 22rem;
 		}
 	}
 }
