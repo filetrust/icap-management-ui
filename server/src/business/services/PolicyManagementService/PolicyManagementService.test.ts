@@ -1,3 +1,4 @@
+import "jest-extended";
 import { stub, SinonStub } from "sinon";
 import winston from "winston";
 import axios, { CancelToken } from "axios";
@@ -229,6 +230,20 @@ describe("PolicyManagementService", () => {
             // Assert
             expect(spy).toHaveBeenCalled();
             expect(spy).toBeCalledWith(distributeNcfsPolicyUrl, expectedHeaders);
+        });
+
+        it("called_publish_before_distribute", async () => {
+            // Arrange
+            const publishSpy = jest.spyOn(PolicyManagementApi, "publishPolicy");
+            const distributeAdaptationSpy = jest.spyOn(PolicyManagementApi, "distributeAdaptationPolicy");
+            const policyManagementService = new PolicyManagementService(logger);
+
+            // Act
+            await policyManagementService.publishPolicy(
+                publishPolicyUrl, distributeAdaptationPolicyUrl, distributeNcfsPolicyUrl, policyId);
+
+            // Assert
+            expect(publishSpy).toHaveBeenCalledBefore(distributeAdaptationSpy as jest.Mock);
         });
     });
 
