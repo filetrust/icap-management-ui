@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { Guid } from "guid-typescript";
 import {
 	Table,
 	TableHead,
@@ -48,12 +49,10 @@ const RequestHistory = () => {
 		tableClasses.push(classes.blurred);
 	}
 
-	const openInfoModal = (fileId: { value: string }) => {
+	const openInfoModal = (fileId: Guid) => {
 		setShowFileInfoModal((prevState) => !prevState);
 
-		const file = transactions.files.find(
-			(f: any) => f.fileId.value === fileId
-		);
+		const file = transactions.files.find((f: TransactionFile) => f.fileId === fileId);
 
 		setSelectedFile(file);
 	};
@@ -86,7 +85,7 @@ const RequestHistory = () => {
 		const direction = timestampFilterDirection;
 
 		if (direction === "asc") {
-			setTransactions((prev: any) => {
+			setTransactions((prev: {count: number, files: TransactionFile[]}) => {
 				return {
 					count: prev.count,
 					files: sortTransactionsDescending(prev.files)
@@ -96,7 +95,7 @@ const RequestHistory = () => {
 		}
 
 		if (direction === "desc") {
-			setTransactions((prev: any) => {
+			setTransactions((prev: {count: number, files: TransactionFile[]}) => {
 				return {
 					count: prev.count,
 					files: sortTransactionsAscending(prev.files)
@@ -215,16 +214,16 @@ const RequestHistory = () => {
 											<>
 												{transactions.count > 0 &&
 													<>
-														{transactions.files.map((f: any) => {
+														{transactions.files.map((f: TransactionFile) => {
 															return (
 																<FileRow
-																	key={f.fileId.value}
-																	id={f.fileId.value}
+																	key={f.fileId.toString()}
+																	id={f.fileId.toString()}
 																	timestamp={f.timestamp}
-																	fileId={f.fileId}
+																	fileId={f.fileId.toString()}
 																	type={f.fileType}
 																	risk={f.risk}
-																	onRowClickHandler={() => openInfoModal(f.fileId.value)} />
+																	onRowClickHandler={() => openInfoModal(f.fileId)} />
 															);
 														})}
 													</>
