@@ -80,6 +80,7 @@ const setPolicyHistoryPagination = (state: TPolicyState, pagination: PaginationM
 	});
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const policyReducer = (state: TPolicyState, action: { [actionName: string]: any }) => {
 	switch (action.type) {
 		case actionTypes.SET_IS_POLICY_CHANGED:
