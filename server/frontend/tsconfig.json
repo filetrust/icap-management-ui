@@ -12,7 +12,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": true,
     "esModuleInterop": true,
     "strictNullChecks": false,
