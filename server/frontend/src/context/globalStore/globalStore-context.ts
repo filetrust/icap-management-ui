@@ -5,12 +5,10 @@ import { RequestHistoryTimeFilter } from "../../data/filters/RequestHistory/requ
 export interface GlobalStoreContextProps {
 	title: string,
 	version: string,
-	userfiles: any[],
-	fileFilterList: any[],
-	riskFilterList: any[],
 	requestHistoryTimeFilter: RequestHistoryTimeFilter,
+	updateRequestHistoryTimeFilter: (timeDateFilter: RequestHistoryTimeFilter) => void,
 	analyticsTimeFilter: AnalyticsTimeFilter,
-	updateAnalyticsTimeFilter: (timeDateFilter: any) => void,
+	updateAnalyticsTimeFilter: (timeDateFilter: AnalyticsTimeFilter) => void,
 	selectedFilters: any[],
 	navExpanded: boolean,
 	toggleNavExpanded: () => void,
@@ -19,33 +17,28 @@ export interface GlobalStoreContextProps {
 	{
 		id: string,
 		filterName: string,
-		checkboxList: [
-			{
-				id: string,
-				type: string,
-				title: string,
-				isChecked: boolean,
-				fileTypeEnum: number
-			}
-		]
+		checkboxList: {
+			id: string,
+			type: string,
+			title: string,
+			isChecked: boolean,
+			fileTypeEnum: number
+		}[]
 	}[],
 	riskFilter:
 	{
 		id: "risk",
 		filterName: "Risk",
-		checkboxList: [
-			{
-				id: string,
-				title: string,
-				titleColor: string,
-				isChecked: boolean,
-				type: string,
-				riskEnum: number
-			}
-		]
+		checkboxList: {
+			id: string,
+			title: string,
+			titleColor: string,
+			isChecked: boolean,
+			type: string,
+			riskEnum: number
+		}[]
 	}[],
 	removeFilter: (filter: any) => void,
-	updateRequestHistoryTimeFilter: (timeDateFilter: any) => void,
 	addFilterFromCheckbox: (filter: any) => void
 }
 

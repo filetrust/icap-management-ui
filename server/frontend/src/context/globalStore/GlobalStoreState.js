@@ -5,20 +5,17 @@ import { globalStoreReducer } from "./globalStore-reducers";
 
 import * as actionTypes from "../actionTypes";
 
-import userfiles from "../../data/userfiles.json";
 import fileFilter from "../../data/filters/RequestHistory/fileFilter.json";
 import riskFilter from "../../data/filters/RequestHistory/riskFilter.json";
 import requestHistoryTimeFilter from "../../data/filters/RequestHistory/requestHistoryTimeFilter";
 import analyticsTimeFilter from "../../data/filters/analyticsTimeFilter";
 import { getVersion } from "./api";
 
-const userfileList = userfiles;
 
 export const GlobalStoreState = ({ children }) => {
 	const initialState = {
 		title: "Glasswall ICAP",
 		version: "",
-		userfiles: userfileList,
 		fileFilter: fileFilter,
 		riskFilter: riskFilter,
 		requestHistoryTimeFilter: requestHistoryTimeFilter,
@@ -79,7 +76,6 @@ export const GlobalStoreState = ({ children }) => {
 				state: globalStoreState,
 				title: globalStoreState.title,
 				version: globalStoreState.version,
-				userfiles: globalStoreState.userfiles,
 				fileFilter: globalStoreState.fileFilter,
 				riskFilter: globalStoreState.riskFilter,
 				selectedFilters: globalStoreState.selectedFilters,
