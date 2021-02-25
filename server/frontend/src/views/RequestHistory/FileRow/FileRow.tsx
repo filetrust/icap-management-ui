@@ -6,8 +6,8 @@ import { Risk } from "../../../../../src/common/models/enums/Risk";
 
 export interface FileRowProps {
 	id: string,
-	timestamp: Date,
-	fileId: string,
+	timestamp: string,
+	fileId: {value: string},
 	type: number,
 	risk: number,
 	onRowClickHandler: MouseEventHandler<HTMLTableRowElement>
@@ -24,7 +24,7 @@ const FileRow = (props: FileRowProps) => {
 				{new Date(props.timestamp).toLocaleString()}
 			</TableCell>
 			<TableCell component="th" scope="row" id={props.id}>
-				{props.fileId}
+				{props.fileId.value}
 			</TableCell>
 			<TableCell component="th" scope="row" id={props.id}>
 				{FileType[formattedType]}

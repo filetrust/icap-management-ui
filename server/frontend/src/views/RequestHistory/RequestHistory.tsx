@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { Guid } from "guid-typescript";
 import {
 	Table,
 	TableHead,
@@ -49,10 +48,12 @@ const RequestHistory = () => {
 		tableClasses.push(classes.blurred);
 	}
 
-	const openInfoModal = (fileId: Guid) => {
+	const openInfoModal = (fileId: { value: string }) => {
 		setShowFileInfoModal((prevState) => !prevState);
 
-		const file = transactions.files.find((f: TransactionFile) => f.fileId === fileId);
+		const file = transactions.files.find(
+			(f: any) => f.fileId.value === fileId
+		);
 
 		setSelectedFile(file);
 	};
@@ -85,7 +86,7 @@ const RequestHistory = () => {
 		const direction = timestampFilterDirection;
 
 		if (direction === "asc") {
-			setTransactions((prev: {count: number, files: TransactionFile[]}) => {
+			setTransactions((prev: any) => {
 				return {
 					count: prev.count,
 					files: sortTransactionsDescending(prev.files)
@@ -95,7 +96,7 @@ const RequestHistory = () => {
 		}
 
 		if (direction === "desc") {
-			setTransactions((prev: {count: number, files: TransactionFile[]}) => {
+			setTransactions((prev: any) => {
 				return {
 					count: prev.count,
 					files: sortTransactionsAscending(prev.files)
@@ -214,16 +215,16 @@ const RequestHistory = () => {
 											<>
 												{transactions.count > 0 &&
 													<>
-														{transactions.files.map((f: TransactionFile) => {
+														{transactions.files.map((f: any) => {
 															return (
 																<FileRow
-																	key={f.fileId.toString()}
-																	id={f.fileId.toString()}
+																	key={f.fileId.value}
+																	id={f.fileId.value}
 																	timestamp={f.timestamp}
-																	fileId={f.fileId.toString()}
+																	fileId={f.fileId}
 																	type={f.fileType}
 																	risk={f.risk}
-																	onRowClickHandler={() => openInfoModal(f.fileId)} />
+																	onRowClickHandler={() => openInfoModal(f.fileId.value)} />
 															);
 														})}
 													</>
