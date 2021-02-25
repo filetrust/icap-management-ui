@@ -35,7 +35,7 @@ const CurrentPolicy = () => {
 		{ testId: "buttonReferenceNcfsTab", name: "Reference NCFS" }
 	];
 
-	let policyTimestampData: any = null;
+	let policyTimestampData = null;
 	if (currentPolicy) {
 		policyTimestampData = (
 			<div className={classes.tableContainer}>
