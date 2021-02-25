@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import GlasswallLogo from "../../GlasswallLogo/GlasswallLogo";
 
@@ -19,10 +18,6 @@ const NavBar = (props: NavBarProps) => {
 
 		</div>
 	);
-};
-
-NavBar.propTypes = {
-	logo: PropTypes.bool
 };
 
 export { NavBar };
