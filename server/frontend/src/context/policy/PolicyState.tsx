@@ -88,6 +88,7 @@ export const PolicyState = (props: { children: React.ReactNode }) => {
 		const policyHistory = await getPaginatedPolicyHistory(pagination, cancellationTokenSource.token);
 
 		if ((policyHistory as PolicyHistory).policiesCount) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(policyHistory as PolicyHistory).policies.sort((a: any, b: any) => {
 				return Date.parse(b.created) - Date.parse(a.created);
 			});

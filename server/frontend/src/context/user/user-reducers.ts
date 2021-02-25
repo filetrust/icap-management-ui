@@ -104,6 +104,7 @@ const cancelChanges = (state: TUserState) => {
 	});
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const userReducer = (state: TUserState, action: { [actionName: string]: any }) => {
 	switch (action.type) {
 		case actionTypes.SET_STATUS:

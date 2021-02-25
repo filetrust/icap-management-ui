@@ -47,6 +47,7 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 		return getUsersResponse;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	save = async (saveData: any, cancellationToken: CancelToken) => {
 		const saveChangesResponse = await axiosRequestHelper(this.routes.save, "POST", cancellationToken, saveData);
 
