@@ -13,14 +13,13 @@ import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 import Modal from "../../../components/UI/Modal/Modal";
 import ConfirmPublishModal from "./ConfirmPublishModal/ConfirmPublishModal";
 import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesPrompt";
-import EmptyHistoryRow from "./HistoryRow/EmptyHistoryRow";
+import HistoryMessageRow from "./HistoryRow/HistoryMessageRow";
 import HistoryRow from "./HistoryRow/HistoryRow";
 import HistoryInfo from "./HistoryInfo/HistoryInfo";
 import Pagination from "../../../components/UI/Pagination/Pagination";
 import { PolicyContext } from "../../../context/policy/PolicyContext";
 
 import classes from "./History.module.scss";
-import HistoryLoadingRow from "./HistoryRow/HistoryLoadingRow";
 
 const History = () => {
 	const {
@@ -79,10 +78,6 @@ const History = () => {
 
 	return (
 		<>
-			{status === "ERROR" &&
-				<div>Error getting Policy data.</div>
-			}
-
 			<UnsavedChangesPrompt
 				when={isPolicyChanged}
 				message="You have unsaved changes in the draft tab, are you sure you want to leave the page?" />
@@ -97,8 +92,12 @@ const History = () => {
 							</TableRow>
 						</TableHead>
 						<TableBody className={classes.tbody}>
+							{status === "ERROR" &&
+								<HistoryMessageRow message={"Error Getting Policy Data."} />
+							}
+
 							{status === "LOADING" &&
-								<HistoryLoadingRow />
+								<HistoryMessageRow message={"Loading..."} />
 							}
 
 							{status === "LOADED" &&
@@ -121,8 +120,8 @@ const History = () => {
 										</>
 									}
 
-									{!policyHistory.policies &&
-										<EmptyHistoryRow />
+									{!policyHistory.policies || policyHistory.totalPolicies < 1 &&
+										<HistoryMessageRow message={"No Previous Policies Were Found."} />
 									}
 								</>
 							}
