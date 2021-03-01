@@ -3,14 +3,18 @@ import { TableRow, TableCell } from "@material-ui/core";
 
 import classes from "./HistoryRow.module.scss";
 
-const EmptyHistoryRow = () => {
+export interface HistoryMessageRowProps {
+	message: string
+}
+
+const HistoryMessageRow = (props: HistoryMessageRowProps) => {
 	return (
 		<TableRow className={classes.HistoryRow}>
 			<TableCell colSpan={4} component="th" scope="row">
-				No Previous Policies Were Found.
+				{props.message}
 			</TableCell>
 		</TableRow>
 	);
 };
 
-export default EmptyHistoryRow;
+export default HistoryMessageRow;
