@@ -8,26 +8,31 @@ import { AuthenticateRequest, AuthenticateResponse } from "../../../common/model
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
+import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 
 import IdentityManagementService from "./IdentityManagementService";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
 
-let cancellationToken: CancelToken;
-
-const logger = winston.createLogger({
-	transports: [
-		new winston.transports.Console({
-			format: winston.format.cli()
-		})
-	]
-});
 
 describe("IdentityManagementService", () => {
+	let cancellationToken: CancelToken;
+
+	const logger = winston.createLogger({
+		transports: [
+			new winston.transports.Console({
+				format: winston.format.cli()
+			})
+		]
+	});
+
+	let identityManagementService: IdentityManagementService;
+
+	beforeEach(() => {
+		identityManagementService = new IdentityManagementService(logger);
+	});
+
 	describe("constructor", () => {
 		it("should_construct_with_valid_arguments", () => {
-			// Act
-			const identityManagementService = new IdentityManagementService(logger);
-
 			// Assert
 			expect(identityManagementService.logger).toEqual(logger);
 		});
@@ -66,7 +71,6 @@ describe("IdentityManagementService", () => {
 
 		it("returns_correct_response", async () => {
 			// Arrange
-			const identityManagementService = new IdentityManagementService(logger);
 			const request = new AuthenticateRequest("url", "username", "password");
 
 			// Act
@@ -85,7 +89,6 @@ describe("IdentityManagementService", () => {
 		it("called_IdentityManagementApi_newUser", async () => {
 			// Arrange
 			const spy = spyOn(IdentityManagementApi, "newUser");
-			const identityManagementService = new IdentityManagementService(logger);
 
 			const url = "url";
 			const newUser = new NewUser("firstName", "lastName", "username", "email@email.com");
@@ -123,7 +126,6 @@ describe("IdentityManagementService", () => {
 
 		it("returns_correct_response", async () => {
 			// Arrange
-			const identityManagementService = new IdentityManagementService(logger);
 			const request = new ForgotPasswordRequest("url", "username");
 
 			// Act
@@ -132,5 +134,39 @@ describe("IdentityManagementService", () => {
 			// Assert
 			expect(result).toEqual(expectedForgotPasswordResponse);
 		})
+	});
+
+	describe("validateResetToken", () => {
+		let validateResetTokenStub: SinonStub;
+		cancellationToken = axios.CancelToken.source().token;
+
+		const responseMessage = "forgot password message";
+
+		const expectedValidateResetTokenResponse =
+			new ValidateResetTokenResponse(responseMessage);
+
+		beforeEach(() => {
+			const validateResetTokenResponse = {
+				message: responseMessage
+			};
+
+			validateResetTokenStub = stub(IdentityManagementApi, "validateResetToken")
+				.resolves(validateResetTokenResponse);
+		});
+
+		afterEach(() => {
+			validateResetTokenStub.restore();
+		});
+
+		it("returns_correct_response", async () => {
+			// Arrange
+			const request = new ValidateResetTokenRequest("url", "token");
+
+			// Act
+			const result = await identityManagementService.validateResetToken(request, cancellationToken);
+
+			// Assert
+			expect(result).toEqual(expectedValidateResetTokenResponse);
+		});
 	});
 });
