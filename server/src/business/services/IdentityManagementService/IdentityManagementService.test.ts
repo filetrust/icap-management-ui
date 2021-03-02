@@ -6,6 +6,8 @@ import NewUser from "../../../common/models/IdentityManagementService/NewUser/Ne
 import User from "../../../common/models/IdentityManagementService/User/User";
 import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
+import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
+import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 
 import IdentityManagementService from "./IdentityManagementService";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
@@ -96,5 +98,39 @@ describe("IdentityManagementService", () => {
 			expect(spy).toHaveBeenCalled();
 			expect(spy).toHaveBeenCalledWith(url, newUser, cancellationToken);
 		});
+	});
+
+	describe("forgotPassword", () => {
+		let forgotPasswordStub: SinonStub;
+		cancellationToken = axios.CancelToken.source().token;
+
+		const responseMessage = "forgot password message";
+		const expectedForgotPasswordResponse =
+			new ForgotPasswordResponse(responseMessage);
+
+		beforeEach(() => {
+			const forgotPasswordResponse = {
+				message: responseMessage
+			};
+
+			forgotPasswordStub = stub(IdentityManagementApi, "forgotPassword")
+				.resolves(forgotPasswordResponse);
+		});
+
+		afterEach(() => {
+			forgotPasswordStub.restore();
+		});
+
+		it("returns_correct_response", async () => {
+			// Arrange
+			const identityManagementService = new IdentityManagementService(logger);
+			const request = new ForgotPasswordRequest("url", "username");
+
+			// Act
+			const result = await identityManagementService.forgotPassword(request, cancellationToken);
+
+			// Assert
+			expect(result).toEqual(expectedForgotPasswordResponse);
+		})
 	});
 });
