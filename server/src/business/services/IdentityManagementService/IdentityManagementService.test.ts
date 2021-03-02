@@ -2,8 +2,10 @@ import { stub, SinonStub } from "sinon";
 import winston from "winston";
 import axios, { CancelToken } from "axios";
 
+import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import { AuthenticateRequest, AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
+import { NewUserRequest } from "../../../common/models/IdentityManagementService/NewUser";
 
 import IdentityManagementService from "./IdentityManagementService";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
@@ -31,6 +33,7 @@ describe("IdentityManagementService", () => {
 
 	describe("authenticate", () => {
 		let authenticateStub: SinonStub;
+		cancellationToken = axios.CancelToken.source().token;
 
 		const authenticatedUser = new User(
 			"id",
@@ -43,9 +46,6 @@ describe("IdentityManagementService", () => {
 			AuthenticateResponse(authenticatedUser, "token");
 
 		beforeEach(() => {
-			const cancellationTokenSource = axios.CancelToken.source();
-			cancellationToken = cancellationTokenSource.token;
-
 			const authenticateApiResponse = {
 				id: "id",
 				username: "username",
@@ -72,6 +72,29 @@ describe("IdentityManagementService", () => {
 
 			// Assert
 			expect(result).toEqual(expectedAuthenticateResponse);
+		});
+	});
+
+	describe("newUser", () => {
+		cancellationToken = axios.CancelToken.source().token;
+
+		stub(IdentityManagementApi, "newUser").resolves();
+
+		it("called_IdentityManagementApi_newUser", async () => {
+			// Arrange
+			const spy = spyOn(IdentityManagementApi, "newUser");
+			const identityManagementService = new IdentityManagementService(logger);
+
+			const url = "url";
+			const newUser = new NewUser("firstName", "lastName", "username", "email@email.com");
+			const request = new NewUserRequest(url, newUser);
+
+			// Act
+			await identityManagementService.newUser(request, cancellationToken);
+
+			// Assert
+			expect(spy).toHaveBeenCalled();
+			expect(spy).toHaveBeenCalledWith(url, newUser, cancellationToken);
 		});
 	});
 });
