@@ -12,6 +12,7 @@ import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../
 
 import IdentityManagementService from "./IdentityManagementService";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
+import { ResetPasswordRequest, ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
 
 
 describe("IdentityManagementService", () => {
@@ -167,6 +168,40 @@ describe("IdentityManagementService", () => {
 
 			// Assert
 			expect(result).toEqual(expectedValidateResetTokenResponse);
+		});
+	});
+
+	describe("resetPassword", () => {
+		let resetPasswordStub: SinonStub;
+		cancellationToken = axios.CancelToken.source().token;
+
+		const responseMessage = "reset password message";
+
+		const expectedResetPasswordResponse =
+			new ResetPasswordResponse(responseMessage);
+
+		beforeEach(() => {
+			const resetPasswordResponse = {
+				message: responseMessage
+			};
+
+			resetPasswordStub = stub(IdentityManagementApi, "resetPassword")
+				.resolves(resetPasswordResponse);
+		});
+
+		afterEach(() => {
+			resetPasswordStub.restore();
+		});
+
+		it("returns_correct_response", async () => {
+			// Arrange
+			const request = new ResetPasswordRequest("url", "token", "password");
+
+			// Act
+			const result = await identityManagementService.resetPassword(request, cancellationToken);
+
+			// Assert
+			expect(result).toEqual(expectedResetPasswordResponse);
 		});
 	});
 });
