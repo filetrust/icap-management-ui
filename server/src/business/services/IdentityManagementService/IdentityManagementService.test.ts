@@ -1,4 +1,4 @@
-import { stub, SinonStub } from "sinon";
+import { stub, SinonStub, replace, fake } from "sinon";
 import winston from "winston";
 import axios, { CancelToken } from "axios";
 
@@ -10,6 +10,7 @@ import { NewUserRequest } from "../../../common/models/IdentityManagementService
 import { ForgotPasswordRequest } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordRequest";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
+import { SaveUserChangesRequest } from "../../../common/models/IdentityManagementService/SaveUserChanges/SaveUserChangesRequest";
 
 import IdentityManagementService from "./IdentityManagementService";
 import IdentityManagementApi from "../../../common/http/IdentityManagementApi/IdentityManagementApi";
@@ -228,6 +229,55 @@ describe("IdentityManagementService", () => {
 
 			// Assert
 			expect(result).toEqual(users);
+		});
+	});
+	describe("saveChanges", () => {
+		const updateUserUrl = "www.glasswall.com/update";
+		const newUserUrl = "www.glasswall.com/new";
+		const deleteUserUrl = "www.glasswall.com/delete";
+
+		const updatedUsers = [
+			new User(
+				"id",
+				"firstName",
+				"lastName",
+				"username",
+				"email@email.com",
+				UserStatus.Active,
+				true,
+				false)
+		];
+
+		const newUsers = [
+			new NewUser("firstName", "lastName", "username", "email@email.com")
+		];
+
+		const deletedUsers = [
+			"id1",
+			"id2"
+		];
+
+		stub(IdentityManagementApi, "updateUser").resolves();
+		(IdentityManagementApi as any).newUser.restore();
+		stub(IdentityManagementApi, "newUser").resolves();
+		stub(IdentityManagementApi, "deleteUser").resolves();
+
+		it("called_IdentityManagementApi", async () => {
+			// Arrange
+			const updateUserSpy = spyOn(IdentityManagementApi, "updateUser");
+			const newUserSpy = spyOn(IdentityManagementApi, "newUser");
+			const deleteUserSpy = spyOn(IdentityManagementApi, "deleteUser");
+
+			const request = new SaveUserChangesRequest(
+				updateUserUrl, newUserUrl, deleteUserUrl, updatedUsers, newUsers, deletedUsers);
+
+			// Act
+			await identityManagementService.saveChanges(request, cancellationToken);
+
+			// Assert
+			expect(updateUserSpy).toHaveBeenCalled();
+			expect(newUserSpy).toHaveBeenCalled();
+			expect(deleteUserSpy).toHaveBeenCalled();
 		});
 	});
 });
