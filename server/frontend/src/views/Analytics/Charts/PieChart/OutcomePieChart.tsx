@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 
 import { DataPoint } from "../../../../../../src/common/models/TransactionEventService/GetMetrics/GetMetricsResponse";
+import AnalyticsChartsColours from "../AnalyticsChartsColours";
 
 export interface OutcomePieChartProps {
 	data: DataPoint[]
 }
+
+const chartColours = new AnalyticsChartsColours().outcomePieChart;
 
 const chartOptions = {
 	legend: {
@@ -70,8 +73,21 @@ const OutcomePieChart = (props: OutcomePieChartProps) => {
 			labels: ["Relay", "Replace", "Block", "Failed", "Unmodified"],
 			datasets: [
 				{
-					data: [relay, replace, block, failed, unmodified],
-					backgroundColor: ["#52bf66", "#5469ff", "#eabe51", "#ff5b5b",  "#949494"],
+					data: [
+						relay,
+						replace,
+						block,
+						failed,
+						unmodified
+					],
+
+					backgroundColor: [
+						chartColours.relay,
+						chartColours.replace,
+						chartColours.block,
+						chartColours.failed,
+						chartColours.unmodified
+					],
 				},
 			],
 		});
