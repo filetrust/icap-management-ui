@@ -7,6 +7,7 @@ export interface LineChartProps {
 	data: DataPoint[]
 }
 
+
 const chartOptions = {
 	legend: {
 		position: "bottom",
@@ -49,6 +50,13 @@ const chartOptions = {
 	},
 };
 
+const lineOptions = {
+	lineTension: 0,
+	borderWidth: 7,
+	fill: false,
+	hidden: true
+};
+
 const LineChart = (props: LineChartProps) => {
 	const [chartData, setChartData] = useState({});
 
@@ -63,40 +71,30 @@ const LineChart = (props: LineChartProps) => {
 			labels,
 			datasets: [
 				{
+					...lineOptions,
 					label: "Total Files Processed",
 					data: processed,
-					lineTension: 0,
 					borderColor: "#4592b0",
-					borderWidth: 7,
-					fill: false
+					hidden: false
 				},
 				{
+					...lineOptions,
 					label: "Failed",
 					data: failed,
-					lineTension: 0,
-					borderColor: "#ff5b5b",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					borderColor: "#ff5b5b"
 				},
 				{
+					...lineOptions,
 					label: "Replace",
 					data: replace,
-					lineTension: 0,
-					borderColor: "#5469ff",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					borderColor: "#5469ff"
 				},
 				{
+					...lineOptions,
 					label: "Unmodified",
 					data: unmodified,
-					lineTension: 0,
 					backgroundColor: "#949494",
-					borderColor: "#949494",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					borderColor: "#949494"
 				}
 			]
 		});
