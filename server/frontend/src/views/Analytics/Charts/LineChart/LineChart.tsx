@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 import { DataPoint } from "../../../../../../src/common/models/TransactionEventService/GetMetrics/GetMetricsResponse";
+import AnalyticsChartsColours from "../AnalyticsChartsColours";
 
 export interface LineChartProps {
 	data: DataPoint[]
 }
 
+const chartColours = new AnalyticsChartsColours().outcomeLineChart;
 
 const chartOptions = {
 	legend: {
@@ -76,39 +78,39 @@ const LineChart = (props: LineChartProps) => {
 					...lineOptions,
 					label: "Total Files Processed",
 					data: processed,
-					borderColor: "#4592b0",
+					borderColor: chartColours.totalProcessed,
 					hidden: false
 				},
 				{
 					...lineOptions,
 					label: "Relay",
 					data: relay,
-					borderColor: "#52bf66"
+					borderColor: chartColours.relay
 				},
 				{
 					...lineOptions,
 					label: "Replace",
 					data: replace,
-					borderColor: "#5469ff"
+					borderColor: chartColours.replace
 				},
 				{
 					...lineOptions,
 					label: "Block",
 					data: block,
-					borderColor: ""
+					borderColor: chartColours.block
 				},
 				{
 					...lineOptions,
 					label: "Failed",
 					data: failed,
-					borderColor: "#ff5b5b"
+					borderColor: chartColours.failed
 				},
 				{
 					...lineOptions,
 					label: "Unmodified",
 					data: unmodified,
-					backgroundColor: "#949494",
-					borderColor: "#949494"
+					backgroundColor: chartColours.unmodified,
+					borderColor: chartColours.unmodified
 				}
 			]
 		});
