@@ -45,24 +45,33 @@ const OutcomePieChart = (props: OutcomePieChartProps) => {
 	const [chartData, setChartData] = useState({});
 
 	const chart = () => {
-		const failed = props.data
-			.map(i => i.processedByOutcome.Failed)
+		const relay = props.data
+			.map(i => i.processedByOutcome.Relay ?? 0)
 			.reduce(reducer);
 
-		const replaced = props.data
-			.map(i => i.processedByOutcome.Replace)
+		const replace = props.data
+			.map(i => i.processedByOutcome.Replace ?? 0)
 			.reduce(reducer);
+
+		const block = props.data
+			.map(i => i.processedByOutcome.Block ?? 0)
+			.reduce(reducer);
+
+		const failed = props.data
+			.map(i => i.processedByOutcome.Failed ?? 0)
+			.reduce(reducer);
+
 
 		const unmodified = props.data
-			.map(i => i.processedByOutcome.Unmodified)
+			.map(i => i.processedByOutcome.Unmodified ?? 0)
 			.reduce(reducer);
 
 		setChartData({
-			labels: ["Failed", "Replace", "Unmodified"],
+			labels: ["Relay", "Replace", "Block", "Failed", "Unmodified"],
 			datasets: [
 				{
-					data: [failed, replaced, unmodified],
-					backgroundColor: ["#ff5b5b", "#5469ff", "#949494"],
+					data: [relay, replace, block, failed, unmodified],
+					backgroundColor: ["#52bf66", "#5469ff", "#eabe51", "#ff5b5b",  "#949494"],
 				},
 			],
 		});
