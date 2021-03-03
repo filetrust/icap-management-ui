@@ -1,4 +1,4 @@
-import { stub, SinonStub, replace, fake } from "sinon";
+import { stub, SinonStub } from "sinon";
 import winston from "winston";
 import axios, { CancelToken } from "axios";
 
