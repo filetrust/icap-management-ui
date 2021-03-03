@@ -63,9 +63,11 @@ const LineChart = (props: LineChartProps) => {
 	const chart = () => {
 		const labels = props.data.map(i => new Date(i.date).toLocaleTimeString());
 		const processed = props.data.map(i => i.processed);
-		const failed = props.data.map(i => i.processedByOutcome.Failed);
-		const replace = props.data.map(i => i.processedByOutcome.Replace);
-		const unmodified = props.data.map(i => i.processedByOutcome.Unmodified);
+		const relay = props.data.map(i => i.processedByOutcome.Relay ?? 0);
+		const replace = props.data.map(i => i.processedByOutcome.Replace ?? 0);
+		const block = props.data.map(i => i.processedByOutcome.Block ?? 0);
+		const failed = props.data.map(i => i.processedByOutcome.Failed ?? 0);
+		const unmodified = props.data.map(i => i.processedByOutcome.Unmodified ?? 0);
 
 		setChartData({
 			labels,
@@ -79,15 +81,27 @@ const LineChart = (props: LineChartProps) => {
 				},
 				{
 					...lineOptions,
-					label: "Failed",
-					data: failed,
-					borderColor: "#ff5b5b"
+					label: "Relay",
+					data: relay,
+					borderColor: "#52bf66"
 				},
 				{
 					...lineOptions,
 					label: "Replace",
 					data: replace,
 					borderColor: "#5469ff"
+				},
+				{
+					...lineOptions,
+					label: "Block",
+					data: block,
+					borderColor: ""
+				},
+				{
+					...lineOptions,
+					label: "Failed",
+					data: failed,
+					borderColor: "#ff5b5b"
 				},
 				{
 					...lineOptions,
