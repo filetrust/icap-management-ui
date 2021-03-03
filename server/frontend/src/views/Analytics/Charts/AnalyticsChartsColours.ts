@@ -1,22 +1,4 @@
-export interface IAnalyticsChartsColours {
-	outcomePieChart: {
-		relay: string,
-		replace: string,
-		block: string,
-		failed: string,
-		unmodified: string
-	},
-
-	outcomeLineChart: {
-		relay: string,
-		replace: string,
-		block: string,
-		failed: string,
-		unmodified: string
-	}
-}
-
-class AnalyticsChartsColours implements IAnalyticsChartsColours {
+class AnalyticsChartsColours {
 	outcomePieChart = {
 		relay: "#52bf66",
 		replace: "#5469ff",
@@ -26,6 +8,7 @@ class AnalyticsChartsColours implements IAnalyticsChartsColours {
 	};
 
 	outcomeLineChart = {
+		totalProcessed: "#4592b0",
 		relay: "#52bf66",
 		replace: "#5469ff",
 		block: "#eabe51",
