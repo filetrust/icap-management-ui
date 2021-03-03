@@ -231,6 +231,7 @@ describe("IdentityManagementService", () => {
 			expect(result).toEqual(users);
 		});
 	});
+
 	describe("saveChanges", () => {
 		const updateUserUrl = "www.glasswall.com/update";
 		const newUserUrl = "www.glasswall.com/new";
