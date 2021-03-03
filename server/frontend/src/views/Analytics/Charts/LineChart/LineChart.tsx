@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 
 import { DataPoint } from "../../../../../../src/common/models/TransactionEventService/GetMetrics/GetMetricsResponse";
+import AnalyticsChartsColours from "../AnalyticsChartsColours";
 
 export interface LineChartProps {
 	data: DataPoint[]
 }
+
+const chartColours = new AnalyticsChartsColours().outcomeLineChart;
 
 const chartOptions = {
 	legend: {
@@ -49,54 +52,65 @@ const chartOptions = {
 	},
 };
 
+const lineOptions = {
+	lineTension: 0,
+	borderWidth: 7,
+	fill: false,
+	hidden: true
+};
+
 const LineChart = (props: LineChartProps) => {
 	const [chartData, setChartData] = useState({});
 
 	const chart = () => {
 		const labels = props.data.map(i => new Date(i.date).toLocaleTimeString());
 		const processed = props.data.map(i => i.processed);
-		const failed = props.data.map(i => i.processedByOutcome.Failed);
-		const replace = props.data.map(i => i.processedByOutcome.Replace);
-		const unmodified = props.data.map(i => i.processedByOutcome.Unmodified);
+		const relay = props.data.map(i => i.processedByOutcome.Relay ?? 0);
+		const replace = props.data.map(i => i.processedByOutcome.Replace ?? 0);
+		const block = props.data.map(i => i.processedByOutcome.Block ?? 0);
+		const failed = props.data.map(i => i.processedByOutcome.Failed ?? 0);
+		const unmodified = props.data.map(i => i.processedByOutcome.Unmodified ?? 0);
 
 		setChartData({
 			labels,
 			datasets: [
 				{
+					...lineOptions,
 					label: "Total Files Processed",
 					data: processed,
-					lineTension: 0,
-					borderColor: "#4592b0",
-					borderWidth: 7,
-					fill: false
+					borderColor: chartColours.totalProcessed,
+					hidden: false
 				},
 				{
-					label: "Failed",
-					data: failed,
-					lineTension: 0,
-					borderColor: "#ff5b5b",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					...lineOptions,
+					label: "Relay",
+					data: relay,
+					borderColor: chartColours.relay
 				},
 				{
+					...lineOptions,
 					label: "Replace",
 					data: replace,
-					lineTension: 0,
-					borderColor: "#5469ff",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					borderColor: chartColours.replace
 				},
 				{
+					...lineOptions,
+					label: "Block",
+					data: block,
+					borderColor: chartColours.block
+				},
+				{
+					...lineOptions,
+					label: "Failed",
+					data: failed,
+					borderColor: chartColours.failed
+				},
+				{
+					...lineOptions,
 					label: "Unmodified",
 					data: unmodified,
-					lineTension: 0,
-					backgroundColor: "#949494",
-					borderColor: "#949494",
-					borderWidth: 7,
-					fill: false,
-					hidden: true
+					backgroundColor: chartColours.unmodified,
+					borderColor: chartColours.unmodified
 				}
 			]
 		});
