@@ -79,8 +79,8 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
 	return (
 		<>
 			{issueItems.itemCount === 0 && remedyItems.itemCount === 0 && sanitisationItems.itemCount === 0 &&
-				<div>
-					Analysis Report was empty.
+				<div className={classes.emptyAnalysisReport}>
+					The Analysis Report for this file is empty.
 				</div>
 			}
 
