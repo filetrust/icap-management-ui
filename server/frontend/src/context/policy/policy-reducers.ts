@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import equal from "deep-equal";
 import { updateObject } from "../../helpers/updateObject";
 import * as actionTypes from "../actionTypes";

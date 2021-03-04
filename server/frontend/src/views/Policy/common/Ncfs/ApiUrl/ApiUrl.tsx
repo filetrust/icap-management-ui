@@ -14,7 +14,7 @@ import Input from "../../../../../components/UI/Input/Input";
 
 export interface ApiUrlProps {
 	value: string,
-	onChangeInputHandler: (event: any) => void,
+	onChangeInputHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
 	isChanged?: boolean,
 	disabled?: boolean
 }
