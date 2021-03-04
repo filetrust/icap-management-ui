@@ -57,6 +57,17 @@
 			min-height: 13rem;
 		}
 
+		& .emptyAnalysisReport {
+			min-height: 4rem;
+			position: relative;
+
+			margin-bottom: 1.5rem;
+			padding: 1rem;
+			padding-left: 2.6rem;
+
+			overflow: hidden;
+		}
+
 		& .block {
 			min-height: 4rem;
 			position: relative;

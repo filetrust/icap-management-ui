@@ -42,38 +42,48 @@ const TransactionDetails = (props: TransactionDetailsProps) => {
 	const clsBlockExpandend = [classes.block];
 
 	useEffect(() => {
-		props.analysisReport.documentStatistics.contentGroups.contentGroup.forEach((content: any) => {
-			if (content.issueItems.itemCount > 0) {
-				setIssueItems((prev: any) => {
-					return {
-						itemCount: prev.itemCount + content.issueItems.itemCount,
-						issues: prev.issues.concat(content.issueItems.issueItem)
-					};
-				});
-			}
+		if (props.analysisReport.documentStatistics.contentGroups.contentGroup !== null) {
 
-			if (content.remedyItems.itemCount > 0) {
-				setRemedyItems((prev: any) => {
-					return {
-						itemCount: prev.itemCount + content.remedyItems.itemCount,
-						remedies: prev.remedies.concat(content.remedyItems.remedyItem)
-					};
-				});
-			}
+			props.analysisReport.documentStatistics.contentGroups.contentGroup.forEach((content: any) => {
+				if (content.issueItems.itemCount > 0) {
+					setIssueItems((prev: any) => {
+						return {
+							itemCount: prev.itemCount + content.issueItems.itemCount,
+							issues: prev.issues.concat(content.issueItems.issueItem)
+						};
+					});
+				}
 
-			if (content.sanitisationItems.itemCount > 0) {
-				setSanitisationItems((prev: any) => {
-					return {
-						itemCount: prev.itemCount + content.sanitisationItems.itemCount,
-						sanitisations: prev.sanitisations.concat(content.sanitisationItems.sanitisationItem)
-					};
-				});
-			}
-		});
+				if (content.remedyItems.itemCount > 0) {
+					setRemedyItems((prev: any) => {
+						return {
+							itemCount: prev.itemCount + content.remedyItems.itemCount,
+							remedies: prev.remedies.concat(content.remedyItems.remedyItem)
+						};
+					});
+				}
+
+				if (content.sanitisationItems.itemCount > 0) {
+					setSanitisationItems((prev: any) => {
+						return {
+							itemCount: prev.itemCount + content.sanitisationItems.itemCount,
+							sanitisations: prev.sanitisations.concat(content.sanitisationItems.sanitisationItem)
+						};
+					});
+				}
+			});
+
+		}
 	}, [props]);
 
 	return (
 		<>
+			{issueItems.itemCount === 0 && remedyItems.itemCount === 0 && sanitisationItems.itemCount === 0 &&
+				<div className={classes.emptyAnalysisReport}>
+					The Analysis Report for this file is empty.
+				</div>
+			}
+
 			{issueItems.itemCount > 0 &&
 				<div className={clsBlockExpandend.join(" ")}>
 					Issue Items
