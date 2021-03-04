@@ -6,24 +6,25 @@ import { AdaptionPolicy } from "../../../../../../src/common/models/PolicyManage
 
 
 export interface ActiveAdaptationPolicyProps {
-    adaptationPolicy: AdaptionPolicy
+	adaptationPolicy: AdaptionPolicy
 }
 
 const ActiveNcfsPolicy = (props: ActiveAdaptationPolicyProps) => {
-    return (
-        <>
-            <RoutesForNonCompliantFiles
-                ncfsRoutingUrl={props.adaptationPolicy.ncfsRoute ?
-                    props.adaptationPolicy.ncfsRoute.ncfsRoutingUrl : ""}
-                currentPolicyRoutingUrl={props.adaptationPolicy.ncfsRoute.ncfsRoutingUrl}
-                disabled />
+	return (
+		<>
+			<RoutesForNonCompliantFiles
+				ncfsRoutingUrl={props.adaptationPolicy.ncfsRoute !== null ?
+					props.adaptationPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+				currentPolicyRoutingUrl={props.adaptationPolicy.ncfsRoute.ncfsRoutingUrl !== null ?
+					props.adaptationPolicy.ncfsRoute.ncfsRoutingUrl : ""}
+				disabled />
 
-            <PolicyForNonCompliantFiles
-                ncfsActions={props.adaptationPolicy.ncfsActions}
-                currentNcfsActions={props.adaptationPolicy.ncfsActions}
-                disabled />
-        </>
-    );
+			<PolicyForNonCompliantFiles
+				ncfsActions={props.adaptationPolicy.ncfsActions}
+				currentNcfsActions={props.adaptationPolicy.ncfsActions}
+				disabled />
+		</>
+	);
 }
 
 export default ActiveNcfsPolicy;
