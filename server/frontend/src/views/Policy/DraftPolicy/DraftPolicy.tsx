@@ -19,7 +19,7 @@ import UnsavedChangesPrompt from "../common/UnsavedChangesPrompt/UnsavedChangesP
 
 import classes from "./DraftPolicy.module.scss";
 
-const returnNcfsRoutingUrl = (ncfsRoutes: NcfsRoute) => ncfsRoutes ? ncfsRoutes.ncfsRoutingUrl : null;
+const returnNcfsRoutingUrl = (ncfsRoutes: NcfsRoute) => ncfsRoutes !== null ? ncfsRoutes.ncfsRoutingUrl : "";
 
 const DraftPolicy = () => {
 	const {
