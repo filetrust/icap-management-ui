@@ -47,5 +47,32 @@ describe("IdentityManagementApi", () => {
 		});
 	});
 
+	describe("newUser", () => {
+		// Arrange
+		const newUser = new NewUser("firstName", "lastName", "username", "email");
 
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.newUser(url, newUser, cancellationToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.restore();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			const authenticateHelperArgs = axiosHelperStub.getCall(0).args;
+			expect(authenticateHelperArgs[0]).toEqual(url);
+			expect(authenticateHelperArgs[1]).toEqual("POST");
+			expect(authenticateHelperArgs[2]).toEqual(cancellationToken);
+			expect(authenticateHelperArgs[3]).toEqual(newUser);
+		});
+	});
 });
