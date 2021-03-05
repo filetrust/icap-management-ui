@@ -45,13 +45,13 @@ describe("IdentityManagementApi", () => {
 	describe("authenticate", () => {
 		// Arrange
 		const username = "username";
-		const password = "password";
+		const notARealPassword = "pass";
 
 		beforeAll(async () => {
 			setUpCancellationToken();
 
 			// Act
-			await IdentityManagementApi.authenticate(url, username, password, cancellationToken);
+			await IdentityManagementApi.authenticate(url, username, notARealPassword, cancellationToken);
 		});
 
 		afterAll(() => {
@@ -64,7 +64,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { username, password });
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { username, password: notARealPassword });
 		});
 	});
 
@@ -146,13 +146,13 @@ describe("IdentityManagementApi", () => {
 	describe("resetPassword", () => {
 		// Arrange
 		const token = "token";
-		const password = "password";
+		const notARealPassword = "pass";
 
 		beforeAll(async () => {
 			setUpCancellationToken();
 
 			// Act
-			await IdentityManagementApi.resetPassword(url, token, password, cancellationToken);
+			await IdentityManagementApi.resetPassword(url, token, notARealPassword, cancellationToken);
 		});
 
 		afterAll(() => {
@@ -165,7 +165,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token, password });
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token, password: notARealPassword });
 		});
 	});
 
