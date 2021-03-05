@@ -1,45 +1,20 @@
 import IdentityManagementApi from "./IdentityManagementApi";
-import { stub, SinonStub } from "sinon";
-import axios, { CancelToken, Method } from "axios";
+import { stub } from "sinon";
 import * as axiosHelper from "../../helpers/AxiosHelper";
 import NewUser from "../../models/IdentityManagementService/NewUser/NewUser";
 import User from "../../models/IdentityManagementService/User/User";
 import { UserStatus } from "../../models/enums/UserStatus";
 
+import {
+	setUpCancellationToken,
+	expectAxiosHelperWasCalled,
+	expectAxiosHelperWithArgs
+} from "../httpTestHelper";
+
 const axiosHelperStub = stub(axiosHelper, "default").resolves("");
 
 const url = "www.glasswall.com";
-let cancellationToken: CancelToken;
-
-const setUpCancellationToken = () => {
-	const cancellationTokenSource = axios.CancelToken.source();
-	cancellationToken = cancellationTokenSource.token;
-};
-
-const expectAxiosHelperWasCalled = (stubbed: SinonStub, callCount: number) => expect(stubbed.getCalls()).toHaveLength(callCount);
-
-const expectAxiosHelperWithArgs = (
-	stubbed: SinonStub,
-	expectedCall: number,
-	expectedUrl: string,
-	expectedMethod: Method,
-	expectedCancellationToken: CancelToken,
-	expectedData?: any,
-	expectedHeaders?: { [header: string]: string }) => {
-
-	const helperArgs = stubbed.getCall(expectedCall).args;
-	expect(helperArgs[0]).toEqual(expectedUrl);
-	expect(helperArgs[1]).toEqual(expectedMethod);
-	expect(helperArgs[2]).toEqual(expectedCancellationToken);
-
-	if (expectedData) {
-		expect(helperArgs[3]).toEqual(expectedData);
-	}
-
-	if (expectedHeaders) {
-		expect(helperArgs[4]).toEqual(expectedHeaders);
-	}
-};
+const cancellationToken = setUpCancellationToken();
 
 describe("IdentityManagementApi", () => {
 	describe("authenticate", () => {
