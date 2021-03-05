@@ -6,7 +6,6 @@ import {
 	expectAxiosHelperWasCalled,
 	expectAxiosHelperWithArgs
 } from "../../httpTestHelper";
-import sinon from "sinon";
 
 const config = TestConfig();
 let axiosHelperStub: SinonStub;
