@@ -3,6 +3,8 @@ import { stub, SinonStub } from "sinon";
 import axios, { CancelToken, Method } from "axios";
 import * as axiosHelper from "../../helpers/AxiosHelper";
 import NewUser from "../../models/IdentityManagementService/NewUser/NewUser";
+import User from "../../models/IdentityManagementService/User/User";
+import { UserStatus } from "../../models/enums/UserStatus";
 
 const axiosHelperStub = stub(axiosHelper, "default").resolves("");
 
@@ -190,6 +192,50 @@ describe("IdentityManagementApi", () => {
 		it("called_axios_helper_with_correct_args", () => {
 			expectAxiosHelperWithArgs(
 				axiosHelperStub, 0, url, "GET", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
+		});
+	});
+
+	describe("updateUser", () => {
+		// Arrange
+		const user = new User(
+			"id",
+			"firstName",
+			"secondName",
+			"username",
+			"email@email.com",
+			UserStatus.Active
+		);
+
+		const authToken = "authToken";
+
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.updateUser(url, user, cancellationToken, authToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.resetHistory();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			const expectedUrl = `${url}/${user.id}`;
+
+			expectAxiosHelperWithArgs(
+				axiosHelperStub,
+				0,
+				expectedUrl,
+				"PUT",
+				cancellationToken,
+				{ ...user },
+				{ "Authorization": `Bearer ${authToken}` }
+			);
 		});
 	});
 });
