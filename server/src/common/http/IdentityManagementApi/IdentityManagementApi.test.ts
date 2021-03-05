@@ -54,7 +54,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, {username, password});
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { username, password });
 		});
 	});
 
@@ -104,7 +104,32 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, {username});
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { username });
+		});
+	});
+
+	describe("validateResetToken", () => {
+		// Arrange
+		const token = "token";
+
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.validateResetToken(url, token, cancellationToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.resetHistory();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token });
 		});
 	});
 });
