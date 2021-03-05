@@ -208,6 +208,8 @@ describe("IdentityManagementApi", () => {
 
 		const authToken = "authToken";
 
+		const expectedUrl = `${url}/${user.id}`;
+
 		beforeAll(async () => {
 			setUpCancellationToken();
 
@@ -225,8 +227,6 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			const expectedUrl = `${url}/${user.id}`;
-
 			expectAxiosHelperWithArgs(
 				axiosHelperStub,
 				0,
@@ -234,6 +234,41 @@ describe("IdentityManagementApi", () => {
 				"PUT",
 				cancellationToken,
 				{ ...user },
+				{ "Authorization": `Bearer ${authToken}` }
+			);
+		});
+	});
+
+	describe("deleteUser", () => {
+		// Arrange
+		const userId = "id";
+		const expectedUrl = `${url}/${userId}`;
+		const authToken = "authToken";
+
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.deleteUser(url, userId, cancellationToken, authToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.resetHistory();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			expectAxiosHelperWithArgs(
+				axiosHelperStub,
+				0,
+				expectedUrl,
+				"DELETE",
+				cancellationToken,
+				null,
 				{ "Authorization": `Bearer ${authToken}` }
 			);
 		});
