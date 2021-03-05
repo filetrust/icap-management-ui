@@ -1,6 +1,6 @@
 import IdentityManagementApi from "./IdentityManagementApi";
 import { stub, SinonStub } from "sinon";
-import axios, { CancelToken } from "axios";
+import axios, { CancelToken, Method } from "axios";
 import * as axiosHelper from "../../helpers/AxiosHelper";
 import NewUser from "../../models/IdentityManagementService/NewUser/NewUser";
 
@@ -15,6 +15,21 @@ const setUpCancellationToken = () => {
 };
 
 const expectAxiosHelperWasCalled = (stubbed: SinonStub, callCount: number) => expect(stubbed.getCalls()).toHaveLength(callCount);
+
+const expectAxiosHelperWithArgs = (
+	stubbed: SinonStub,
+	expectedCall: number,
+	expectedUrl: string,
+	expectedMethod: Method,
+	expectedCancellationToken: CancelToken,
+	expectedData: any) => {
+
+	const helperArgs = stubbed.getCall(expectedCall).args;
+	expect(helperArgs[0]).toEqual(expectedUrl);
+	expect(helperArgs[1]).toEqual(expectedMethod);
+	expect(helperArgs[2]).toEqual(expectedCancellationToken);
+	expect(helperArgs[3]).toEqual(expectedData);
+};
 
 describe("IdentityManagementApi", () => {
 	describe("authenticate", () => {
@@ -39,11 +54,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			const authenticateHelperArgs = axiosHelperStub.getCall(0).args;
-			expect(authenticateHelperArgs[0]).toEqual(url);
-			expect(authenticateHelperArgs[1]).toEqual("POST");
-			expect(authenticateHelperArgs[2]).toEqual(cancellationToken);
-			expect(authenticateHelperArgs[3]).toEqual({ username, password });
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, {username, password});
 		});
 	});
 
@@ -68,11 +79,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			const authenticateHelperArgs = axiosHelperStub.getCall(0).args;
-			expect(authenticateHelperArgs[0]).toEqual(url);
-			expect(authenticateHelperArgs[1]).toEqual("POST");
-			expect(authenticateHelperArgs[2]).toEqual(cancellationToken);
-			expect(authenticateHelperArgs[3]).toEqual(newUser);
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, newUser);
 		});
 	});
 
@@ -97,11 +104,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		it("called_axios_helper_with_correct_args", () => {
-			const authenticateHelperArgs = axiosHelperStub.getCall(0).args;
-			expect(authenticateHelperArgs[0]).toEqual(url);
-			expect(authenticateHelperArgs[1]).toEqual("POST");
-			expect(authenticateHelperArgs[2]).toEqual(cancellationToken);
-			expect(authenticateHelperArgs[3]).toEqual({username});
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, {username});
 		});
 	});
 });
