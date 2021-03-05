@@ -45,7 +45,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		afterAll(() => {
-			axiosHelperStub.restore();
+			axiosHelperStub.resetHistory();
 		});
 
 		// Assert
@@ -70,7 +70,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		afterAll(() => {
-			axiosHelperStub.restore();
+			axiosHelperStub.resetHistory();
 		});
 
 		// Assert
@@ -95,7 +95,7 @@ describe("IdentityManagementApi", () => {
 		});
 
 		afterAll(() => {
-			axiosHelperStub.restore();
+			axiosHelperStub.resetHistory();
 		});
 
 		// Assert
