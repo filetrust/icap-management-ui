@@ -22,13 +22,21 @@ const expectAxiosHelperWithArgs = (
 	expectedUrl: string,
 	expectedMethod: Method,
 	expectedCancellationToken: CancelToken,
-	expectedData: any) => {
+	expectedData?: any,
+	expectedHeaders?: { [header: string]: string }) => {
 
 	const helperArgs = stubbed.getCall(expectedCall).args;
 	expect(helperArgs[0]).toEqual(expectedUrl);
 	expect(helperArgs[1]).toEqual(expectedMethod);
 	expect(helperArgs[2]).toEqual(expectedCancellationToken);
-	expect(helperArgs[3]).toEqual(expectedData);
+
+	if (expectedData) {
+		expect(helperArgs[3]).toEqual(expectedData);
+	}
+
+	if (expectedHeaders) {
+		expect(helperArgs[4]).toEqual(expectedHeaders);
+	}
 };
 
 describe("IdentityManagementApi", () => {
@@ -156,6 +164,32 @@ describe("IdentityManagementApi", () => {
 
 		it("called_axios_helper_with_correct_args", () => {
 			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token, password });
+		});
+	});
+
+	describe("getUsers", () => {
+		// Arrange
+		const authToken = "authToken";
+
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.getUsers(url, cancellationToken, authToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.resetHistory();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			expectAxiosHelperWithArgs(
+				axiosHelperStub, 0, url, "GET", cancellationToken, null, { "Authorization": `Bearer ${authToken}` });
 		});
 	});
 });
