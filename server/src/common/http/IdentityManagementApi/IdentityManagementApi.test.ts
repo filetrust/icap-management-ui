@@ -132,4 +132,30 @@ describe("IdentityManagementApi", () => {
 			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token });
 		});
 	});
+
+	describe("resetPassword", () => {
+		// Arrange
+		const token = "token";
+		const password = "password";
+
+		beforeAll(async () => {
+			setUpCancellationToken();
+
+			// Act
+			await IdentityManagementApi.resetPassword(url, token, password, cancellationToken);
+		});
+
+		afterAll(() => {
+			axiosHelperStub.resetHistory();
+		});
+
+		// Assert
+		it("called_axios_helper", async () => {
+			expectAxiosHelperWasCalled(axiosHelperStub, 1);
+		});
+
+		it("called_axios_helper_with_correct_args", () => {
+			expectAxiosHelperWithArgs(axiosHelperStub, 0, url, "POST", cancellationToken, { token, password });
+		});
+	});
 });
