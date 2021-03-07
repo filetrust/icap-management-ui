@@ -4,12 +4,13 @@ import winston from "winston";
 import { SinonStub, stub } from "sinon";
 import request from "supertest";
 import { v4 as uuidv4 } from "uuid";
+import session from "express-session";
 import TestConfig from "../../TestConfig";
 import UsersRoutes from "./UsersRoutes";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import { UserStatus } from "../../../common/models/enums/UserStatus";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
-import session from "express-session";
+import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 
 let identityManagementServiceStub: SinonStub;
 
@@ -109,15 +110,46 @@ describe("UsersRoutes", () => {
                     .send(loginRequest)
                     .expect(200, (error, result) => {
                         // Assert
-                            expect(result.body.id).toEqual(authenticatedUser.id);
-                            expect(result.body.firstName).toEqual(authenticatedUser.firstName);
-                            expect(result.body.lastName).toEqual(authenticatedUser.lastName);
-                            expect(result.body.username).toEqual(authenticatedUser.username);
-                            expect(result.body.email).toEqual(authenticatedUser.email);
-                            expect(result.body.status).toEqual(authenticatedUser.status);
-                            done();
+                        expect(result.body.id).toEqual(authenticatedUser.id);
+                        expect(result.body.firstName).toEqual(authenticatedUser.firstName);
+                        expect(result.body.lastName).toEqual(authenticatedUser.lastName);
+                        expect(result.body.username).toEqual(authenticatedUser.username);
+                        expect(result.body.email).toEqual(authenticatedUser.email);
+                        expect(result.body.status).toEqual(authenticatedUser.status);
+                        done();
                     });
+            });
+        });
 
+        describe("post_users/forgot-password", () => {
+            // Arrange
+            const forgotPasswordRequest = {
+                username: "username",
+            };
+
+            const forgotPasswordMessage = "forgot password message";
+            const forgotPasswordResponse = new ForgotPasswordResponse(forgotPasswordMessage);
+
+            beforeEach(() => {
+                identityManagementServiceStub =
+                    stub(usersRoutes.identityManagementService, "forgotPassword")
+                        .resolves(forgotPasswordResponse);
+            });
+
+            afterEach(() => {
+                identityManagementServiceStub.restore();
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .post("/users/forgot-password")
+                    .send(forgotPasswordRequest)
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.body.message).toEqual(forgotPasswordMessage);
+                        done();
+                    });
             });
         });
     });
