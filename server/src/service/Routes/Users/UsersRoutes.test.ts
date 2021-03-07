@@ -219,5 +219,48 @@ describe("UsersRoutes", () => {
                     });
             });
         });
+
+        describe("get_users/all", () => {
+            // Arrange
+            const users = [
+                new User(
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "fakeUsername",
+                    "email@email.com",
+                    UserStatus.Active
+                ),
+                new User(
+                    "id2",
+                    "firstName",
+                    "lastName",
+                    "fakeUsername",
+                    "email@email.com",
+                    UserStatus.Active
+                ),
+            ];
+
+            beforeEach(() => {
+                identityManagementServiceStub =
+                    stub(usersRoutes.identityManagementService, "getUsers")
+                        .resolves(users);
+            });
+
+            afterEach(() => {
+                identityManagementServiceStub.restore();
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .get("/users/all")
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.body).toEqual(users);
+                        done();
+                    });
+            });
+        });
     });
 });
