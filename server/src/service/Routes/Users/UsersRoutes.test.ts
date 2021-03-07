@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import session from "express-session";
 import TestConfig from "../../TestConfig";
 import UsersRoutes from "./UsersRoutes";
+import NewUser from "../../../common/models/IdentityManagementService/NewUser/NewUser";
 import User from "../../../common/models/IdentityManagementService/User/User";
 import { UserStatus } from "../../../common/models/enums/UserStatus";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
@@ -235,8 +236,8 @@ describe("UsersRoutes", () => {
                     "id2",
                     "firstName",
                     "lastName",
-                    "fakeUsername",
-                    "email@email.com",
+                    "fakeUsername2",
+                    "email2@email.com",
                     UserStatus.Active
                 ),
             ];
@@ -258,6 +259,57 @@ describe("UsersRoutes", () => {
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.body).toEqual(users);
+                        done();
+                    });
+            });
+        });
+
+        describe("post_users/save", () => {
+            // Arrange
+            const saveChangesRequestString = {
+                updatedUsers: [
+                    new User(
+                        "id",
+                        "firstName",
+                        "lastName",
+                        "fakeUsername",
+                        "email@email.com",
+                        UserStatus.Active
+                    )
+                ],
+                newUsers: [
+                    new NewUser(
+                        "firstName",
+                        "lastName",
+                        "fakeUsername2",
+                        "email2@email.com"
+                    )
+                ],
+                deletedUserIds: [
+                    "id3"
+                ]
+            };
+
+            const saveChangesResponseMessage = "success";
+
+            beforeEach(() => {
+                identityManagementServiceStub =
+                    stub(usersRoutes.identityManagementService, "saveChanges")
+                        .resolves();
+            });
+
+            afterEach(() => {
+                identityManagementServiceStub.restore();
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .post("/users/save")
+                    .send(saveChangesRequestString)
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.body.message).toEqual(saveChangesResponseMessage);
                         done();
                     });
             });
