@@ -45,7 +45,7 @@ describe("RequestHistoryRoutes", () => {
         // Setup
         const config = TestConfig();
         const app = express();
-        app.use(bodyParser.json())
+        app.use(bodyParser.json());
         const logger = winston.createLogger({
             transports: [
                 new winston.transports.Console({
