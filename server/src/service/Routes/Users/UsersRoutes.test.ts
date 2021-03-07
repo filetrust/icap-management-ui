@@ -12,6 +12,7 @@ import { UserStatus } from "../../../common/models/enums/UserStatus";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
 import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
+import { ResetPasswordResponse } from "../../../common/models/IdentityManagementService/ResetPassword";
 
 let identityManagementServiceStub: SinonStub;
 
@@ -179,7 +180,41 @@ describe("UsersRoutes", () => {
                     .post("/users/validate-reset-token")
                     .send(validateResetTokenRequestString)
                     .expect(200, (error, result) => {
+                        // Assert
                         expect(result.body.message).toEqual(validateResetTokenMessage);
+                        done();
+                    });
+            });
+        });
+
+        describe("post_users/reset", () => {
+            // Arrange
+            const resetRequestString = {
+                token: "authToken",
+                password: "notAPassword"
+            };
+
+            const resetMessage = "password reset";
+            const resetResponse = new ResetPasswordResponse(resetMessage);
+
+            beforeEach(() => {
+                identityManagementServiceStub =
+                    stub(usersRoutes.identityManagementService, "resetPassword")
+                        .resolves(resetResponse);
+            });
+
+            afterEach(() => {
+                identityManagementServiceStub.restore();
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .post("/users/reset")
+                    .send(resetRequestString)
+                    .expect(200, (error, result) => {
+                        // Assert
+                        expect(result.body.message).toEqual(resetMessage);
                         done();
                     });
             });
