@@ -11,6 +11,7 @@ import User from "../../../common/models/IdentityManagementService/User/User";
 import { UserStatus } from "../../../common/models/enums/UserStatus";
 import { AuthenticateResponse } from "../../../common/models/IdentityManagementService/Authenticate";
 import { ForgotPasswordResponse } from "../../../common/models/IdentityManagementService/ForgotPassword/ForgotPasswordResponse";
+import { ValidateResetTokenResponse } from "../../../common/models/IdentityManagementService/ValidateResetToken";
 
 let identityManagementServiceStub: SinonStub;
 
@@ -73,7 +74,7 @@ describe("UsersRoutes", () => {
 
         describe("post_users/login", () => {
             // Arrange
-            const loginRequest = {
+            const loginRequestString = {
                 username: "fakeUsername",
                 password: "notAPassword"
             };
@@ -107,7 +108,7 @@ describe("UsersRoutes", () => {
                 // Act
                 request(app)
                     .post("/users/login")
-                    .send(loginRequest)
+                    .send(loginRequestString)
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.body.id).toEqual(authenticatedUser.id);
@@ -123,7 +124,7 @@ describe("UsersRoutes", () => {
 
         describe("post_users/forgot-password", () => {
             // Arrange
-            const forgotPasswordRequest = {
+            const forgotPasswordRequestString = {
                 username: "username",
             };
 
@@ -144,10 +145,41 @@ describe("UsersRoutes", () => {
                 // Act
                 request(app)
                     .post("/users/forgot-password")
-                    .send(forgotPasswordRequest)
+                    .send(forgotPasswordRequestString)
                     .expect(200, (error, result) => {
                         // Assert
                         expect(result.body.message).toEqual(forgotPasswordMessage);
+                        done();
+                    });
+            });
+        });
+
+        describe("post_validate_reset_token", () => {
+            // Arrange
+            const validateResetTokenRequestString = {
+                token: "authToken"
+            };
+
+            const validateResetTokenMessage = "token validated";
+            const validateResetTokenResponse = new ValidateResetTokenResponse(validateResetTokenMessage);
+
+            beforeEach(() => {
+                identityManagementServiceStub =
+                    stub(usersRoutes.identityManagementService, "validateResetToken")
+                        .resolves(validateResetTokenResponse);
+            });
+
+            afterEach(() => {
+                identityManagementServiceStub.restore();
+            });
+
+            it("responds_with_correct_json", (done) => {
+                // Act
+                request(app)
+                    .post("/users/validate-reset-token")
+                    .send(validateResetTokenRequestString)
+                    .expect(200, (error, result) => {
+                        expect(result.body.message).toEqual(validateResetTokenMessage);
                         done();
                     });
             });
