@@ -21,10 +21,10 @@ describe("RequestHistoryRoutes", () => {
             const logger = winston.createLogger();
 
             // Act
-            const requestHitoryRoutes = new RequestHistoryRoutes(config, app, logger);
+            const requestHistoryRoutes = new RequestHistoryRoutes(config, app, logger);
 
             // Assert
-            expect(requestHitoryRoutes.logger).toBe(logger);
+            expect(requestHistoryRoutes.logger).toBe(logger);
         });
 
         it("should_pass_logger_to_TransactionEventService", () => {
@@ -45,7 +45,7 @@ describe("RequestHistoryRoutes", () => {
         // Setup
         const config = TestConfig();
         const app = express();
-        app.use(bodyParser.json())
+        app.use(bodyParser.json());
         const logger = winston.createLogger({
             transports: [
                 new winston.transports.Console({
