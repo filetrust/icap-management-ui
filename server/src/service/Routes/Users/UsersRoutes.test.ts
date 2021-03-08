@@ -33,17 +33,17 @@ describe("UsersRoutes", () => {
             expect(usersRoutes.logger).toBe(logger);
         });
 
-        it("should_pass_logger_to_TransactionEventService", () => {
+        it("should_pass_logger_to_IdentityManagementService", () => {
             // Arrange
             const config = TestConfig();
             const app = express();
             const logger = winston.createLogger();
 
             // Act
-            const requestHitoryRoutes = new UsersRoutes(config, app, logger);
+            const usersRoutes = new UsersRoutes(config, app, logger);
 
             // Assert
-            expect(requestHitoryRoutes.identityManagementService.logger).toBe(logger);
+            expect(usersRoutes.identityManagementService.logger).toBe(logger);
         });
     });
 
@@ -58,7 +58,7 @@ describe("UsersRoutes", () => {
             },
             secret: uuidv4(),
             cookie: {
-                secure: false
+                secure: true
             },
             resave: false,
             saveUninitialized: true
@@ -78,7 +78,7 @@ describe("UsersRoutes", () => {
             // Arrange
             const loginRequestString = {
                 username: "fakeUsername",
-                password: "notAPassword"
+                password: "fakepass"
             };
 
             const authenticatedUser = new User(
@@ -192,7 +192,7 @@ describe("UsersRoutes", () => {
             // Arrange
             const resetRequestString = {
                 token: "authToken",
-                password: "notAPassword"
+                password: "fakepass"
             };
 
             const resetMessage = "password reset";
