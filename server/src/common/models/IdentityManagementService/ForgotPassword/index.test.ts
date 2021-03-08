@@ -1,5 +1,5 @@
 import { ArgumentNullException } from "../../errors/errors";
-import { ForgotPasswordRequest, ForgotPasswordResponse } from "./";
+import { ForgotPasswordRequest } from "./";
 
 describe("ForgotPasswordRequest", () => {
     let error: any = null;
