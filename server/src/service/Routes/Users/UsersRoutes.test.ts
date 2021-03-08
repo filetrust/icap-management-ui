@@ -80,7 +80,6 @@ describe("UsersRoutes", () => {
 
             const loginRequestString = {
                 username: "fakeUsername",
-                password: "fakepass"
                 password: notARealPassword
             };
 
