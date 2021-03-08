@@ -76,9 +76,12 @@ describe("UsersRoutes", () => {
 
         describe("post_users/login", () => {
             // Arrange
+            const notARealPassword = "fakepass";
+
             const loginRequestString = {
                 username: "fakeUsername",
                 password: "fakepass"
+                password: notARealPassword
             };
 
             const authenticatedUser = new User(
@@ -190,9 +193,11 @@ describe("UsersRoutes", () => {
 
         describe("post_users/reset", () => {
             // Arrange
+            const notARealPassword = "fakepass";
+
             const resetRequestString = {
                 token: "authToken",
-                password: "fakepass"
+                password: notARealPassword
             };
 
             const resetMessage = "password reset";
