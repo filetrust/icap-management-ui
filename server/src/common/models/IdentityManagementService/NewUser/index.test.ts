@@ -1,5 +1,5 @@
 import { ArgumentNullException } from "../../errors/errors";
-import { NewUserRequest, NewUserResponse } from "./";
+import { NewUserRequest } from "./";
 import NewUser from "./NewUser";
 
 describe("NewUserRequest", () => {
