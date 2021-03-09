@@ -48,6 +48,8 @@ describe("ResetPasswordRequest", () => {
             // Act
             // tslint:disable-next-line: no-unused-expression
             new ResetPasswordRequest(url, "", notARealPassword);
+        }
+        catch(err) {
             error = err;
         }
 
