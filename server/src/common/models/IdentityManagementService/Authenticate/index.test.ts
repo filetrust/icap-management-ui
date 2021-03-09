@@ -59,38 +59,7 @@ describe("AuthenticateRequest", () => {
         expect(error).toEqual(expectedError);
     });
 
-    it("throws_ArgumentNullException_if_password_is_empty", () => {
-        // Arrange
-        const expectedError = new ArgumentNullException("password");
-
-        try {
-            // Act
-            // tslint:disable-next-line: no-unused-expression
-            new AuthenticateRequest(url, username, "");
-        }
-        catch (err) {
-            error = err;
-        }
-
-        // Assert
-        expect(error).toEqual(expectedError);
-    });
-
-    it("throws_ArgumentException_if_password_is_invalid", () => {
-        // Arrange
-        const invalidPassword = "1".repeat(MINIMUM_PASSWORD_LENGTH - 1);
-
-        try {
-            // Act
-            // tslint:disable-next-line: no-unused-expression
-            new AuthenticateRequest(url, username, invalidPassword);
-        }
-        catch (err) {
-            error = err;
-        }
-
-        expect(error instanceof ArgumentException).toBe(true);
-    });
+    it("called_validatePassword", () => {});
 });
 
 describe("AuthenticateResponse", () => {
