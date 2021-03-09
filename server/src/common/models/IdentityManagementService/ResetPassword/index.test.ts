@@ -1,3 +1,5 @@
+import { ArgumentNullException } from "../../errors/ArgumentNullException";
+import * as validatePassword from "../ValidatePassword";
 import { ResetPasswordRequest } from "./";
 
 describe("ResetPasswordRequest", () => {
@@ -21,9 +23,47 @@ describe("ResetPasswordRequest", () => {
         expect(resetPasswordRequest.password).toEqual(notARealPassword);
     });
 
-    it("throws_an_ArgumentNullException_if_url_is_empty", () => {});
+    it("throws_an_ArgumentNullException_if_url_is_empty", () => {
+        // Arrange
+        const expectedError = new ArgumentNullException("url");
 
-    it("throws_an_ArgumentNullException_if_token_is_empty", () => {});
+        try {
+            // Act
+            // tslint:disable-next-line: no-unused-expression
+            new ResetPasswordRequest("", token, notARealPassword);
+        }
+        catch(err) {
+            error = err;
+        }
 
-    it("called_validatePassword", () => {});
+        // Assert
+        expect(error).toEqual(expectedError);
+    });
+
+    it("throws_an_ArgumentNullException_if_token_is_empty", () => {
+        // Arrange
+        const expectedError = new ArgumentNullException("token");
+
+        try {
+            // Act
+            // tslint:disable-next-line: no-unused-expression
+            new ResetPasswordRequest(url, "", notARealPassword);
+            error = err;
+        }
+
+        // Assert
+        expect(error).toEqual(expectedError);
+    });
+
+    it("called_validatePassword", () => {
+        // Arrange
+        const spy = spyOn(validatePassword, "default");
+
+        // Act
+        // tslint:disable-next-line: no-unused-expression
+        new ResetPasswordRequest(url, token, notARealPassword);
+
+        // Assert
+        expect(spy).toHaveBeenCalled();
+    });
 });

@@ -1,5 +1,6 @@
 import { ArgumentException } from "../../errors/errors";
 import { ArgumentNullException } from "../../errors/errors";
+import validatePassword from "../ValidatePassword";
 
 export class ResetPasswordRequest {
     url: string;
@@ -21,9 +22,7 @@ export class ResetPasswordRequest {
             throw new ArgumentNullException("password");
         }
 
-        if (password.length < 6) {
-            throw new ArgumentException("password", "The new password cannot be less than 6 characters.");
-        }
+        validatePassword(password);
         this.password = password;
     }
 }
