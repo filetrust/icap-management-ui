@@ -11,6 +11,9 @@ export class NewUserRequest {
         }
         this.url = url;
 
+        if (!newUser) {
+            throw new ArgumentNullException("newUser");
+        }
         this.newUser = new NewUser(
             newUser.firstName,
             newUser.lastName,
