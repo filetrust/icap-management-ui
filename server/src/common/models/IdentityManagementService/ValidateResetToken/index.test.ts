@@ -1,5 +1,5 @@
 import { ArgumentNullException } from "../../errors/errors";
-import { ValidateResetTokenRequest, ValidateResetTokenResponse } from "./";
+import { ValidateResetTokenRequest } from "./";
 
 describe("ValidateResetTokenRequest", () => {
     let error: any = null;
