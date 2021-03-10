@@ -1,8 +1,8 @@
-import { ArgumentException, ArgumentNullException } from "../../errors/errors";
+import { ArgumentNullException } from "../../errors/errors";
 import { AuthenticateRequest, AuthenticateResponse } from "./";
-import MINIMUM_PASSWORD_LENGTH from "../MinimumPasswordLength";
 import User from "../User/User";
 import { UserStatus } from "../../enums/UserStatus";
+import * as validatePassword from "../ValidatePassword";
 
 describe("AuthenticateRequest", () => {
     let error: any = null;
@@ -59,7 +59,17 @@ describe("AuthenticateRequest", () => {
         expect(error).toEqual(expectedError);
     });
 
-    it("called_validatePassword", () => {});
+    it("called_validatePassword", () => {
+        // Arrange
+        const spy = spyOn(validatePassword, "default");
+
+        // Act
+        // tslint:disable-next-line: no-unused-expression
+        new AuthenticateRequest(url, username, notARealPassword);
+
+        // Assert
+        expect(spy).toHaveBeenCalled();
+    });
 });
 
 describe("AuthenticateResponse", () => {
