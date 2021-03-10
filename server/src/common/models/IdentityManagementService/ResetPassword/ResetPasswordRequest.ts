@@ -1,4 +1,3 @@
-import { ArgumentException } from "../../errors/errors";
 import { ArgumentNullException } from "../../errors/errors";
 import validatePassword from "../ValidatePassword";
 
