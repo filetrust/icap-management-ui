@@ -60,7 +60,7 @@ export default class TransactionEventApi {
         return response.data;
     }
 
-    static getMetrics = async (
+    static getMetrics = (
         getMetricsUrl: string,
         fromDate: Date,
         toDate: Date,
@@ -68,6 +68,6 @@ export default class TransactionEventApi {
     ): Promise<GetMetricsResponse> => {
         const url = `${getMetricsUrl}?fromDate=${fromDate}&toDate=${toDate}`;
 
-        return await axiosHelper(url, "GET", cancellationToken);
+        return axiosHelper(url, "GET", cancellationToken);
     }
 }

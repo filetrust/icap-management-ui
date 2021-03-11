@@ -26,7 +26,6 @@ test("ExpandButton_Snapshot", () => {
 });
 
 test("Displays_Correct_Props", () => {
-	// Arrange
 	// Act
 	const expandButtonComponent = mount(<ExpandButton {...props} />);
 

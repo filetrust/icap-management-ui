@@ -8,6 +8,8 @@ import TransactionFile from "./TransactionFile";
             it("should_construct_with_valid_arguments", () => {
                 // Arrange
                 const timestamp = new Date();
+
+                // Act
                 const transactionFile = new TransactionFile(
                     timestamp,
                     Guid.create(),
@@ -17,7 +19,6 @@ import TransactionFile from "./TransactionFile";
                     "/some/dir"
                 );
 
-                // Act
                 // Assert
                 expect(transactionFile.timestamp).toEqual(timestamp);
             });

@@ -6,6 +6,7 @@ import { NavButton } from "../NavButton";
 const selected = true;
 
 const clickHandler = () => {
+	// eslint-disable-next-line no-console
 	console.log("click handled.");
 };
 
@@ -13,7 +14,7 @@ const props = {
 	selected: selected,
 	clickHandler: clickHandler
 };
-
+ 
 test("NavButton_Snapshot", () => {
 	// Arrange
 	const component = TestRenderer.create(<NavButton {...props} />);
@@ -26,7 +27,6 @@ test("NavButton_Snapshot", () => {
 });
 
 test("Displays_Correct_Props", () => {
-	// Arrange
 	// Act
 	const navButtonComponent = mount(<NavButton {...props} />);
 

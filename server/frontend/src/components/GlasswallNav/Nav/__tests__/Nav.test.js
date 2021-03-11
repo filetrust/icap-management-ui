@@ -23,7 +23,6 @@ test("Nav_Snapshot", () => {
 });
 
 test("Displays_Correct_Props", () => {
-	// Arrange
 	// Act
 	const navComponent = mount(<Nav {...props} />);
 

@@ -19,7 +19,6 @@ describe("Policy", () => {
 
     describe("constructor", () => {
         it("should_construct_with_valid_arguments", () => {
-            // Arrange
             // Act
             const policy = new Policy(
                 testPolicy.id,
