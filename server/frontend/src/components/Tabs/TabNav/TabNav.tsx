@@ -26,7 +26,6 @@ const TabNav = (props: TabNavProps) => {
 		if (tab.name === props.selectedTabName) {
 			clsLink.push(classes.active);
 			clsButton.push(classes.active);
-			//icon = tab.iconSelected;
 		}
 
 		return (

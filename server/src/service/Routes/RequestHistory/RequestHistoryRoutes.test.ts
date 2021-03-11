@@ -87,7 +87,6 @@ describe("RequestHistoryRoutes", () => {
                 transactionEventServiceStub.restore();
             });
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/request-history/transactions")
@@ -128,7 +127,6 @@ describe("RequestHistoryRoutes", () => {
             });
 
             it("responds_with_200_OK", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/request-history/transactionDetails/")
@@ -137,7 +135,6 @@ describe("RequestHistoryRoutes", () => {
             });
 
             it("responds_with_correct_json", (done) => {
-                // Act
                 // Assert
                 request(app)
                     .post("/request-history/transactionDetails/")

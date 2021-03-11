@@ -135,11 +135,11 @@ export default class PolicyManagementApi {
         return response.data;
     };
 
-    static getPaginatedPolicyHistory = async (
+    static getPaginatedPolicyHistory = (
         getPaginatedPolicyHistoryUrl: string,
         pagination: PaginationModel,
         cancellationToken: CancelToken
     ): Promise<PolicyHistory> => {
-        return await axiosHelper(getPaginatedPolicyHistoryUrl, "POST", cancellationToken, { pagination });
+        return axiosHelper(getPaginatedPolicyHistoryUrl, "POST", cancellationToken, { pagination });
     }
 }

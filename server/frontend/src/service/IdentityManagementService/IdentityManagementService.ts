@@ -11,46 +11,30 @@ export default class IdentityManagementService implements IIdentityManagmentServ
 		this.routes = new Routes().usersRoutes;
 	}
 
-	login = async (username: string, password: string, cancellationToken: CancelToken) => {
-		const user = await axiosRequestHelper(
-			this.routes.login, "POST", cancellationToken, { username, password });
-
-		return user;
+	login = (username: string, password: string, cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.login, "POST", cancellationToken, { username, password });
 	}
 
 	register: () => Promise<NewUserResponse>;
 
-	forgotPassword = async (username: string, cancellationToken: CancelToken) => {
-		const forgotPasswordResponse = await axiosRequestHelper(
-			this.routes.forgotPassword, "POST", cancellationToken, { username });
-
-		return forgotPasswordResponse;
+	forgotPassword = (username: string, cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.forgotPassword, "POST", cancellationToken, { username });
 	}
 
-	confirm = async (token: string, cancellationToken: CancelToken) => {
-		const confirmResponse = await axiosRequestHelper(
-			this.routes.validateResetToken, "POST", cancellationToken, { token });
-
-		return confirmResponse;
+	confirm = (token: string, cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.validateResetToken, "POST", cancellationToken, { token });
 	}
 
-	resetPassword = async (token: string, password: string, cancellationToken: CancelToken) => {
-		const resetResponse = await axiosRequestHelper(
-			this.routes.resetPassword, "POST", cancellationToken, { password, token });
-
-		return resetResponse;
+	resetPassword = (token: string, password: string, cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.resetPassword, "POST", cancellationToken, { password, token });
 	}
 
-	getUsers = async (cancellationToken: CancelToken) => {
-		const getUsersResponse = await axiosRequestHelper(this.routes.getUsers, "GET", cancellationToken);
-
-		return getUsersResponse;
+	getUsers = (cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.getUsers, "GET", cancellationToken);
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	save = async (saveData: any, cancellationToken: CancelToken) => {
-		const saveChangesResponse = await axiosRequestHelper(this.routes.save, "POST", cancellationToken, saveData);
-
-		return saveChangesResponse;
+	save = (saveData: any, cancellationToken: CancelToken) => {
+		return axiosRequestHelper(this.routes.save, "POST", cancellationToken, saveData);
 	}
 }

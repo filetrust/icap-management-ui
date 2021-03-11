@@ -1,7 +1,5 @@
-import IConfig from "../common/models/IConfig";
-
 const TestConfig = () => {
-    const testConfig: IConfig = {
+    return {
         analytics: {
             getMetricsPath: "/transactions/metrics"
         },
@@ -36,9 +34,7 @@ const TestConfig = () => {
             updateUserPath: "/test",
             deleteUserPath: "/test"
         }
-    }
-
-    return testConfig;
+    };
 };
 
 export default TestConfig;

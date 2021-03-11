@@ -52,27 +52,6 @@ class IdentityManagementService implements IIdentityManagementService {
         return authenticateResponse;
     }
 
-    // newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
-    //     let newUserResponse: NewUserResponse;
-
-    //     try {
-    //         this.logger.info(`Attempting to create user ${request.newUser.username}`);
-
-    //         const response = await IdentityManagementApi.newUser(
-    //             request.url, request.newUser, cancellationToken);
-
-    //         newUserResponse = new NewUserResponse(response.message);
-
-    //         this.logger.info(`New user created: ${request.newUser.username}`);
-    //     }
-    //     catch (error) {
-    //         this.logger.error(`Could not create user: ${request.newUser.username}`);
-    //         throw error;
-    //     }
-
-    //     return newUserResponse;
-    // }
-
     newUser = async (request: NewUserRequest, cancellationToken: CancelToken) => {
         try {
             this.logger.info(`Attempting to create user ${request.newUser.username}`);
