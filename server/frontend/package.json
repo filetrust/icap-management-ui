@@ -15,7 +15,7 @@
     "deep-equal": "^2.0.4",
     "dotenv": "^8.2.0",
     "guid-typescript": "^1.0.9",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
