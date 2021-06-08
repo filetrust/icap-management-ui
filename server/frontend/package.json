@@ -13,7 +13,7 @@
     "bootstrap-daterangepicker": "^3.1.0",
     "chart.js": "^2.9.3",
     "deep-equal": "^2.0.4",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "guid-typescript": "^1.0.9",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
